@@ -11,9 +11,15 @@ public class Robo {
 
     }
 
-    public int setCoordenadas(int deltax, int deltay){
+    public int setCoordenadas_x(int deltax){
         this.coordenada_x += deltax;
+        return coordenada_x;
+        
+    }
+
+    public int setCoordenadas_y(int deltay){
         this.coordenada_y += deltay;
+        return coordenada_y;
         
     }
 
