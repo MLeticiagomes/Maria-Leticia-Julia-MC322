@@ -18,6 +18,9 @@ public class Ambiente {
     public boolean dentroDosLimites(int x, int y){
         if (x<largura && y<altura)
             return true;
+        else if (x<0 || y<0)
+            System.out.println("Insira apenas coordenadas positivas!");
+            return false;
         else if
             (x>largura)
             System.out.println("Largura fora dos limites :(");
