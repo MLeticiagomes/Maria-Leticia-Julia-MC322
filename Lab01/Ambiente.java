@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Ambiente {
     private int largura;
     private int altura;
-    private ArrayList<Robo> robosAtivos;
+    private static ArrayList<Robo> robosAtivos = new ArrayList<>();
 
     public Ambiente(int l, int a){
         this.largura=l;
@@ -33,11 +33,11 @@ public class Ambiente {
         }
     } 
 
-    public void adicionarRobo(Robo r){
+    public  static void adicionarRobo(Robo r){
         robosAtivos.add(r);
     }
     
-    public ArrayList<Robo> getrobosAtivos(){
+    public static ArrayList<Robo> getrobosAtivos(){
         return robosAtivos;
     }
 }

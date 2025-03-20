@@ -14,7 +14,7 @@ public class Robo {
         this.coordenada_x = x;
         this.coordenada_y = y;
         this.direcao = d;
-        ambiente.getrobosAtivos.add(this);
+        Ambiente.adicionarRobo(this);
     }
 
 
@@ -77,10 +77,10 @@ public class Robo {
 
 
     public void identificar_obstaculos_N(int posicao_ocupada){
-        for(Robo robo : Ambiente.getrobosAtivos){
+        for(Robo robo : Ambiente.getrobosAtivos()){
             if(robo.getCoordenadaX() == posicao_ocupada && robo.getCoordenadaY() > this.coordenada_y){
                 
-                int dist  = calcular_distancia( this.coordena_y,robo.getCoordenaday());
+                int dist  = calcular_distancia( this.coordenada_y,robo.getCoordenadaY());
 
                 System.out.println("Obstaculo acima a" + dist + "unidades.");
             }
@@ -89,7 +89,7 @@ public class Robo {
     }
 
     public void identificar_obstaculos_S(int posicao_ocupada) {
-        for (Robo robo : Ambiente.getrobosAtivos) {
+        for (Robo robo : Ambiente.getrobosAtivos()) {
             if (robo.getCoordenadaX() == posicao_ocupada && robo.getCoordenadaY() < this.coordenada_y) {
                 int dist = calcular_distancia(this.coordenada_y, robo.getCoordenadaY());
                 System.out.println("Obstáculo abaixo a " + dist + " unidades.");
@@ -97,7 +97,7 @@ public class Robo {
         }
     }
     public void identificar_obstaculos_L(int posicao_ocupada) {
-        for (Robo robo : Ambiente.getrobosAtivos) {
+        for (Robo robo : Ambiente.getrobosAtivos()) {
             if (robo.getCoordenadaY() == posicao_ocupada && robo.getCoordenadaX() > this.coordenada_x) {
                 int dist = calcular_distancia(this.coordenada_x, robo.getCoordenadaX());
                 System.out.println("Obstáculo à direita a " + dist + " unidades.");
@@ -106,13 +106,14 @@ public class Robo {
     }
 
     public void identificar_obstaculos_O(int posicao_ocupada) {
-        for (Robo robo : Ambiente.getrobosAtivos) {
+        for (Robo robo : Ambiente.getrobosAtivos()) {
             if (robo.getCoordenadaY() == posicao_ocupada && robo.getCoordenadaX() < this.coordenada_x) {
                 int dist = calcular_distancia(this.coordenada_x, robo.getCoordenadaX());
                 System.out.println("Obstáculo à esquerda a " + dist + " unidades.");
             }
         }
     }
+    
 }
 
 
