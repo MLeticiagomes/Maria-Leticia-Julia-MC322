@@ -36,5 +36,9 @@ public class Ambiente {
     public void adicionarRobo(Robo r){
         robosAtivos.add(r);
     }
+    
+    public ArrayList<Robo> getrobosAtivos(){
+        return robosAtivos;
+    }
 }
 
