@@ -7,7 +7,7 @@ public class Main {
         int coordenada_x = robo.setCoordenadas_x(2); /* altera a posiçõa do robo em x */
         int coordenada_y = robo.setCoordenadas_y(2); /* altera a posição do robo em y */
         if(ambiente.dentroDosLimites(coordenada_x, coordenada_y) == true);{ /* verifica se o robo esta dentro dos limites */
-            robo.printar();
+            robo.exibir_posicao();
         }
 
         
