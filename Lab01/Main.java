@@ -25,21 +25,53 @@ public class Main {
                     System.out.println("Nenhum robô criado ainda! Crie um antes de mover.");
                     continue;
                 }
-                System.out.println("Digite a distancia percorrida e a direcao (separadas por espaco):");
-                int distancia=scanner.nextInt();
+                System.out.println("Digite a direcao (separadas por espaco):");
                 String direcao = scanner.next(); 
+                robo.verificar_direcao(direcao);
+
+                System.out.println("Digite a distancia percorrida (separadas por espaco):");
+                int distancia=scanner.nextInt();
+
                 while (true){
-                    if (direcao.equalsIgnoreCase("norte")|| direcao.equalsIgnoreCase("sul")){
-                        int coordenada_y = robo.setCoordenadas_y(distancia); /* altera a posição do robo em y */
-                        if(ambiente.dentroDosLimites(0, coordenada_y) == true){ /* verifica se o robo esta dentro dos limites */
+                    int x=robo.getCoordenadaX();
+                    int y=robo.getCoordenadaY();
+                    if (direcao.equalsIgnoreCase("norte")){
+                        if(ambiente.dentroDosLimites(x, y+distancia)==true){
+                            robo.setCoordenadas_y(distancia); /* altera a posição do robo em y */
                             robo.exibir_posicao();
                                 break;
                         }
+                        else{
+                            break;
+                        }
                     }
-                    else if (direcao.equalsIgnoreCase("oeste")|| direcao.equalsIgnoreCase("leste")){
-                        int coordenada_x = robo.setCoordenadas_x(distancia); /* altera a posiçõa do robo em x */
-                        if(ambiente.dentroDosLimites(coordenada_x, 0) == true){ /* verifica se o robo esta dentro dos limites */
+                    else if (direcao.equalsIgnoreCase("sul")){
+                        if(ambiente.dentroDosLimites(x, y-distancia)==true){
+                            robo.setCoordenadas_y(distancia); /* altera a posição do robo em y */
                             robo.exibir_posicao();
+                                break;
+                        }
+                        else{
+                            break;
+                        }
+                    }
+                    else if (direcao.equalsIgnoreCase("oeste")){
+                        if(ambiente.dentroDosLimites(x-distancia, y)==true){
+                            robo.setCoordenadas_x(distancia); /* altera a posição do robo em y */
+                            robo.exibir_posicao();
+                                break;
+                        }
+                        else{
+                            break;
+                        }
+                    }
+                    else if (direcao.equalsIgnoreCase("leste")){
+                        if(ambiente.dentroDosLimites(x+distancia, y)==true){
+                            robo.setCoordenadas_x(distancia); /* altera a posição do robo em y */
+                            robo.exibir_posicao();
+                                break;
+                        }
+                        else{
                             break;
                         }
                     }

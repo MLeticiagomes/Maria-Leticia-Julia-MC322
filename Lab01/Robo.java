@@ -49,16 +49,16 @@ public class Robo {
 
 
 
-    public void verificar_direcao(){
-        if(direcao.equals("N")){
+    public void verificar_direcao(String direcao){
+        if(direcao.equalsIgnoreCase("norte")){
             identificar_obstaculos_N(coordenada_x);
 
         }
-        else if(direcao.equals("S")){
+        else if(direcao.equalsIgnoreCase("sul")){
             identificar_obstaculos_S(coordenada_x);
 
         }
-        else if(direcao.equals("L")){
+        else if(direcao.equalsIgnoreCase("leste")){
             identificar_obstaculos_L(coordenada_y);
 
         }
