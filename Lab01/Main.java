@@ -21,6 +21,10 @@ public class Main {
                 robo = new Robo(nome, coordenadaX, coordenadaY, direcao); /* nome do robo, posição x e posicção y  e criação de um novo robo*/
             }
             else if (comando==2){
+                if (robo == null) {
+                    System.out.println("Nenhum robô criado ainda! Crie um antes de mover.");
+                    continue;
+                }
                 System.out.println("Digite a distancia percorrida e a direcao (separadas por espaco):");
                 int distancia=scanner.nextInt();
                 String direcao = scanner.next(); 
@@ -28,14 +32,14 @@ public class Main {
                     if (direcao.equalsIgnoreCase("norte")|| direcao.equalsIgnoreCase("sul")){
                         int coordenada_y = robo.setCoordenadas_y(distancia); /* altera a posição do robo em y */
                         if(ambiente.dentroDosLimites(0, coordenada_y) == true){ /* verifica se o robo esta dentro dos limites */
-                            robo.printar();
+                            robo.exibir_posicao();
                                 break;
                         }
                     }
                     else if (direcao.equalsIgnoreCase("oeste")|| direcao.equalsIgnoreCase("leste")){
                         int coordenada_x = robo.setCoordenadas_x(distancia); /* altera a posiçõa do robo em x */
                         if(ambiente.dentroDosLimites(coordenada_x, 0) == true){ /* verifica se o robo esta dentro dos limites */
-                            robo.printar();
+                            robo.exibir_posicao();
                             break;
                         }
                     }

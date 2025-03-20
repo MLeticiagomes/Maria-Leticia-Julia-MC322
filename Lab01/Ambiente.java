@@ -9,12 +9,10 @@ public class Ambiente {
     private int largura;
     private int altura;
     private ArrayList<Robo> robosAtivos;
-  
 
     public Ambiente(int l, int a){
         this.largura=l;
         this.altura=a;
-        this.robosAtivos = new ArrayList<>();
     }
 
     public boolean dentroDosLimites(int x, int y){

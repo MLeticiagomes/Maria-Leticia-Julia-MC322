@@ -1,5 +1,5 @@
 
-import java.util.list;
+import java.util.List;
 
 
 public class Robo {
@@ -78,7 +78,7 @@ public class Robo {
 
     public void identificar_obstaculos_N(int posicao_ocupada){
         for(Robo robo : Ambiente.robosAtivos){
-            if(robo.getCoordenadaX() == posicao_ocupada_ocupada && robo.getCoordenadaY() > this.coordenada_y){
+            if(robo.getCoordenadaX() == posicao_ocupada && robo.getCoordenadaY() > this.coordenada_y){
                 
                 int dist  = calcular_distancia( this.coordena_y,robo.getCoordenaday());
 
