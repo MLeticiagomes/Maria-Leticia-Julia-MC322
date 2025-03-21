@@ -8,14 +8,15 @@ import java.util.ArrayList;
 public class Ambiente {
     private int largura;
     private int altura;
-    private static ArrayList<Robo> robosAtivos = new ArrayList<>();
+    private static ArrayList<Robo> robosAtivos;
 
     public Ambiente(int l, int a){
         this.largura=l;
         this.altura=a;
+        this.robosAtivos = new ArrayList<>();
     }
 
-    public boolean dentroDosLimites(int x, int y){
+    public boolean dentroDosLimites(int x, int y){ /*verifica se nova coordenada do robo esta dentro do ambiente */
         if (x<0 || y<0){
             System.out.println("Insira apenas coordenadas positivas!");
             return false;
@@ -33,7 +34,7 @@ public class Ambiente {
         }
     } 
 
-    public  static void adicionarRobo(Robo r){
+    public  static void adicionarRobo(Robo r){ /*adiciona novo robo na lista de robos */
         robosAtivos.add(r);
     }
     
