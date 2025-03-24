@@ -2,25 +2,30 @@ public class RoboAereo extends Robo{
 
     private int altitude;
     private int altitudeMaxima;
+    private Ambiente ambiente;
+    private Robo robo;
 
 
     public RoboAereo(String nome, int x, int y, String d, int alt, int alt_max){
         super(nome,x,y,d);
         this.altitude = alt;
         this.altitudeMaxima = alt_max;
+        this.ambiente = ambiente;
+        this.robo = robo; 
+        
     }
 
-    public int getaltitudeMaxima(){
-        return altitudeMaxima;
+    public int getaltura_maxima(){ /* pega a altura maxima como a do ambiente */
+       return ambiente.getAltura();
     }
 
-    public int getaltitude(){
-        return altitude;
+    public int getaltitude(){ /* pega a altitude do robo como sua coordenada y */
+        return robo.getCoordenadaY();
     }
     
     public void subir(int altitudeMaxima, int altitude,int deltay){
 
-        if(altitude + deltay < altitudeMaxima){
+        if(altitude + deltay < getaltura_maxima()){ /* compara a altura do robo com a maxima */
             this.setCoordenadas_y(deltay);
             System.out.println("o robo subiu" + deltay + "metros.");
         }

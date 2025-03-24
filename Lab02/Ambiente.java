@@ -16,6 +16,10 @@ public class Ambiente {
         this.robosAtivos = new ArrayList<>();
     }
 
+    public int getAltura(){
+        return this.altura;
+    }
+
     public boolean dentroDosLimites(int x, int y){ /*verifica se nova coordenada do robo esta dentro do ambiente */
         if (x<0 || y<0){
             System.out.println("Insira apenas coordenadas positivas!");

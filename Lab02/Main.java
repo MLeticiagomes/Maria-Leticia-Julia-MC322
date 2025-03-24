@@ -15,12 +15,29 @@ public class Main {
             int comando=scanner.nextInt();
 
             if (comando==1){ /*Leitura de dados e criacao de novo robo */
-                System.out.println("Digite o nome, coordenada x, coordenada y e direcao (separadas por espaco):");
-                String nome = scanner.next();
-                int coordenadaX = scanner.nextInt(); 
-                int coordenadaY = scanner.nextInt();
-                String direcao = scanner.next(); 
-                robo = new Robo(nome, coordenadaX, coordenadaY, direcao); /* nome do robo, posição x e posicção y  e criação de um novo robo*/
+                String tipo_de_robo=scanner.next();
+                System.out.println("Que tipo de robo deseja criar?\nDigite t para criar um robo terrestres\nDigite a para criar um robo aereo");
+                if(tipo_de_robo.equals("t")){
+                    System.out.println("Digite o nome, coordenada x e direcao leste ou oeste (separadas por espaco):");
+                    String nome = scanner.next();
+                    int coordenadaX = scanner.nextInt();
+                    int coordenadaY =0; 
+                    String direcao = scanner.next(); 
+                    robo = new Robo(nome, coordenadaX, coordenadaY, direcao); /* nome do robo, posição x e posicção y  e criação de um novo robo*/
+                    
+                }
+
+                else{
+                    System.out.println("Digite o nome, coordenada x, coordenada y e direcao (separadas por espaco):");
+                    String nome = scanner.next();
+                    int coordenadaX = scanner.nextInt(); 
+                    int coordenadaY = scanner.nextInt();
+                    String direcao = scanner.next(); 
+                    robo = new Robo(nome, coordenadaX, coordenadaY, direcao); /* nome do robo, posição x e posicção y  e criação de um novo robo*/
+
+
+                }
+              
             }
             else if (comando==2){ /*Leitura de dados e movimentacao do robo */
                 if (robo == null) {
