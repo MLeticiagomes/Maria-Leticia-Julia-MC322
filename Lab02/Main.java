@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 
@@ -40,16 +39,19 @@ public class Main {
                        System.out.println("Digite a quantidade de dano de ataque desejado:");
                        int dano = scanner.nextInt();
                        robo = new RoboGuerreiro(nome, coordenadaX, coordenadaY, direcao, velocidadeMaxima, dano);
+                       continue;
                    }
 
                    else if(tipo_de_terrestre.equals("b")){
                        System.out.println("Digite a quantidade de vida desejada:");
                        int vidaMax= scanner.nextInt();
                        robo = new RoboBlindado(nome, coordenadaX, coordenadaY, direcao, velocidadeMaxima, vidaMax);
+                       continue;
                    }
 
                    else{
                        System.out.println("Caractere invalido ):");
+                       continue;
                    }        
                }
 
@@ -65,20 +67,24 @@ public class Main {
                    if(tipo_de_aereo.equals("c")){
                        int poderDeCura = scanner.nextInt();
                        robo = new RoboCurandeiro(nome, coordenadaX, coordenadaY, direcao, alturaMax, poderDeCura);
+                       continue;
                    }
 
                    else if(tipo_de_aereo.equals("k")){
                        int raioDeAtaque = scanner.nextInt();
                        robo = new RoboKamikaze(nome, coordenadaX, coordenadaY, direcao, alturaMax, raioDeAtaque);
+                       continue;
                    }
 
                    else{
                        System.out.println("Caractere invalido ):");
+                       continue;
                    }                
                }
 
                else{
                    System.out.println("Caractere invalido ):");
+                   continue;
                }           
            }
 
