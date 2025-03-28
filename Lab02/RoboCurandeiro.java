@@ -6,8 +6,8 @@ public class RoboCurandeiro extends RoboAereo{
 
 
 
-  public RoboCurandeiro(tring nome, int x, int y, String d, int alt, int alt_max, int poderDeCura){
-      super(d, x, y, d, alt, alt_max);
+  public RoboCurandeiro(string nome, int x, int y, String d, int alt_max, int poderDeCura){
+      super(nome, x, y, d, y, alt_max);
       this.poderDeCura = poderDeCura;
   }
 
@@ -22,7 +22,7 @@ public class RoboCurandeiro extends RoboAereo{
 
 
 
-  public void verificarPosicaoX(List <robosAtivos>robos){
+  public void verificarPosicaoX(ArrayList<Robo> robosAtivos){
       int posicaoX = this.getCoordenadaX(); /* verifica se um robo na lista esta na mesma posicao x do robo curandeiro */
       for (Robo robo : robos){
           if (robo != this && robo.getCoordenadaX() == posicaoX){

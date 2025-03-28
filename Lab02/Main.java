@@ -19,93 +19,63 @@ public class Main {
 
 
            if (comando==1){ /*Leitura de dados e criacao de novo robo */
-               String tipo_de_robo=scanner.next();
+
+               System.out.println("Digite um nome, coordenada x, coordenada y e direcao (separados por espaco):");
+               String nome = scanner.next();
+               int coordenadaX = scanner.nextInt();
+               int coordenadaY =0;
+               String direcao = scanner.next();
+
                System.out.println("Que tipo de robo deseja criar?\nDigite t para criar um robo terrestres\nDigite a para criar um robo aereo");
+               String tipo_de_robo=scanner.next();
+
                if(tipo_de_robo.equals("t")){
+                   System.out.println("Digite a velocidade maxima de deslocamento desejada:");
+                   int velocidadeMaxima=scanner.nextInt();
                    System.out.println("Que tipo de robo terrestre deseja criar?\nDigite g para criar um robo guerreiro \nDigite b para criar um robo blindado");
+                   
                    if(tipo_de_robo.equals("g")){
-                       String nome = scanner.next();
-                       int coordenadaX = scanner.nextInt();
-                       int coordenadaY =0;
-                       String direcao = scanner.next();
-                       int dano = scanner.next();
-                       robo = new RoboGuerreiro(nome, coordenadaX, coordenadaY, direcao, dano);
-
-
+                       System.out.println("Digite a quantidade de dano de ataque desejado:");
+                       int dano = scanner.nextInt();
+                       robo = new RoboGuerreiro(nome, coordenadaX, coordenadaY, direcao, velocidadeMaxima, dano);
                    }
-
 
                    else if(tipo_de_robo.equals("b")){
-                       String nome = scanner.next();
-                       int coordenadaX = scanner.nextInt();
-                       int coordenadaY =0;
-                       String direcao = scanner.next();
-                       int pontosVida = scanner.next();
-                       int vidaMax= scanner.next();
-                       robo = new RoboBlindado(nome, coordenadaX, coordenadaY, direcao, vidaMax, pontosVida);
-
-
+                       System.out.println("Digite a quantidade de vida desejada:");
+                       int vidaMax= scanner.nextInt();
+                       robo = new RoboBlindado(nome, coordenadaX, coordenadaY, direcao, velocidadeMaxima, vidaMax);
                    }
-
 
                    else{
-
-
                        System.out.println("Caractere invalido ):");
-                   }
-                  
-          
-                  
+                   }        
                }
-
-
-
 
                if(tipo_de_robo.equals("a")){
+                   System.out.println("Digite a altura maxima de voo:");
+                   int alturaMax= scanner.nextInt();
                    System.out.println("Que tipo de robo aereo deseja criar?\nDigite c para criar um robo curandeiro \nDigite k  para criar um robo kamikaze");
+                   
                    if(tipo_de_robo.equals("c")){
-                       String nome = scanner.next();
-                       int coordenadaX = scanner.nextInt();
-                       int coordenadaY =0;
-                       String direcao = scanner.next();
-                       int poderDeCura = scanner.next();
-                       robo = new RoboCurandeiro(nome, coordenadaX, coordenadaY, direcao, poderDeCura);
-
-
+                       int poderDeCura = scanner.nextInt();
+                       robo = new RoboCurandeiro(nome, coordenadaX, coordenadaY, direcao, alturaMax, poderDeCura);
                    }
-
 
                    else if(tipo_de_robo.equals("k")){
-                       String nome = scanner.next();
-                       int coordenadaX = scanner.nextInt();
-                       int coordenadaY =0;
-                       String direcao = scanner.next();
                        int raioDeAtaque = scanner.next();
-                       robo = new RoboKamikaze(nome, coordenadaX, coordenadaY, direcao, raioDeAtaque);
-
-
+                       robo = new RoboKamikaze(nome, coordenadaX, coordenadaY, direcao, alturaMax, raioDeAtaque);
                    }
-
 
                    else{
-
-
                        System.out.println("Caractere invalido ):");
-                   }
-                  
-          
-                  
+                   }                
                }
 
-
-              
                else{
                    System.out.println("Caractere invalido ):");
-               }
-
-
-            
+               }           
            }
+           
            else if (comando==2){ /*Leitura de dados e movimentacao do robo */
                if (robo == null) {
                    System.out.println("Nenhum robô criado ainda! Crie um antes de mover.");

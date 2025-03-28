@@ -9,8 +9,8 @@ public class RoboGuerreiro extends RoboTerrestre {
     private int inimigosDerrotados;
     private int dano;
 
-    public RoboGuerreiro(String nome, int x, int y, String d, int dano) {
-        super(nome, x, y, d);
+    public RoboGuerreiro(String nome, int x, int y, String d, int velocidadeMax, int dano) {
+        super(nome, x, y, d, velocidadeMax);
         this.inimigosDerrotados = 0;
         this.dano = dano;
     }

@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoboKamikaze extends RoboAereo{
     private int raioDeAtaque;
 
 
-    public RoboKamikaze(tring nome, int x, int y, String d, int alt, int alt_max, int raioDeAtaque){
+    public RoboKamikaze(string nome, int x, int y, String d, int alt, int alt_max, int raioDeAtaque){
         super(d, x, y, d, alt, alt_max);
         this.raioDeAtaque = raioDeAtaque;
     
@@ -22,7 +23,7 @@ public class RoboKamikaze extends RoboAereo{
    }
  
     int i = 0;
-    public void sacrificio (List <robosAtivos>robos){ /* verifica se existem rofos  na circunferencia de ataque  e se tiver remove-os da lista */
+    public void sacrificio (ArrayList<Robo> robosAtivos){ /* verifica se existem rofos  na circunferencia de ataque  e se tiver remove-os da lista */
         for (Robo robo : Ambiente.getrobosAtivos()){
             int posicaoX = this.getCoordenadaX();
             if (robo != this && robo.getCoordenadaX() <=  posicaoX + raioDeAtaque ){

@@ -5,13 +5,13 @@ Objetivo: definir propriedas de RoboBlindado e consultar vida atual
 
 import java.util.List;
 
-public class RoboBlindado extends Robo {
+public class RoboBlindado extends RoboTerrestre {
     private int pontosVida; // o quanto de dano o robo ainda pode receber
     private int vidaMax;
     
 
-    public RoboBlindado(String nome, int x, int y, String d, int vidaMax) {
-        super(nome, x, y, d);
+    public RoboBlindado(String nome, int x, int y, String d, int velocidadeMax, int vidaMax) {
+        super(nome, x, y, d, velocidadeMax);
         this.inimigosDerrotados = 0;
         this.pontosVida = vidaMax;
         this.vidaMax =vidaMax;
