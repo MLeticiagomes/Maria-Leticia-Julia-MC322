@@ -12,7 +12,6 @@ public class RoboBlindado extends RoboTerrestre {
 
     public RoboBlindado(String nome, int x, int y, String d, int velocidadeMax, int vidaMax) {
         super(nome, x, y, d, velocidadeMax);
-        this.inimigosDerrotados = 0;
         this.pontosVida = vidaMax;
         this.vidaMax =vidaMax;
     }

@@ -38,7 +38,7 @@ public class Ambiente {
         }
     } 
 
-    public  static void adicionarRobo(Robo r){ /*adiciona novo robo na lista de robos */
+    public static void adicionarRobo(Robo r){ /*adiciona novo robo na lista de robos */
         robosAtivos.add(r);
     }
     

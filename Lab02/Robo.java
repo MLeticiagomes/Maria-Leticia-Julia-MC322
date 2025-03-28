@@ -17,9 +17,9 @@ public class Robo {
         Ambiente.adicionarRobo(this);
     }
 
-
-   
-    
+    public String getNome(){
+        return nome_do_robo;
+    }
 
     public int setCoordenadas_x(int deltax){ /* muda a coordenada x */
 

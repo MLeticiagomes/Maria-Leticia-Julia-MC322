@@ -14,7 +14,7 @@ public class RoboAereo extends Robo{
     }
 
     public int getaltitude(){ /* pega a altitude do robo como sua coordenada y */
-        return robo.getCoordenadaY();
+        return altitude;
     }
     
     public void subir(int altitudeMaxima, int altitude,int deltay){

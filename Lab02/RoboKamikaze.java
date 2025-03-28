@@ -5,12 +5,11 @@ public class RoboKamikaze extends RoboAereo{
     private int raioDeAtaque;
 
 
-    public RoboKamikaze(string nome, int x, int y, String d, int alt, int alt_max, int raioDeAtaque){
-        super(d, x, y, d, alt, alt_max);
+    public RoboKamikaze(String nome, int x, int y, String d, int alt_max, int raioDeAtaque){
+        super(d, x, y, d, alt_max);
         this.raioDeAtaque = raioDeAtaque;
     
     }
-
 
    @Override
    public int getCoordenadaX() { /* pega a coordenada x do robo */
@@ -23,29 +22,34 @@ public class RoboKamikaze extends RoboAereo{
    }
  
     int i = 0;
-    public void sacrificio (ArrayList<Robo> robosAtivos){ /* verifica se existem rofos  na circunferencia de ataque  e se tiver remove-os da lista */
-        for (Robo robo : Ambiente.getrobosAtivos()){
+    public void sacrificio (){ /* verifica se existem rofos  na circunferencia de ataque  e se tiver remove-os da lista */
+        List<Robo> robos = Ambiente.getrobosAtivos();
+    
+        for (int i = 0; i < robos.size(); i++) {
+            Robo robo = robos.get(i);
+
             int posicaoX = this.getCoordenadaX();
+
             if (robo != this && robo.getCoordenadaX() <=  posicaoX + raioDeAtaque ){
-                robosAtivos.remove(i);
-                System.out.println("O robo" + robo.nome + " foi morto :)");
+                robos.remove(i);
+                System.out.println("O robo" + robo.getNome() + " foi morto :)");
 
             }
 
             else if (robo != this && robo.getCoordenadaX() <=  posicaoX  - raioDeAtaque ){
-                robosAtivos.remove(i);
-                System.out.println("O robo" + robo.nome + " foi morto :)");
+                robos.remove(i);
+                System.out.println("O robo" + robo.getNome() + " foi morto :)");
             }
 
             else if (robo != this && robo.getCoordenadaY() <=  posicaoX + raioDeAtaque ){
-                robosAtivos.remove(i);
-                System.out.println("O robo" + robo.nome + " foi morto :)");
+                robos.remove(i);
+                System.out.println("O robo" + robo.getNome() + " foi morto :)");
 
             }
 
             else if (robo != this && robo.getCoordenadaY() <=  posicaoX  - raioDeAtaque ){
-                robosAtivos.remove(i);
-                System.out.println("O robo" + robo.nome + " foi morto :)");
+                robos.remove(i);
+                System.out.println("O robo" + robo.getNome() + " foi morto :)");
 
             }
 

@@ -16,43 +16,39 @@ public class RoboGuerreiro extends RoboTerrestre {
     }
 
     public void atacar(int alvoX, int alvoY) {
-
-        int i=0;
+        List<Robo> robos = Ambiente.getrobosAtivos();
     
-        for (Robo robo : Ambiente.getrobosAtivos()) {
-
+        for (int i = 0; i < robos.size(); i++) {
+            Robo robo = robos.get(i);
+    
             if (robo.getCoordenadaX() == alvoX && robo.getCoordenadaY() == alvoY) {
-
-                if (robo instanceof RoboBlindado) { // no caso de ataques a robos blindados, o dano precisa ser reduzido em sua vida total
-                    RoboBlindado blindado = (RoboBlindado) robo; // mudando a classe de robo -> roboBlindado para acessar os atributos
+    
+                if (robo instanceof RoboBlindado) { 
+                    RoboBlindado blindado = (RoboBlindado) robo;
                     int novaVida = blindado.getPontosVida() - dano;
-
+    
                     if (novaVida > 0) {
                         blindado.setPontosVida(novaVida);
                         System.out.println("Ataque realizado! Vida restante do robô blindado: " + novaVida);
                     } else {
-                        robosAtivos.remove(i);
+                        robos.remove(i);
                         inimigosDerrotados++;
                         System.out.println("O RoboBlindado foi destruído!");
                     }
                 } 
-                
-                if (robo instanceof RoboKamikaze) { // no caso de ataques a robos kamikaze, acessasr sua funcao de explosaoo
-                    RoboKamikaze.sacrificio();
-                    robosAtivos.remove(i);
+                else if (robo instanceof RoboKamikaze) { 
+                    ((RoboKamikaze) robo).sacrificio();
+                    robos.remove(i);
                     inimigosDerrotados++;
                 }
-
                 else {
-                    robosAtivos.remove(i);
+                    robos.remove(i);
                     inimigosDerrotados++;
                     System.out.println("O robô em (" + alvoX + ", " + alvoY + ") foi destruído!");
                 }
                 return;
             }
-            i++;
         }
-
         System.out.println("Nenhum robô encontrado na posição (" + alvoX + ", " + alvoY + ").");
     }
 }
