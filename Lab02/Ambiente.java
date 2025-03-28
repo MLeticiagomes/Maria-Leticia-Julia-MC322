@@ -16,6 +16,10 @@ public class Ambiente {
         this.robosAtivos = new ArrayList<>();
     }
 
+    public static ArrayList<Robo> getRobosAtivos() {
+        return robosAtivos;
+    }
+
     public int getAltura(){
         return this.altura;
     }

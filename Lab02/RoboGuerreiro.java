@@ -5,7 +5,7 @@ Objetivo: definir propriedas de RoboGuerreiro e realizar ataques
 
 import java.util.List;
 
-public class RoboGuerreiro extends Robo {
+public class RoboGuerreiro extends RoboTerrestre {
     private int inimigosDerrotados;
     private int dano;
 
@@ -16,8 +16,9 @@ public class RoboGuerreiro extends Robo {
     }
 
     public void atacar(int alvoX, int alvoY) {
-        for (int i = 0; i < Ambiente.robosAtivos.size(); i++) {
-            Robo robo = Ambiente.robosAtivos.get(i);
+        ArrayList<Robo> robosAtivos=Ambiente.getrobosAtivos();
+        for (int i = 0; i < robosAtivos.size(); i++) {
+            Robo robo = robosAtivos.get(i);
 
             if (robo.getCoordenadaX() == alvoX && robo.getCoordenadaY() == alvoY) {
 
@@ -29,12 +30,12 @@ public class RoboGuerreiro extends Robo {
                         blindado.setPontosVida(novaVida);
                         System.out.println("Ataque realizado! Vida restante do robô blindado: " + novaVida);
                     } else {
-                        Ambiente.robosAtivos.remove(i);
+                        robosAtivos.remove(i);
                         inimigosDerrotados++;
                         System.out.println("O RoboBlindado foi destruído!");
                     }
                 } else {
-                    Ambiente.robosAtivos.remove(i);
+                    robosAtivos.remove(i);
                     inimigosDerrotados++;
                     System.out.println("O robô em (" + alvoX + ", " + alvoY + ") foi destruído!");
                 }
