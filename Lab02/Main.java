@@ -32,16 +32,17 @@ public class Main {
                    int velocidadeMaxima=scanner.nextInt();
                    int coordenadaX = scanner.nextInt();
                    int coordenadaY =0;
-                   
+
                    System.out.println("Que tipo de robo terrestre deseja criar?\nDigite g para criar um robo guerreiro \nDigite b para criar um robo blindado");
-                   
-                   if(tipo_de_robo.equals("g")){
+                   String tipo_de_terrestre=scanner.next();
+
+                   if(tipo_de_terrestre.equals("g")){
                        System.out.println("Digite a quantidade de dano de ataque desejado:");
                        int dano = scanner.nextInt();
                        robo = new RoboGuerreiro(nome, coordenadaX, coordenadaY, direcao, velocidadeMaxima, dano);
                    }
 
-                   else if(tipo_de_robo.equals("b")){
+                   else if(tipo_de_terrestre.equals("b")){
                        System.out.println("Digite a quantidade de vida desejada:");
                        int vidaMax= scanner.nextInt();
                        robo = new RoboBlindado(nome, coordenadaX, coordenadaY, direcao, velocidadeMaxima, vidaMax);
@@ -59,13 +60,14 @@ public class Main {
                    int coordenadaY =scanner.nextInt();
 
                    System.out.println("Que tipo de robo aereo deseja criar?\nDigite c para criar um robo curandeiro \nDigite k  para criar um robo kamikaze");
-                   
-                   if(tipo_de_robo.equals("c")){
+                   String tipo_de_aereo=scanner.next();
+
+                   if(tipo_de_aereo.equals("c")){
                        int poderDeCura = scanner.nextInt();
                        robo = new RoboCurandeiro(nome, coordenadaX, coordenadaY, direcao, alturaMax, poderDeCura);
                    }
 
-                   else if(tipo_de_robo.equals("k")){
+                   else if(tipo_de_aereo.equals("k")){
                        int raioDeAtaque = scanner.nextInt();
                        robo = new RoboKamikaze(nome, coordenadaX, coordenadaY, direcao, alturaMax, raioDeAtaque);
                    }
