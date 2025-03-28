@@ -16,9 +16,10 @@ public class RoboGuerreiro extends RoboTerrestre {
     }
 
     public void atacar(int alvoX, int alvoY) {
-        ArrayList<Robo> robosAtivos=Ambiente.getrobosAtivos();
-        for (int i = 0; i < robosAtivos.size(); i++) {
-            Robo robo = robosAtivos.get(i);
+
+        int i=0;
+    
+        for (Robo robo : Ambiente.getrobosAtivos()) {
 
             if (robo.getCoordenadaX() == alvoX && robo.getCoordenadaY() == alvoY) {
 
@@ -34,13 +35,22 @@ public class RoboGuerreiro extends RoboTerrestre {
                         inimigosDerrotados++;
                         System.out.println("O RoboBlindado foi destruído!");
                     }
-                } else {
+                } 
+                
+                if (robo instanceof RoboKamikaze) { // no caso de ataques a robos kamikaze, acessasr sua funcao de explosaoo
+                    RoboKamikaze.sacrificio();
+                    robosAtivos.remove(i);
+                    inimigosDerrotados++;
+                }
+
+                else {
                     robosAtivos.remove(i);
                     inimigosDerrotados++;
                     System.out.println("O robô em (" + alvoX + ", " + alvoY + ") foi destruído!");
                 }
                 return;
             }
+            i++;
         }
 
         System.out.println("Nenhum robô encontrado na posição (" + alvoX + ", " + alvoY + ").");
