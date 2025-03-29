@@ -13,11 +13,15 @@ public class Ambiente {
     public Ambiente(int l, int a){
         this.largura=l;
         this.altura=a;
-        this.robosAtivos = new ArrayList<>();
+        robosAtivos = new ArrayList<>();
     }
 
     public int getAltura(){
         return this.altura;
+    }
+
+    public int getLargura(){
+        return this.largura;
     }
 
     public boolean dentroDosLimites(int x, int y){ /*verifica se nova coordenada do robo esta dentro do ambiente */
@@ -40,6 +44,10 @@ public class Ambiente {
 
     public static void adicionarRobo(Robo r){ /*adiciona novo robo na lista de robos */
         robosAtivos.add(r);
+    }
+
+    public static void removerRobo(Robo r){
+        robosAtivos.remove(r);
     }
     
     public static ArrayList<Robo> getrobosAtivos(){

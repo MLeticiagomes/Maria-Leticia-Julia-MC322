@@ -28,21 +28,23 @@ public class RoboGuerreiro extends RoboTerrestre {
                     int novaVida = blindado.getPontosVida() - dano;
     
                     if (novaVida > 0) {
-                        blindado.setPontosVida(novaVida);
-                        System.out.println("Ataque realizado! Vida restante do robô blindado: " + novaVida);
+                        blindado.dano(dano);
+                        System.out.println("Ataque realizado! Vida restante do robô blindado: " + blindado.getPontosVida());
                     } else {
-                        robos.remove(i);
+                        Ambiente.removerRobo(robo);
                         inimigosDerrotados++;
                         System.out.println("O RoboBlindado foi destruído!");
                     }
                 } 
                 else if (robo instanceof RoboKamikaze) { 
+                    System.out.println("O robô kamikaze foi destruído!");
                     ((RoboKamikaze) robo).sacrificio();
-                    robos.remove(i);
+                    Ambiente.removerRobo(robo);
+
                     inimigosDerrotados++;
                 }
                 else {
-                    robos.remove(i);
+                    Ambiente.removerRobo(robo);
                     inimigosDerrotados++;
                     System.out.println("O robô em (" + alvoX + ", " + alvoY + ") foi destruído!");
                 }

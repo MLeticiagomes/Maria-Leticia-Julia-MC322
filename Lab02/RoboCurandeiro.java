@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class RoboCurandeiro extends RoboAereo{
+public class RoboCurandeiro extends RoboAereo{ //cura robos em seu eixo y
     private int poderDeCura;
 
     public RoboCurandeiro(String nome, int x, int y, String d, int alt_max, int poderDeCura){
@@ -16,7 +16,7 @@ public class RoboCurandeiro extends RoboAereo{
     public Boolean checarVida (RoboBlindado blindado){ /* verifica se a vida do robo mais os pontos de cura nao excede a vida maxima permitida  */
         int pontosV = blindado.getPontosVida();
         int pontosVMax =  blindado.getVidaMax();
-        if (pontosV + poderDeCura < pontosVMax){
+        if (pontosV + this.poderDeCura <= pontosVMax){
             return true;
         }
 
@@ -26,21 +26,18 @@ public class RoboCurandeiro extends RoboAereo{
     }
 
     public void verificarPosicaoX(){
-        int posicaoY = this.getCoordenadaY(); /* verifica se um robo na lista esta na mesma posicao x do robo curandeiro */
+        int posicaoX = this.getCoordenadaX(); /* verifica se um robo na lista esta na mesma posicao x do robo curandeiro */
         for (Robo robo : Ambiente.getrobosAtivos()){
-            if (robo != this && robo.getCoordenadaY() == posicaoY){
+            if (robo != this && robo.getCoordenadaX() == posicaoX){
                 if(robo instanceof RoboBlindado){ /* verifica se o robo e um robo blindado */
-                    RoboBlindado blindado = (RoboBlindado) robo;  
+                    RoboBlindado blindado = (RoboBlindado) robo;
+                    blindado.consultarVida();
                     if(checarVida(blindado) == true){ /* se for verdadeiro adiciona vida */
-                        blindado.setPontosVida(poderDeCura);
+                        blindado.cura(poderDeCura);
                         System.out.println("Robo" + blindado.getNome() + "esta com"  + blindado.getPontosVida()+ "xp.");
                     }
-
-
-
-
                     else{
-                        System.out.println("Robo" + blindado.getNome() + "esta com a vida maxima permitida." );
+                        System.out.println("Robo " + blindado.getNome() + " esta com a vida maxima permitida." );
                     }
                     
                 }

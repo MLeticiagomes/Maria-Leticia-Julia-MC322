@@ -20,8 +20,13 @@ public class RoboBlindado extends RoboTerrestre {
         return pontosVida;
     }
 
-    public int setPontosVida(int cura) {
-        pontosVida+=cura;
+    public int cura(int cura) {
+        pontosVida +=cura;
+        return pontosVida;
+    }
+
+    public int dano(int dano) {
+        pontosVida -= dano;
         return pontosVida;
     }
 

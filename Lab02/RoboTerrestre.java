@@ -8,18 +8,21 @@ public class RoboTerrestre extends Robo {
         this.velocidadeMaxima = v;
     }
 
+
+
     public int getvelocidadeMaxima(){
         return velocidadeMaxima;
     }
     
     
-    public void verificar_velocidade(int velocidadeMaxima, int velocidade, int deltax){
+    public boolean verificar_velocidade(int velocidadeMaxima, int velocidade){
         if(velocidade < velocidadeMaxima){
-            this.setCoordenadas_x(deltax);
+            return true;
         }
 
         else{
             System.out.println("Velocidade acima do permitido :(");
+            return false;
         }
     }
 

@@ -20,7 +20,7 @@ public class RoboAereo extends Robo{
     public void subir(int altitudeMaxima, int altitude,int deltay){
 
         if(altitude + deltay < getaltura_maxima()){ /* compara a altura do robo com a maxima */
-            this.setCoordenadas_y(deltay);
+            this.setCoordenadas_y_mais(deltay);
             System.out.println("o robo subiu" + deltay + "metros.");
         }
 
@@ -33,7 +33,7 @@ public class RoboAereo extends Robo{
 
         if(altitude  - deltay > 0){
             d = - deltay;
-            this.setCoordenadas_y(d);
+            this.setCoordenadas_y_menos(d);
             System.out.println("o robo desceu" + deltay + "metros.");
         }
 
