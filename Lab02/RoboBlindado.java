@@ -25,7 +25,7 @@ public class RoboBlindado extends RoboTerrestre {
         return pontosVida;
     }
 
-    public int dano(int dano) {
+    public int dano(int dano) { //recebe dano e diminiu pontos de vida
         pontosVida -= dano;
         return pontosVida;
     }
@@ -34,7 +34,7 @@ public class RoboBlindado extends RoboTerrestre {
         return vidaMax;
     }
 
-    public void consultarVida(){
+    public void consultarVida(){ //retorna a quantiade de vida atual
         System.out.println("Vida restante " + pontosVida);
     }
 }

@@ -15,7 +15,7 @@ public class RoboTerrestre extends Robo { /* robo terrestre com uma velocidade m
     }
     
     
-    public boolean verificar_velocidade(int velocidadeMaxima, int velocidade){
+    public boolean verificar_velocidade(int velocidadeMaxima, int velocidade){ //verifica se o num de blocos que deseja andar nao excede a velocidade maxima
         if(velocidade < velocidadeMaxima){
             return true;
         }
