@@ -34,7 +34,7 @@ public class RoboCurandeiro extends RoboAereo{ //cura robos em seu eixo y
                     blindado.consultarVida();
                     if(checarVida(blindado) == true){ /* se for verdadeiro adiciona vida */
                         blindado.cura(poderDeCura);
-                        System.out.println("Robo" + blindado.getNome() + "esta com"  + blindado.getPontosVida()+ "xp.");
+                        System.out.println("Robo " + blindado.getNome() + " esta com "  + blindado.getPontosVida()+ " xp.");
                     }
                     else{
                         System.out.println("Robo " + blindado.getNome() + " esta com a vida maxima permitida." );

@@ -13,35 +13,28 @@ public class RoboAereo extends Robo{
        return altitudeMaxima;
     }
 
-    public int getaltitude(){ /* pega a altitude do robo como sua coordenada y */
-        return altitude;
-    }
-    
-    public void subir(int altitudeMaxima, int altitude,int deltay){
-
-        if(altitude + deltay < getaltura_maxima()){ /* compara a altura do robo com a maxima */
-            this.setCoordenadas_y_mais(deltay);
-            System.out.println("o robo subiu" + deltay + "metros.");
-        }
-
-        else{
-            System.out.println("Altitude acima do permitido :(");
-        }    
-    }
-
-    public void descer(int altitude,int deltay, int d){
-
-        if(altitude  - deltay > 0){
-            d = - deltay;
-            this.setCoordenadas_y_menos(d);
-            System.out.println("o robo desceu" + deltay + "metros.");
-        }
-
-        else{
-            System.out.println("Altitude abaixo do permitido :(");
-        }
-
+    public void subir(int deltay){ /* muda a coordenada y */
+        setCoordenadaY(getCoordenadaY() + deltay);
         
     }
 
+    public void descer(int deltay){ /* muda a coordenada y */
+        setCoordenadaY(getCoordenadaY()  - deltay);
+        
+    }
+
+
+
+
+    public boolean verificarAltura(int distancia){
+        int altitude_max = getaltura_maxima();
+        altitude = getCoordenadaY();
+        if(altitude_max >= altitude + distancia){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
 }

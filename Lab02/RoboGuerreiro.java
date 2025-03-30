@@ -21,9 +21,9 @@ public class RoboGuerreiro extends RoboTerrestre {
         for (int i = 0; i < robos.size(); i++) {
             Robo robo = robos.get(i);
     
-            if (robo.getCoordenadaX() == alvoX && robo.getCoordenadaY() == alvoY) {
+            if (robo.getCoordenadaX() == alvoX && robo.getCoordenadaY() == alvoY) { /* verifica se existe um robo na posicao */
     
-                if (robo instanceof RoboBlindado) { 
+                if (robo instanceof RoboBlindado) { /* verifica se o tipo de robo e blindado e tira pontos de vida */
                     RoboBlindado blindado = (RoboBlindado) robo;
                     int novaVida = blindado.getPontosVida() - dano;
     
@@ -36,7 +36,7 @@ public class RoboGuerreiro extends RoboTerrestre {
                         System.out.println("O RoboBlindado foi destruído!");
                     }
                 } 
-                else if (robo instanceof RoboKamikaze) { 
+                else if (robo instanceof RoboKamikaze) {  /* verifica se o robo e kamikaze , se for ativa a função de auto destruicao do robo */
                     System.out.println("O robô kamikaze foi destruído!");
                     ((RoboKamikaze) robo).sacrificio();
                     Ambiente.removerRobo(robo);

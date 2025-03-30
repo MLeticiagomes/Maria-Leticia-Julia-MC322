@@ -38,20 +38,6 @@ public class Robo {
     }
 
 
-    public int setCoordenadas_y_mais(int deltay){ /* muda a coordenada y */
-        this.coordenada_y += deltay;
-        return coordenada_y;
-        
-    }
-
-    public int setCoordenadas_y_menos(int deltay){ /* muda a coordenada x */
-
-        this.coordenada_y -= deltay;
-        return coordenada_y;
-        
-    }
-
-
     public void exibir_posicao(){ /* printa as coordenadas */
     System.out.println("Nova posicao : (" + coordenada_x + "," + coordenada_y+ ")");
     }
@@ -61,6 +47,10 @@ public class Robo {
         return coordenada_x;
     }
 
+    public void setCoordenadaY(int y){
+        this.coordenada_y = y;
+    }
+
     public int getCoordenadaY(){
         return coordenada_y;
     }
@@ -68,24 +58,28 @@ public class Robo {
     public void mover(Ambiente ambiente, String direcao, int distancia){
 
         while (true){ /*altera as coordenadas do robo */
-            if (direcao.equalsIgnoreCase("norte")){
-                if(ambiente.dentroDosLimites(coordenada_x, coordenada_y+distancia)==true){
-                    setCoordenadas_y_mais(distancia); /* altera a posição do robo em y */
-                    exibir_posicao();
+            if (this instanceof RoboAereo){
+                RoboAereo roboAereo = (RoboAereo) this; 
+                if (direcao.equalsIgnoreCase("norte")){
+                    
+                    if(ambiente.dentroDosLimites(coordenada_x, coordenada_y+distancia)==true){
+                        roboAereo.subir(distancia); /* altera a posição do robo em y */
+                        exibir_posicao();
+                            break;
+                    }
+                    else{
                         break;
+                    }
                 }
-                else{
-                    break;
-                }
-            }
-            else if (direcao.equalsIgnoreCase("sul")){
-                if(ambiente.dentroDosLimites(coordenada_x, coordenada_y-distancia)==true){
-                    setCoordenadas_y_menos(distancia); /* altera a posição do robo em y */
-                    exibir_posicao();
+                else if (direcao.equalsIgnoreCase("sul")){
+                    if(ambiente.dentroDosLimites(coordenada_x, coordenada_y-distancia)==true){
+                        roboAereo.descer(distancia); /* altera a posição do robo em y */
+                        exibir_posicao();
+                            break;
+                    }
+                    else{
                         break;
-                }
-                else{
-                    break;
+                    }
                 }
             }
             else if (direcao.equalsIgnoreCase("oeste")){
