@@ -17,6 +17,10 @@ public class RoboAereo extends Robo{
         return altitude;
     }
 
+    public void setCoordenadaY(int nova_altitude){
+        this.altitude=nova_altitude;
+    }
+
     public void subir(int deltay){ /* muda a coordenada y */
         setCoordenadaY(getCoordenadaY() + deltay);
         
