@@ -9,6 +9,7 @@ public class Ambiente {
     private int largura;
     private int altura;
     private static ArrayList<Robo> robosAtivos;
+    private static ArrayList<Obstaculo> obstaculosAtivos;
 
     public Ambiente(int l, int a){
         this.largura=l;

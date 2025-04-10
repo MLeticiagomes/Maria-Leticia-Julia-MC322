@@ -3,14 +3,18 @@ public class RoboAereo extends Robo{
     private int altitude;
     private int altitudeMaxima;
 
-    public RoboAereo(String nome, int x, int y, String d, int alt_max){
-        super(nome,x,y,d);
+    public RoboAereo(String nome, int x, int z, String d, int y, int alt_max){
+        super(nome,x,z,d);
         this.altitude = y;
         this.altitudeMaxima = alt_max;  
     }
 
     public int getaltura_maxima(){ /* pega a altura maxima como a do ambiente */
-       return altitudeMaxima;
+        return altitudeMaxima;
+    }
+
+    public int getCoordenadaY(){
+        return altitude;
     }
 
     public void subir(int deltay){ /* muda a coordenada y */
@@ -20,16 +24,16 @@ public class RoboAereo extends Robo{
 
     public void descer(int deltay){ /* muda a coordenada y */
         setCoordenadaY(getCoordenadaY()  - deltay);
-        
+    
     }
 
 
 
 
-    public boolean verificarAltura(int distancia){
+    public boolean verificarAlturaMax(int distancia){
         int altitude_max = getaltura_maxima();
         altitude = getCoordenadaY();
-        if(altitude_max >= altitude + distancia){
+        if(altitude_max >= altitude){
             return true;
         }
         else{
@@ -37,4 +41,14 @@ public class RoboAereo extends Robo{
         }
     }
     
+
+    public boolean verificarAlturaMin(int distancia){
+        altitude = getCoordenadaY();
+        if(altitude - distancia>=0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

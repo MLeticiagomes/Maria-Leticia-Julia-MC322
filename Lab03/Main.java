@@ -7,10 +7,11 @@ public class Main {
 
 
        Scanner scanner = new Scanner(System.in); /*Introduz simulador */
-       System.out.println("Bem vindo ao Simulador de Robos!\nVamos comecar criando um ambiente.\nDigite a largura e altura (separados por espaco):");
+       System.out.println("Bem vindo ao Simulador de Robos!\nVamos comecar criando um ambiente.\nDigite as dimensoes largura, comprimento e altura (separados por espaco):");
        int largura = scanner.nextInt(); /*leitura de dados para criacao do ambiente */
+       int comprimento = scanner.nextInt();
        int altura = scanner.nextInt();
-       Ambiente ambiente = new Ambiente(largura, altura);
+       Ambiente ambiente = new Ambiente(largura, altura, comprimento);
        Robo robo= null;
           
        while (true){ /*Introduz comandos do simulador */
@@ -40,15 +41,16 @@ public class Main {
                 System.out.println("Que tipo de robo deseja criar?\nDigite t para criar um robo terrestres\nDigite a para criar um robo aereo");
                 String tipo_de_robo=scanner.next();
 
-               if(tipo_de_robo.equals("t")){ /* criacao do  robo terrestre  com o atributo de velocidade maxima e coordenada x*/
-                   System.out.println("Digite a velocidade maxima de deslocamento desejada e coordenada x:");
+               if(tipo_de_robo.equals("t")){ /* criacao do  robo terrestre  com o atributo de velocidade maxima e coordenada x e z*/
+                   System.out.println("Digite a velocidade maxima de deslocamento desejada, coordenada x e coordenada z");
                    int velocidadeMaxima=scanner.nextInt();
                    int coordenadaX = scanner.nextInt();
-                   if(coordenadaX > ambiente.getLargura()){ /* se a cordenada x de criaçao do robo nao estiver nos limites do ambiente */
-                        System.out.println("Coordenada fora do permitido, coloque uma nova coordenada x");
+                   int coordenadaZ = scanner.nextInt();
+                   while(coordenadaX > ambiente.getLargura() || coordenadaZ> ambiente.getComprimento()){ /* se a cordenada x ou z de criaçao do robo nao estiver nos limites do ambiente */
+                        System.out.println("Coordenada fora do permitido, insira coordenadas validas");
                         coordenadaX = scanner.nextInt();
+                        coordenadaZ = scanner.nextInt();
                    }
-                   int coordenadaY =0; /* o robo terrestre nao pode se mover em y */
 
                    System.out.println("Que tipo de robo terrestre deseja criar?\nDigite g para criar um robo guerreiro \nDigite b para criar um robo blindado");
                    String tipo_de_terrestre=scanner.next();
@@ -56,14 +58,14 @@ public class Main {
                    if(tipo_de_terrestre.equals("g")){ /* criacao do robo guerreiro */
                        System.out.println("Digite a quantidade de dano de ataque desejado:");
                        int dano = scanner.nextInt(); /* quantidade de dano que cada ataque causa */
-                       robo = new RoboGuerreiro(nome, coordenadaX, coordenadaY, direcao, velocidadeMaxima, dano);
+                       robo = new RoboGuerreiro(nome, coordenadaX, coordenadaZ, direcao, velocidadeMaxima, dano);
                        continue;
                    }
 
                    else if(tipo_de_terrestre.equals("b")){ /* criacao do robo blindado */
                        System.out.println("Digite a quantidade de vida desejada:");
                        int vidaMax= scanner.nextInt(); /* quantidade de vida maixima que ele possui */
-                       robo = new RoboBlindado(nome, coordenadaX, coordenadaY, direcao, velocidadeMaxima, vidaMax);
+                       robo = new RoboBlindado(nome, coordenadaX, coordenadaZ, direcao, velocidadeMaxima, vidaMax);
                        continue;
                    }
 
@@ -74,22 +76,19 @@ public class Main {
                }
 
                if(tipo_de_robo.equals("a")){ /* criacao de um robo aereo com altura  maxima que pode alcançar */
-                   System.out.println("Digite a altura maxima de voo, coordenada x e coordenada y:");
+                   System.out.println("Digite a altura maxima de voo, coordenada x, coordenada z e coordenada y (altura):");
                    int alturaMax= scanner.nextInt();
                    int coordenadaX = scanner.nextInt();
-                   if(coordenadaX > ambiente.getLargura()){ /* confere se o robo esta sendo criado dentro dos limites */
-                        System.out.println("Coordenada fora do permitido, coloque uma nova coordenada x");
+                   int coordenadaZ = scanner.nextInt();
+                   int coordenadaY =scanner.nextInt();
+
+                   while(coordenadaX > ambiente.getLargura() || coordenadaY > ambiente.getAltura() || coordenadaZ > ambiente.getComprimento()){ /* confere se o robo esta sendo criado dentro dos limites */
+                        System.out.println("Coordenada fora do permitido, insira coordenadas validas");
                         coordenadaX = scanner.nextInt();
                     }
 
-                   int coordenadaY =scanner.nextInt();
-                   if(coordenadaX > ambiente.getAltura()){ /* confere se o robo esta sendo criado dentro dos limites */
-                        System.out.println("Coordenada fora do permitido, coloque uma nova coordenada y");
-                        coordenadaY= scanner.nextInt();
-                    }
-
-                    if(coordenadaY > alturaMax){ /* confere se a altura de criacao do robo é menor ou igual a maxima */
-                        System.out.println("Coordenada acima do permitido, digite a coordenada y novamente");
+                    while(coordenadaY > alturaMax){ /* confere se a altura de criacao do robo é menor ou igual a maxima */
+                        System.out.println("Altura maior do que a maxima, insira altura valida");
                          coordenadaY =scanner.nextInt();
                     }
 
@@ -99,14 +98,14 @@ public class Main {
                    if(tipo_de_aereo.equals("c")){/* criacao do robo curandeiro com poder de cura */
                         System.out.println("Digite a quantidade de pontos curados:");
                         int poderDeCura = scanner.nextInt();
-                        robo = new RoboCurandeiro(nome, coordenadaX, coordenadaY, direcao, alturaMax, poderDeCura);
+                        robo = new RoboCurandeiro(nome, coordenadaX, coordenadaZ, direcao, coordenadaY, alturaMax, poderDeCura);
                         continue;
                    }
 
                    else if(tipo_de_aereo.equals("k")){ /* criacao do robo kamikaze e raio de alcance da explosao */
                         System.out.println("Digite raio de alcance:");
                         int raioDeAtaque = scanner.nextInt();
-                        robo = new RoboKamikaze(nome, coordenadaX, coordenadaY, direcao, alturaMax, raioDeAtaque);
+                        robo = new RoboKamikaze(nome, coordenadaX, coordenadaZ, direcao, coordenadaY, alturaMax, raioDeAtaque);
                         continue;
                    }
 
@@ -145,8 +144,7 @@ public class Main {
                                 }
                                 System.out.println("Digite a direcao (separadas por espaco):");
                                 String direcao = scanner.next();
-                                if(direcao.equalsIgnoreCase("leste") ||  direcao.equalsIgnoreCase("oeste")){
-                                    blindado.verificar_direcao(direcao); /*Verifica se existe algum obstaculo na direcao escolhida */
+                                if(direcao.equalsIgnoreCase("leste") ||  direcao.equalsIgnoreCase("oeste") ||  direcao.equalsIgnoreCase("norte") ||  direcao.equalsIgnoreCase("sul")){
                                     System.out.println("Digite a distancia percorrida (separadas por espaco):");
                                     int distancia=scanner.nextInt();    
                                     int velocidadeMax = blindado.getvelocidadeMaxima();
@@ -158,17 +156,8 @@ public class Main {
                                     else{
 
                                         System.out.println("Velocidade maxima excedida");
-                                    }
-
-
-                                   
-                                }
-
-                                else if (direcao.equalsIgnoreCase("norte") ||  direcao.equalsIgnoreCase("sul")){
-                                    System.out.println("Robos terrestres nao podem se mover no eixo y");
-                                
-                                }
-                         
+                                    }               
+                                }                         
                             }
 
                             else if(input==2){ /* ve a vida restante do robo blindado */
@@ -191,8 +180,7 @@ public class Main {
                                 System.out.println("Digite a direcao (separadas por espaco):");
                                 String direcao = scanner.next();
 
-                                if(direcao.equalsIgnoreCase("leste") ||  direcao.equalsIgnoreCase("oeste")){   
-                                    guerreiro.verificar_direcao(direcao); /*Verifica se existe algum obstaculo na direcao escolhida */
+                                if(direcao.equalsIgnoreCase("leste") ||  direcao.equalsIgnoreCase("oeste") ||  direcao.equalsIgnoreCase("norte") ||  direcao.equalsIgnoreCase("sul")){   
                                     System.out.println("Digite a distancia percorrida (separadas por espaco):");
                                     int distancia=scanner.nextInt();
 
@@ -204,74 +192,116 @@ public class Main {
                                     else{
 
                                         System.out.println("Velocidade maxima excedida");
-                                    }
-                                   
+                                    }                                  
                                 }
-
-                                else if (direcao.equalsIgnoreCase("norte") ||  direcao.equalsIgnoreCase("sul")){
-                                    System.out.println("Robos terrestres nao podem se mover no eixo y");
-                                
-                                }
-                           
                             }
 
                             if(input==2){
-                                System.out.println("Informe as coordenadas que deseja atacar no formato 'x y'"); /* determina o local que o robo pode atacar */
+                                System.out.println("Informe as coordenadas que deseja atacar no formato 'x y e z'"); /* determina o local que o robo pode atacar */
                                 int x= scanner.nextInt();
                                 int y= scanner.nextInt();
-                                guerreiro.atacar(x,y);
+                                int z= scanner.nextInt();
+                                guerreiro.atacar(x,y,z);
                             }
                         }
                         
 
                         else if(robo_i instanceof RoboCurandeiro){ 
                             RoboCurandeiro curandeiro = (RoboCurandeiro) robo_i;
-                            System.out.println("O que deseja fazer?\nDigite 1 para mover\nDigite 2 para curar robos em seu eixo y");
+                            System.out.println("O que deseja fazer?\nDigite 1 para mover\nDigite 2 para curar robos em seu eixo y\nDigite 3 para subir ou descer");
                             int input=scanner.nextInt();
                             if(input==1){
                                 if (robo==null){
                                     System.out.println("Crie um robo antes de mover!");
                                     continue;
                                 }
-
-                                System.out.println("Digite a distancia percorrida (separadas por espaco):");
-                                int distancia=scanner.nextInt();
-                                if(curandeiro.verificarAltura(distancia) == false){
-                                    System.out.println("Altura acima da permitida");
-                                    break;
-                                }
-                                
-                                System.out.println("Digite a direcao (separadas por espaco):");
+                                System.out.println("Digite a direcao:");
                                 String direcao = scanner.next();
-                                curandeiro.verificar_direcao(direcao); /*Verifica se existe algum obstaculo na direcao escolhida */
-                                curandeiro.mover(ambiente, direcao,distancia);
 
+                                if(direcao.equalsIgnoreCase("leste") ||  direcao.equalsIgnoreCase("oeste") ||  direcao.equalsIgnoreCase("norte") ||  direcao.equalsIgnoreCase("sul")){   
+                                    System.out.println("Digite a distancia percorrida:");
+                                    int distancia=scanner.nextInt();
+                                    curandeiro.mover(ambiente, direcao,distancia);
+                                }
                             }
 
-                            if(input==2){
+                            else if(input==2){
                                 curandeiro.verificarPosicaoX();
+                            }
+
+                            else if(input==3){
+                                System.out.println("Deseja subir ou descer?");
+                                String orientacao = scanner.next();
+
+                                if(orientacao.equalsIgnoreCase("subir")){
+                                    System.out.println("Digite a distancia percorrida:");
+                                    int distancia=scanner.nextInt();
+                                    if(curandeiro.verificarAlturaMax(distancia) == false){
+                                        System.out.println("Altura acima da permitida");
+                                        break;
+                                    }
+                                    else{
+                                        curandeiro.subir(distancia);
+                                    }
+                                }
+                                else if (orientacao.equalsIgnoreCase("descer")){
+                                    System.out.println("Digite a distancia percorrida:");
+                                    int distancia=scanner.nextInt();
+                                    if(curandeiro.verificarAlturaMin(distancia) == false){
+                                        System.out.println("Altura abaixo da permitida");
+                                        break;
+                                    }
+                                    else{
+                                        curandeiro.descer(distancia);
+                                    }
+                                }
                             }
                         }
 
                         else if(robo_i instanceof RoboKamikaze){
                             RoboKamikaze kamikaze = (RoboKamikaze) robo_i;
-                            System.out.println("O que deseja fazer?\nDigite 1 para mover");
+                            System.out.println("O que deseja fazer?\nDigite 1 para mover\nDigite 2 para subir ou descer");
                             int input=scanner.nextInt();
                             if(input==1){
                                 if (robo==null){
                                     System.out.println("Crie um robo antes de mover!");
                                     continue;
                                 }
-                                System.out.println("Digite a distancia percorrida (separadas por espaco):");
-                                int distancia=scanner.nextInt();
-                                if(kamikaze.verificarAltura(distancia) == false){
-                                    System.out.println("Altura acima da permitida");
-                                    break;
-                                }
-                                System.out.println("Digite a direcao (separadas por espaco):");
+                                System.out.println("Digite a direcao:");
                                 String direcao = scanner.next();
-                                kamikaze.verificar_direcao(direcao); /*Verifica se existe algum obstaculo na direcao escolhida */
-                                kamikaze.mover(ambiente, direcao, distancia);
+
+                                if(direcao.equalsIgnoreCase("leste") ||  direcao.equalsIgnoreCase("oeste") ||  direcao.equalsIgnoreCase("norte") ||  direcao.equalsIgnoreCase("sul")){   
+                                    System.out.println("Digite a distancia percorrida:");
+                                    int distancia=scanner.nextInt();
+                                    kamikaze.mover(ambiente, direcao,distancia);
+                                }
+                            }
+                            if(input==2){
+                                System.out.println("Deseja subir ou descer?");
+                                String orientacao = scanner.next();
+
+                                if(orientacao.equalsIgnoreCase("subir")){
+                                    System.out.println("Digite a distancia percorrida:");
+                                    int distancia=scanner.nextInt();
+                                    if(kamikaze.verificarAlturaMax(distancia) == false){
+                                        System.out.println("Altura acima da permitida");
+                                        break;
+                                    }
+                                    else{
+                                        kamikaze.subir(distancia);
+                                    }
+                                }
+                                else if (orientacao.equalsIgnoreCase("descer")){
+                                    System.out.println("Digite a distancia percorrida:");
+                                    int distancia=scanner.nextInt();
+                                    if(kamikaze.verificarAlturaMin(distancia) == false){
+                                        System.out.println("Altura abaixo da permitida");
+                                        break;
+                                    }
+                                    else{
+                                        kamikaze.descer(distancia);
+                                    }
+                                }
                             }
                         }
 

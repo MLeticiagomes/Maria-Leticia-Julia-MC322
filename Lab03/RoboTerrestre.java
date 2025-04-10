@@ -3,8 +3,8 @@ public class RoboTerrestre extends Robo { /* robo terrestre com uma velocidade m
     private int velocidadeMaxima;
 
 
-    public RoboTerrestre(String nome, int x, int y, String d, int v){
-        super(nome,x,y,d);
+    public RoboTerrestre(String nome, int x, int z, String d, int v){
+        super(nome,x,z,d);
         this.velocidadeMaxima = v;
     }
 
