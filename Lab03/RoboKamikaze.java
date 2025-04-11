@@ -8,11 +8,11 @@ public class RoboKamikaze extends RoboAereo{ //explode quando atacado eliminando
 
 
 
-   public RoboKamikaze(String nome, int x,int z, String d, int y, int alt_max, int raioDeAtaque){
-       super(nome, x, z, d, y, alt_max);
+   public RoboKamikaze(String nome, int x, int y, int z, String d, int alt_max, int raioDeAtaque){
+       super(nome, x, y, z, d, alt_max);
        this.raioDeAtaque = raioDeAtaque;
   
-   }
+   } 
 
 
    int i = 0;

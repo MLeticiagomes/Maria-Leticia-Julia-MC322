@@ -3,18 +3,14 @@ public class RoboAereo extends Robo{
     private int altitude;
     private int altitudeMaxima;
 
-    public RoboAereo(String nome, int x, int z, String d, int y, int alt_max){
-        super(nome,x,z,d);
+    public RoboAereo(String nome, int x, int y, int z, String d, int alt_max){
+        super(nome,x,y, z,d);
         this.altitude = y;
         this.altitudeMaxima = alt_max;  
     }
 
     public int getaltura_maxima(){ /* pega a altura maxima como a do ambiente */
         return altitudeMaxima;
-    }
-
-    public int getCoordenadaY(){
-        return altitude;
     }
 
     public void setCoordenadaY(int nova_altitude){

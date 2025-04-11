@@ -5,8 +5,8 @@ public class RoboCurandeiro extends RoboAereo{ //cura robos em seu eixo y
    private int poderDeCura;
 
 
-   public RoboCurandeiro(String nome, int x, int z, String d, int y, int alt_max, int poderDeCura){
-       super(nome, x, z, d, y, alt_max);
+   public RoboCurandeiro(String nome, int x, int y,  int z, String d, int alt_max, int poderDeCura){
+       super(nome, x, y, z, d, alt_max);
        this.poderDeCura = poderDeCura;
    }
 

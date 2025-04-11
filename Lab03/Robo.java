@@ -10,14 +10,16 @@ public class Robo {
 
    private String  nome_do_robo;
    private int coordenada_x;
+   private int coordenada_y;
    private int coordenada_z;
    private String direcao;
    private Ambiente ambiente;
 
 
-   public Robo(String nome, int x, int z, String d){ /* cria um robo com nome e posição x e y */
+   public Robo(String nome, int x,  int y, int z, String d){ /* cria um robo com nome e posição x e y */
        this.nome_do_robo = nome;
        this.coordenada_x = x;
+       this.coordenada_y = y;
        this.coordenada_z = z;
        this.direcao = d;
        Ambiente.adicionarRobo(this);
@@ -76,6 +78,9 @@ public class Robo {
        return coordenada_x;
    }
 
+   public int getCoordenadaY(){
+        return coordenada_y;
+    }
 
    public int getCoordenadaZ(){
        return coordenada_z;
