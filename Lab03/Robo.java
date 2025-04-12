@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -6,15 +7,13 @@ import java.util.List;
 
 public class Robo {
    private Scanner scanner = new Scanner(System.in);
-
-
    private String  nome_do_robo;
    private int coordenada_x;
    private int coordenada_y;
    private int coordenada_z;
    private String direcao;
    private Ambiente ambiente;
-
+   private static ArrayList<Sensor> sensoresDosRobos;
 
    public Robo(String nome, int x,  int y, int z, String d){ /* cria um robo com nome e posição x e y */
        this.nome_do_robo = nome;
@@ -23,8 +22,17 @@ public class Robo {
        this.coordenada_z = z;
        this.direcao = d;
        Ambiente.adicionarRobo(this);
+       sensoresDosRobos = new ArrayList<>();
    }
 
+   public static void adicionarSensor(Sensor s){
+        sensoresDosRobos.add(s);
+   }
+
+
+   public static ArrayList<Sensor> getsensoresDosRobos(){
+    return sensoresDosRobos;
+}
 
    public String getNome(){
        return nome_do_robo;

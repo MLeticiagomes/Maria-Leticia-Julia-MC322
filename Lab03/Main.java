@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 
 public class Main {
-  public static void main(String[] args){
+  public static void main(String[] args) {
 
 
 
@@ -21,14 +21,10 @@ public class Main {
       Robo robo= null;
         
       while (true){ /*Introduz comandos do simulador */
-          System.out.println("O que deseja fazer?\nDigite 1 para criar novo robo\nDigite 2 para selecionar o robo\nDigite 0 para fechar o simulador");
+          System.out.println("O que deseja fazer?\nDigite 1 para criar novo robo\nDigite 2 para selecionar o robo\nDigite 3 para acessar sensores\nDigite 0 para fechar o simulador");
           int comando=scanner.nextInt();
 
-
-
-
           if (comando==1){ /*Leitura de dados e criacao de novo robo */
-
 
               System.out.println("Digite um nome:");
               String nome = scanner.next();
@@ -149,7 +145,6 @@ public class Main {
            else if (comando==2){ /*Leitura de dados e movimentacao do robo */
                System.out.println("Digite o nome do robo para selecionar:");
                String nome= scanner.next();
-
 
                List<Robo> robos = Ambiente.getrobosAtivos();
                boolean encontrado = false;
@@ -360,13 +355,61 @@ public class Main {
                }
            }
 
+           else if(comando == 3){
+              System.out.println("Digite 1 para criar um sensor\nDigite 2 para acessar um sensor ja existente");
+              int input= scanner.nextInt();
+              Sensor sensor = null;
+              if (input == 1){
+                System.out.println("Digite o nome do robo em que deseja implementar o sensor:");
+                String nome = scanner.next();
+                List<Robo> robos = Ambiente.getrobosAtivos();
+                for (int i = 0; i < robos.size(); i++) { /* percorre a lista de robos e verifica se o robo existe */
+                    if(robo.getNome().equals(nome)){
+                        int raio_do_sensor = scanner.nextInt();
+                        System.out.println("Digite sensorLoc para criar um sensor de localizacao:");
+                        String tipo_de_sensor = scanner.next();
+                        if(tipo_de_sensor.equals("sensorLoc")){/* cria um sensor de localizacao */
+                            sensor = new SensorLocalizacao(raio_do_sensor, robo, nome); /*ver depois */
+                            
+                        }
 
-          else if (comando==0){ /*Fecha o simulador */
+                    }
+
+                    else{
+                        System.out.println("Robo nao encontrado :(");
+                    }
+                
+                }
+
+             
+            }
+
+            else if (input==2){
+                System.out.println("Digite o nome do robo do qual deseja acessar o sensor:");
+                String nome = scanner.next();
+                List<Robo> robos = Ambiente.getrobosAtivos();
+                for (int i = 0; i < robos.size(); i++) { /* percorre a lista de robos e verifica se o robo existe */
+                    if(robo.getNome().equals(nome)){
+                        if(sensor. monitorar() == true){
+                            System.out.println("Digite o nome do sensor que deseja utilzar:");
+                            /* escrever o nome ja determinado / fazer para identificar se o sneosr exite, se nao existir e acessar */
+                        }
+                    }
+
+                    else{
+                        System.out.println("Robo nao encontrado :(");
+                    }
+
+                }
+            }
+
+           else if (comando==0){ /*Fecha o simulador */
               System.out.println("Encerrando o simulador...");
               scanner.close();
               break;
-          }
-      }
+            }
+        }
+    } 
   }
 }
 
