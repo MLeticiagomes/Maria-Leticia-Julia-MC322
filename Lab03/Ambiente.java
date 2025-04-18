@@ -11,6 +11,7 @@ public class Ambiente {
    private int altura;
    private int comprimento;
    private static ArrayList<Robo> robosAtivos;
+   private static ArrayList<Obstaculo> obstaculosExistentes;
 
 
    public Ambiente(int l, int a, int c){
@@ -18,6 +19,7 @@ public class Ambiente {
        this.altura=a;
        this.comprimento = c;
        robosAtivos = new ArrayList<>();
+       obstaculosExistentes = new ArrayList<>();
    }
 
 
@@ -92,6 +94,16 @@ public class Ambiente {
    public static ArrayList<Robo> getrobosAtivos(){
        return robosAtivos;
    }
+
+   public static void adicionarObstaculo(Obstaculo o){ /*adiciona novo robo na lista de robos */
+    obstaculosExistentes.add(o);
+   }
+
+   public static ArrayList<Obstaculo> getobstaculosExistentes(){
+    return obstaculosExistentes;
+}
+
+
 }
 
 

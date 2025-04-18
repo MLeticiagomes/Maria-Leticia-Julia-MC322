@@ -10,8 +10,6 @@ public class Main {
   public static void main(String[] args) {
 
 
-
-
       Scanner scanner = new Scanner(System.in); /*Introduz simulador */
       System.out.println("Bem vindo ao Simulador de Robos!\nVamos comecar criando um ambiente.\nDigite as dimensoes largura, comprimento e altura (separados por espaco):");
       int largura = scanner.nextInt(); /*leitura de dados para criacao do ambiente */
@@ -19,9 +17,12 @@ public class Main {
       int altura = scanner.nextInt();
       Ambiente ambiente = new Ambiente(largura, altura, comprimento);
       Robo robo= null;
-        
+      Sensor sensor = null;
+      Obstaculo obstaculo = null;
+
+
       while (true){ /*Introduz comandos do simulador */
-          System.out.println("O que deseja fazer?\nDigite 1 para criar novo robo\nDigite 2 para selecionar o robo\nDigite 3 para acessar sensores\nDigite 0 para fechar o simulador");
+          System.out.println("O que deseja fazer?\nDigite 1 para criar novo robo\nDigite 2 para selecionar o robo\nDigite 3 para acessar sensores\nDigite 4 para criar um objeto\nDigite 0 para fechar o simulador");
           int comando=scanner.nextInt();
 
           if (comando==1){ /*Leitura de dados e criacao de novo robo */
@@ -358,7 +359,6 @@ public class Main {
            else if(comando == 3){
               System.out.println("Digite 1 para criar um sensor\nDigite 2 para acessar um sensor ja existente");
               int input= scanner.nextInt();
-              Sensor sensor = null;
               if (input == 1){
                 System.out.println("Digite o nome do robo em que deseja implementar o sensor:");
                 String nome = scanner.next();
@@ -403,13 +403,51 @@ public class Main {
                 }
             }
 
-           else if (comando==0){ /*Fecha o simulador */
-              System.out.println("Encerrando o simulador...");
-              scanner.close();
-              break;
-            }
         }
-    } 
+        
+        else if(comando == 4){
+            System.out.println("Digite as posicoes x1, x2, y1, y2, altura e tipo de obstaculo:");
+            int x1 = scanner.nextInt();
+            int x2 = scanner.nextInt();
+            int z1 = scanner.nextInt();
+            int z2 = scanner.nextInt();
+            int altura_do_obstaculo = scanner.nextInt(); /* coordenada y da base do objeto */
+            String tipoStr = scanner.next();
+
+            if(tipoStr.equalsIgnoreCase("buraco")){
+                obstaculo = new Obstaculo(x1, x2, z1, z2, 0, Obstaculo.TipoObstaculo.BURACO);
+            }
+
+            else if(tipoStr.equalsIgnoreCase("predio")){
+                obstaculo = new Obstaculo(x1, x2, z1, z2, 0, Obstaculo.TipoObstaculo.PREDIO);
+            }
+
+            else if(tipoStr.equalsIgnoreCase("nuvem")){
+                obstaculo = new Obstaculo(x1, x2, z1, z2,altura_do_obstaculo, Obstaculo.TipoObstaculo.NUVEM);
+            }
+
+            else if(tipoStr.equalsIgnoreCase("balao")){
+                obstaculo = new Obstaculo(x1, x2, z1, z2, altura_do_obstaculo, Obstaculo.TipoObstaculo.BALAO);
+            }
+
+            else if(tipoStr.equalsIgnoreCase("rocha")){
+                obstaculo = new Obstaculo(x1, x2, z1, z2, 0, Obstaculo.TipoObstaculo.ROCHA);
+            }
+
+            else{
+                System.out.println(" Obstaculo invalido ):");
+                continue;
+            }    
+        }
+
+
+        else if (comando==0){ /*Fecha o simulador */
+            System.out.println("Encerrando o simulador...");
+            scanner.close();
+            break;
+        }
+    }      
+
   }
 }
 
