@@ -14,6 +14,10 @@ public class RoboKamikaze extends RoboAereo{ //explode quando atacado eliminando
   
    } 
 
+   public int getRaioDeAtaque(){
+        return raioDeAtaque;
+   }
+
 
    int i = 0;
    public void sacrificio (){ /* verifica se existem robos  na esfera de ataque  e se tiver remove-os da lista */

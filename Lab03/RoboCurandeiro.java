@@ -11,6 +11,10 @@ public class RoboCurandeiro extends RoboAereo{ //cura robos em seu eixo y
    }
 
 
+   public int getPoderDeCura(){
+     return poderDeCura;
+   }
+   
    @Override
    public int getCoordenadaX() { /* pega a coordenada x do robo */
        return super.getCoordenadaX();
@@ -47,11 +51,6 @@ public class RoboCurandeiro extends RoboAereo{ //cura robos em seu eixo y
 
 
    }
-
-
-
-
-
 
    public void verificarPosicaoX(){
        int posicaoX = this.getCoordenadaX(); /* verifica se um robo na lista esta na mesma posicao x do robo curandeiro */

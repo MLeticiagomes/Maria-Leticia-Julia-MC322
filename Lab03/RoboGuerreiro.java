@@ -24,7 +24,9 @@ public class RoboGuerreiro extends RoboTerrestre {
       this.dano = dano;
   }
 
-
+  public int getDano() { /* pega a coordenada x do robo */
+    return dano;
+  }
 
 
   public void atacar(int alvoX, int alvoY, int alvoZ) {
