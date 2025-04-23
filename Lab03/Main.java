@@ -301,12 +301,16 @@ public class Main{
            else if(comando == 3){
               System.out.println("Digite 1 para criar um sensor\nDigite 2 para acessar um sensor ja existente");
               int input= scanner.nextInt();
+
               if (input == 1){
                 System.out.println("Digite o nome do robo em que deseja implementar o sensor:");
                 String nome = scanner.next();
                 List<Robo> robos = Ambiente.getrobosAtivos();
+                boolean robo_encontrado =false;
+
                 for (int i = 0; i < robos.size(); i++) { /* percorre a lista de robos e verifica se o robo existe */
-                    if(robo.getNome().equals(nome)){
+                    robo=robos.get(i);
+                    if(robo.getNome().equalsIgnoreCase(nome)){
                         System.out.println("Digite o raio de atuacao do sensor");
                         int raio_do_sensor = scanner.nextInt();
 
@@ -315,18 +319,20 @@ public class Main{
                         if(tipo_de_sensor.equalsIgnoreCase("l")){/* cria um sensor de localizacao */
                             sensor = new SensorLocalizacao(raio_do_sensor, robo, "SensorLocalizacao"); 
                             robo.adicionarSensor(sensor);
+                            robo_encontrado=true;
+                            break;
                         }
                         else if(tipo_de_sensor.equalsIgnoreCase("m")){/* cria um sensor meteorologico */
                             sensor = new SensorMeteorologico(raio_do_sensor, robo, "SensorMeteorologico"); 
                             robo.adicionarSensor(sensor);
+                            robo_encontrado=true;
+                            break;
                         }
 
                     }
-
-                    else{
-                        System.out.println("Robo nao encontrado :(");
-                    }
-                
+                }
+                if(robo_encontrado==false){
+                    System.out.println("Robo nao encontrado :(");
                 }
             }
 
@@ -334,17 +340,19 @@ public class Main{
                 System.out.println("Digite o nome do robo do qual deseja acessar o sensor:");
                 String nome = scanner.next();
                 List<Robo> robos = Ambiente.getrobosAtivos();
+                boolean robo_encontrado=false;
                 for (int i = 0; i < robos.size(); i++) { /* percorre a lista de robos e verifica se o robo existe */
                     robo=robos.get(i);
                     if(robo.getNome().equalsIgnoreCase(nome)){
-                        List<Sensor> sensores =robo.getsensoresDosRobos();
+                        robo_encontrado=true;
+                        List<Sensor> sensores =Robo.getsensoresDosRobos();
                         if(sensores==null){
                             System.out.println("O robo nao possui sensores");
                         }
                         else{
                             System.out.println("O robo possui " + sensores.size() + " sensores");  
                             for(int j = 0; j < sensores.size(); j++){
-                                sensor=sensores.get(i);
+                                sensor=sensores.get(j);
                                 System.out.println("Deseja utilizar " + sensor.getNome() + "? Digite 0 para utilizar ou 1 para continuar"); 
                                 input = scanner.nextInt(); 
                                 if(input==0){
@@ -360,11 +368,9 @@ public class Main{
                             }
                         }
                     }
-
-                    else{
-                        System.out.println("Robo nao encontrado :(");
-                    }
-
+                }
+                if(robo_encontrado==false){
+                    System.out.println("Robo nao encontrado :(");
                 }
             }
 
