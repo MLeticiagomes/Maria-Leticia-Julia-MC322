@@ -25,7 +25,7 @@ public class Robo {
        sensoresDosRobos = new ArrayList<>();
    }
 
-   public static void adicionarSensor(Sensor s){
+   public void adicionarSensor(Sensor s){
         sensoresDosRobos.add(s);
    }
 

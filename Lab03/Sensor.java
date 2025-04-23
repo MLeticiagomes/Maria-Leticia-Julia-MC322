@@ -10,14 +10,18 @@ public class Sensor {
     public Sensor(int raio, Robo dono, String nome){
         this.raio = raio;
         this.dono = dono;
-        this.nome = nome;
-        Robo.adicionarSensor(this);
+        this.nome = nome; /*tipo do sensor */
     }
+
     public int getRaio(){
         return raio;
     }
     public Robo getDono(){
         return dono;
+    }
+
+    public String getNome(){
+        return nome;
     }
 
     List<Sensor> sensores = Robo.getsensoresDosRobos();

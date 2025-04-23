@@ -1,10 +1,5 @@
 import java.util.List;
 import java.util.Scanner;
-import java.util.List;
-import java.util.Scanner;
-
-
-
 
 public class Main{
   public static void main(String[] args) {
@@ -58,7 +53,7 @@ public class Main{
         Sensor sensor = null;
 
       while (true){ /*Introduz comandos do simulador */
-          System.out.println("O que deseja fazer?\nDigite 1 para criar novo robo\nDigite 2 para selecionar o robo\nDigite 3 para acessar sensores\nDigite 4 para ver a lista de objetos\nDigite 0 para fechar o simulador");
+          System.out.println("O que deseja fazer?\nDigite 1 para visualizar os robos ativos\nDigite 2 para selecionar o robo\nDigite 3 para acessar sensores\nDigite 4 para ver a lista de objetos\nDigite 0 para fechar o simulador");
           int comando=scanner.nextInt();
 
           if (comando==1){ /*Lista de robos */
@@ -312,12 +307,18 @@ public class Main{
                 List<Robo> robos = Ambiente.getrobosAtivos();
                 for (int i = 0; i < robos.size(); i++) { /* percorre a lista de robos e verifica se o robo existe */
                     if(robo.getNome().equals(nome)){
+                        System.out.println("Digite o raio de atuacao do sensor");
                         int raio_do_sensor = scanner.nextInt();
-                        System.out.println("Digite sensorLoc para criar um sensor de localizacao:");
+
+                        System.out.println("Digite l para criar um sensor de localizacao ou m para criar um sensor meteorologico:");
                         String tipo_de_sensor = scanner.next();
-                        if(tipo_de_sensor.equals("sensorLoc")){/* cria um sensor de localizacao */
-                            sensor = new SensorLocalizacao(raio_do_sensor, robo, nome); /*ver depois */
-                            
+                        if(tipo_de_sensor.equalsIgnoreCase("l")){/* cria um sensor de localizacao */
+                            sensor = new SensorLocalizacao(raio_do_sensor, robo, "SensorLocalizacao"); 
+                            robo.adicionarSensor(sensor);
+                        }
+                        else if(tipo_de_sensor.equalsIgnoreCase("m")){/* cria um sensor meteorologico */
+                            sensor = new SensorMeteorologico(raio_do_sensor, robo, "SensorMeteorologico"); 
+                            robo.adicionarSensor(sensor);
                         }
 
                     }
@@ -334,10 +335,29 @@ public class Main{
                 String nome = scanner.next();
                 List<Robo> robos = Ambiente.getrobosAtivos();
                 for (int i = 0; i < robos.size(); i++) { /* percorre a lista de robos e verifica se o robo existe */
-                    if(robo.getNome().equals(nome)){
-                        if(sensor. monitorar() == true){
-                            System.out.println("Digite o nome do sensor que deseja utilzar:");
-                            /* escrever o nome ja determinado / fazer para identificar se o sneosr exite, se nao existir e acessar */
+                    robo=robos.get(i);
+                    if(robo.getNome().equalsIgnoreCase(nome)){
+                        List<Sensor> sensores =robo.getsensoresDosRobos();
+                        if(sensores==null){
+                            System.out.println("O robo nao possui sensores");
+                        }
+                        else{
+                            System.out.println("O robo possui " + sensores.size() + " sensores");  
+                            for(int j = 0; j < sensores.size(); j++){
+                                sensor=sensores.get(i);
+                                System.out.println("Deseja utilizar " + sensor.getNome() + "? Digite 0 para utilizar ou 1 para continuar"); 
+                                input = scanner.nextInt(); 
+                                if(input==0){
+                                    if(sensor instanceof SensorLocalizacao){
+                                        SensorLocalizacao localizacao = (SensorLocalizacao) sensor;
+                                        localizacao.identificar_obstaculos();
+                                    }
+                                    else if(sensor instanceof SensorMeteorologico){
+                                        SensorMeteorologico meteorologico = (SensorMeteorologico) sensor;
+                                        meteorologico.identificarClima();
+                                    }
+                                }
+                            }
                         }
                     }
 
