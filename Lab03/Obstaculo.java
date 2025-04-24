@@ -16,10 +16,6 @@ public class Obstaculo {
        this.coordenada_z2 = z2;
        this.altura = altura;
        this.tipo = tipo;
-
-       Ambiente.adicionarObstaculo(this);
-
-
    }
 
    public int getCoordenadaX1() {
