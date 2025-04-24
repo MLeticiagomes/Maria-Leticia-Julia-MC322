@@ -21,7 +21,6 @@ public class Robo {
        this.coordenada_y = y;
        this.coordenada_z = z;
        this.direcao = d;
-       Ambiente.adicionarRobo(this);
        sensoresDosRobos = new ArrayList<>();
    }
 
