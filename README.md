@@ -1,9 +1,11 @@
 # Maria-Leticia-Julia-MC322
 
 VERSAO JAVA 3.16
+
 IDE- VSCODE
 
 Julia de Souza Nardo 281272
+
 Maria Leticia Gomes Braga dos Reis 281318
 
 Main -> Leitura de inputs, mensagens do terminal e chamadas de funcao
@@ -28,8 +30,12 @@ Robo-> Classe mae {
 Ambiente -> Configura as dimensoes do ambiente e os robos inseridos
 
 Sensor -> classe mae {
+
   Sensor localizacao -> Imprime a distancia e localizacao dos robos em sua area
+  
   Sensor meteorolico -> Identifica as condicoes climaticas em sua area
+  
+}
 
 Obstaculo -> Objetos do ambiente, possuem dimensoes e podem ou nao bloquear a passagem de robos
 
