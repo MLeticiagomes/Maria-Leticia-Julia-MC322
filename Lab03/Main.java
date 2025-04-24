@@ -366,7 +366,7 @@ public class Main{
                                 if(input==0){
                                     if(sensor instanceof SensorLocalizacao){
                                         SensorLocalizacao localizacao = (SensorLocalizacao) sensor;
-                                        localizacao.identificar_obstaculos(robo.getCoordenadaX(),robo.getCoordenadaY(),robo.getCoordenadaZ());
+                                        localizacao.identificarRobos(robo.getCoordenadaX(),robo.getCoordenadaY(),robo.getCoordenadaZ());
                                     }
                                     else if(sensor instanceof SensorMeteorologico){
                                         SensorMeteorologico meteorologico = (SensorMeteorologico) sensor;
