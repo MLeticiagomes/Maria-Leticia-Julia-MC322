@@ -30,10 +30,16 @@ public class SensorLocalizacao  extends Sensor{
                     System.out.println("Obstáculo detectado a " + distancia + " unidades: Robo em (" + xOutro + ", " + yOutro + ", " + zOutro + ")");
                 }
         }
+        List<Obstaculo> obstaculos = Ambiente.getobstaculosExistentes();
+        for (int i = 0; i < obstaculos.size(); i++){
+            Obstaculo obstaculo=obstaculos.get(i);
+                                
+
+        }
     }
 
     private int calcular_distancia(int x1, int z1, int x2, int z2, int y1, int y2) {
-        return (int) Math.sqrt(Math.pow((Math.pow(x2 - x1, 2) + Math.pow(z2 - z1, 2)),2) + Math.pow(y2-y1,2));
+        return (int) Math.sqrt(Math.pow(Math.sqrt((Math.pow(x2 - x1, 2) + Math.pow(z2 - z1, 2))),2) + Math.pow(y2-y1,2));
     }
 }
 

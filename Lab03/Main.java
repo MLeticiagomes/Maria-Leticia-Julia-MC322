@@ -375,12 +375,11 @@ public class Main{
                                 }
                             }
                         }
+                    }
                 }
-
                 if(robo_encontrado==false){
                     System.out.println("Robo nao encontrado :(");
                 }
-            }
 
         }
         
