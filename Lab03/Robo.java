@@ -90,36 +90,11 @@ public class Robo {
    }
 
 
-   public static boolean pararRobo(int xDestino, int zDestino, int alturaRobo) {
-        List<Obstaculo> obstaculos = Ambiente.getobstaculosExistentes();
-        
-        for (int i = 0; i < obstaculos.size(); i++) {
-            Obstaculo obstaculo = obstaculos.get(i);
-            boolean dentroDaBase = (xDestino >= obstaculo.getCoordenadaX1() &&
-                                    xDestino <= obstaculo.getCoordenadaX2() &&
-                                    zDestino >= obstaculo.getCoordenadaZ1() &&
-                                    zDestino <= obstaculo.getCoordenadaZ2());
-
-            int alturaDoObstaculo = obstaculo.getTipo().getTamanhoVertical();
-            boolean dentroDaAltura = (alturaRobo >= obstaculo.getAltura() 
-                                    && alturaRobo <= obstaculo.getAltura() + alturaDoObstaculo);
-
-            boolean podeAtravessar = obstaculo.getTipo().getpodeAtravessar();
-
-            if (dentroDaBase  && dentroDaAltura && !podeAtravessar) {
-                System.out.println("Movimento bloqueado por obstáculo: " + obstaculo.getTipo());
-                return true; // o robô deve parar
-            }
-        }
-
-        return false; // pode seguir
-  }
-
    public void mover(Ambiente ambiente, String direcao, int distancia){
 
             if (direcao.equalsIgnoreCase("norte")){
                 if(ambiente.dentroDosLimites(coordenada_x, coordenada_z+distancia)==true){
-                    if(pararRobo(coordenada_x, coordenada_z + distancia, coordenada_y) == false){
+                    if(ambiente.detectarColisoes(coordenada_x, coordenada_z + distancia, coordenada_y) == false){
                         setCoordenadas_z_mais(distancia); /* altera a posição do robo em z */
                         exibir_posicao();
                     }            
@@ -132,7 +107,7 @@ public class Robo {
             }
             else if (direcao.equalsIgnoreCase("sul")){
                 if(ambiente.dentroDosLimites(coordenada_x, coordenada_z-distancia)==true){
-                    if(pararRobo(coordenada_x, coordenada_z - distancia, coordenada_y) == false){
+                    if(ambiente.detectarColisoes(coordenada_x, coordenada_z - distancia, coordenada_y) == false){
                         setCoordenadas_z_menos(distancia); /* altera a posição do robo em z */
                         exibir_posicao();
                     }
@@ -147,7 +122,7 @@ public class Robo {
            
            else if (direcao.equalsIgnoreCase("oeste")){
                if(ambiente.dentroDosLimites(coordenada_x-distancia, coordenada_z)==true){
-                    if(pararRobo(coordenada_x - distancia, coordenada_z, coordenada_y) == false){
+                    if(ambiente.detectarColisoes(coordenada_x - distancia, coordenada_z, coordenada_y) == false){
                         setCoordenadas_x_menos(distancia); /* altera a posição do robo em x */
                         exibir_posicao();
                     }
@@ -161,7 +136,7 @@ public class Robo {
             }
            else if (direcao.equalsIgnoreCase("leste")){
                if(ambiente.dentroDosLimites(coordenada_x+distancia, coordenada_z)==true){
-                    if(pararRobo(coordenada_x + distancia, coordenada_z, coordenada_y) == false){
+                    if(ambiente.detectarColisoes(coordenada_x + distancia, coordenada_z, coordenada_y) == false){
                         setCoordenadas_x_mais(distancia); /* altera a posição do robo em z */
                         exibir_posicao();
                     }

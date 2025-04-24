@@ -4,6 +4,7 @@ Objetivo: definir propriedas do ambiente e analisar limites
 */
 /* largura = x, comprimento = z, altura = y */
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Ambiente {
@@ -103,6 +104,31 @@ public class Ambiente {
     return obstaculosExistentes;
 }
 
+public boolean detectarColisoes(int xDestino, int zDestino, int alturaRobo){
+     List<Obstaculo> obstaculos = Ambiente.getobstaculosExistentes();
+        
+        for (int i = 0; i < obstaculos.size(); i++) {
+            Obstaculo obstaculo = obstaculos.get(i);
+            boolean dentroDaBase = (xDestino >= obstaculo.getCoordenadaX1() &&
+                                    xDestino <= obstaculo.getCoordenadaX2() &&
+                                    zDestino >= obstaculo.getCoordenadaZ1() &&
+                                    zDestino <= obstaculo.getCoordenadaZ2());
+
+            int alturaDoObstaculo = obstaculo.getTipo().getTamanhoVertical();
+            boolean dentroDaAltura = (alturaRobo >= obstaculo.getAltura() 
+                                    && alturaRobo <= obstaculo.getAltura() + alturaDoObstaculo);
+
+            boolean podeAtravessar = obstaculo.getTipo().getpodeAtravessar();
+
+            if (dentroDaBase  && dentroDaAltura && !podeAtravessar) {
+                System.out.println("O robo ira colidir com " + obstaculo.getTipo());
+                return true; // o robô deve parar
+            }
+        }
+
+        return false; // pode seguir
+
+}
 
 }
 

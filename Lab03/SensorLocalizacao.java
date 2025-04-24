@@ -6,7 +6,7 @@ public class SensorLocalizacao  extends Sensor{
         super(raio, nome);
     }
 
-    public void identificar_obstaculos(int coordx, int coordy, int coordz){ /* pega o x e z do robo com o sensor e verifica se esta dentro do raio, e calcula a distancia*/
+    public void identificarRobos(int coordx, int coordy, int coordz){ /* pega o x e z do robo com o sensor e verifica se esta dentro do raio, e calcula a distancia*/
         int raio = getRaio();
         int xSensor = coordx;
         int ySensor = coordy;

@@ -217,7 +217,7 @@ public class Main{
                                        break;
                                    }
 
-                                   else if(Robo.pararRobo(robo.getCoordenadaX(), robo.getCoordenadaZ(), robo.getCoordenadaY() + distancia) == true){
+                                   else if(ambiente.detectarColisoes(robo.getCoordenadaX(), robo.getCoordenadaZ(), robo.getCoordenadaY() + distancia) == true){
                                     break;
                                    }
                                    else{
@@ -232,7 +232,7 @@ public class Main{
                                        break;
                                    }
 
-                                   else if(Robo.pararRobo(robo.getCoordenadaX(), robo.getCoordenadaZ(), robo.getCoordenadaY() - distancia) == true){
+                                   else if(ambiente.detectarColisoes(robo.getCoordenadaX(), robo.getCoordenadaZ(), robo.getCoordenadaY() - distancia) == true){
                                     break;
                                    }
 
@@ -273,7 +273,7 @@ public class Main{
                                        System.out.println("Altura acima da permitida");
                                        break;
                                    }
-                                   else if(Robo.pararRobo(robo.getCoordenadaX(), robo.getCoordenadaZ(), robo.getCoordenadaY() + distancia) == true){
+                                   else if(ambiente.detectarColisoes(robo.getCoordenadaX(), robo.getCoordenadaZ(), robo.getCoordenadaY() + distancia) == true){
 
                                        break;
                                    }
@@ -289,7 +289,7 @@ public class Main{
                                        break;
                                    }
 
-                                   else if(Robo.pararRobo(robo.getCoordenadaX(), robo.getCoordenadaZ(), robo.getCoordenadaY() - distancia) == true){
+                                   else if(ambiente.detectarColisoes(robo.getCoordenadaX(), robo.getCoordenadaZ(), robo.getCoordenadaY() - distancia) == true){
                                     break;
                                    }
 
