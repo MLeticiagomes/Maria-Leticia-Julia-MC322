@@ -174,7 +174,7 @@ public class Main{
 
 
                            if(input==2){
-                               System.out.println("Informe as coordenadas que deseja atacar no formato 'x e z'"); /* determina o local que o robo pode atacar */
+                               System.out.println("Informe as coordenadas que deseja atacar no formato 'x y z'"); /* determina o local que o robo pode atacar */
                                int x= scanner.nextInt();
                                int y= scanner.nextInt();
                                int z= scanner.nextInt();
@@ -370,7 +370,7 @@ public class Main{
                                     }
                                     else if(sensor instanceof SensorMeteorologico){
                                         SensorMeteorologico meteorologico = (SensorMeteorologico) sensor;
-                                        meteorologico.identificarClima();
+                                        meteorologico.identificarClima(robo.getCoordenadaX(),robo.getCoordenadaZ());
                                     }
                                 }
                             }
