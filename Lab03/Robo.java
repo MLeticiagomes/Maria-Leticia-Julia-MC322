@@ -55,7 +55,10 @@ public class Robo {
       
    }
 
-
+   public int setcoordenada_y(int novo_y){
+    this.coordenada_y=novo_y;
+    return coordenada_y;
+   }
 
 
    public int setCoordenadas_z_mais(int deltaz){ /* muda a coordenada z */

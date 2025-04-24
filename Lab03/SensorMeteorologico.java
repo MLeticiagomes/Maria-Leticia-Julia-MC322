@@ -1,8 +1,8 @@
 import java.util.List;
 
 public class SensorMeteorologico extends Sensor {
-    public SensorMeteorologico(int raio, Robo dono, String nome){
-        super(raio,dono,nome);
+    public SensorMeteorologico(int raio, String nome){
+        super(raio,nome);
     }
 
     public void identificarClima(){

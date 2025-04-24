@@ -50,7 +50,7 @@ public class Main{
 
         Scanner scanner = new Scanner(System.in); /*Introduz simulador */
         System.out.println("Bem vindo ao Simulador de Robos!");
-        Sensor sensor = null;
+        Sensor sensor_ambiente= new Sensor(15,"SensorAmbiente"); /* monitora a quantidade de sensores dos robos */
 
       while (true){ /*Introduz comandos do simulador */
           System.out.println("O que deseja fazer?\nDigite 1 para visualizar os robos ativos\nDigite 2 para selecionar o robo\nDigite 3 para acessar sensores\nDigite 4 para ver a lista de objetos\nDigite 0 para fechar o simulador");
@@ -327,13 +327,13 @@ public class Main{
                         System.out.println("Digite l para criar um sensor de localizacao ou m para criar um sensor meteorologico:");
                         String tipo_de_sensor = scanner.next();
                         if(tipo_de_sensor.equalsIgnoreCase("l")){/* cria um sensor de localizacao */
-                            sensor = new SensorLocalizacao(raio_do_sensor, robo, "SensorLocalizacao"); 
+                            Sensor sensor = new SensorLocalizacao(raio_do_sensor, "SensorLocalizacao"); 
                             robo.adicionarSensor(sensor);
                             robo_encontrado=true;
                             break;
                         }
                         else if(tipo_de_sensor.equalsIgnoreCase("m")){/* cria um sensor meteorologico */
-                            sensor = new SensorMeteorologico(raio_do_sensor, robo, "SensorMeteorologico"); 
+                            Sensor sensor = new SensorMeteorologico(raio_do_sensor, "SensorMeteorologico"); 
                             robo.adicionarSensor(sensor);
                             robo_encontrado=true;
                             break;
@@ -356,19 +356,17 @@ public class Main{
                     if(robo.getNome().equalsIgnoreCase(nome)){
                         robo_encontrado=true;
                         List<Sensor> sensores =Robo.getsensoresDosRobos();
-                        if(sensores==null){
-                            System.out.println("O robo nao possui sensores");
-                        }
-                        else{
-                            System.out.println("O robo possui " + sensores.size() + " sensores");  
+                        boolean num_sensores=sensor_ambiente.monitorar(sensores);
+
+                        if(num_sensores==true){
                             for(int j = 0; j < sensores.size(); j++){
-                                sensor=sensores.get(j);
+                                Sensor sensor=sensores.get(j);
                                 System.out.println("Deseja utilizar " + sensor.getNome() + "? Digite 0 para utilizar ou 1 para continuar"); 
                                 input = scanner.nextInt(); 
                                 if(input==0){
                                     if(sensor instanceof SensorLocalizacao){
                                         SensorLocalizacao localizacao = (SensorLocalizacao) sensor;
-                                        localizacao.identificar_obstaculos();
+                                        localizacao.identificar_obstaculos(robo.getCoordenadaX(),robo.getCoordenadaY(),robo.getCoordenadaZ());
                                     }
                                     else if(sensor instanceof SensorMeteorologico){
                                         SensorMeteorologico meteorologico = (SensorMeteorologico) sensor;
@@ -377,8 +375,8 @@ public class Main{
                                 }
                             }
                         }
-                    }
                 }
+
                 if(robo_encontrado==false){
                     System.out.println("Robo nao encontrado :(");
                 }
@@ -389,9 +387,10 @@ public class Main{
         
         else if(comando == 4){
             List<Obstaculo> obstaculos = Ambiente.getobstaculosExistentes();
+            System.out.println(" Objetos aparecem no formato : \n === Objeto: tipo_do_objeto  === \n Posição: (x1,x2,y1,y2,altura)\n \n");
             for (int i = 0; i < obstaculos.size(); i++) {
                 obstaculo= obstaculos.get(i); 
-                System.out.println("=== Robô: " + obstaculo.getTipo() + " ===");
+                System.out.println("=== Objeto: " + obstaculo.getTipo() + " ===");
                 System.out.println("Posição: (" + obstaculo.getCoordenadaX1() + ", " + obstaculo.getCoordenadaX2() + "," + obstaculo.getCoordenadaZ1() + "," + obstaculo.getCoordenadaZ2() + ", " + obstaculo.getAltura() + ")");
                 System.out.println(); // Linha em branco pra separar os robôs
            }
@@ -403,8 +402,8 @@ public class Main{
             break;
         }
     }      
-
   }
+}
 }
 
 
