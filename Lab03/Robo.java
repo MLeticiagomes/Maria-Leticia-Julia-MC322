@@ -89,19 +89,21 @@ public class Robo {
 
    public static boolean pararRobo(int xDestino, int zDestino, int alturaRobo) {
         List<Obstaculo> obstaculos = Ambiente.getobstaculosExistentes();
-
-        for (Obstaculo obstaculo : obstaculos) {
+        
+        for (int i = 0; i < obstaculos.size(); i++) {
+            Obstaculo obstaculo = obstaculos.get(i);
             boolean dentroDaBase = (xDestino >= obstaculo.getCoordenadaX1() &&
                                     xDestino <= obstaculo.getCoordenadaX2() &&
                                     zDestino >= obstaculo.getCoordenadaZ1() &&
                                     zDestino <= obstaculo.getCoordenadaZ2());
 
             int alturaDoObstaculo = obstaculo.getTipo().getTamanhoVertical();
-            boolean colideNaAltura = alturaRobo <=  obstaculo.getAltura() + alturaDoObstaculo;
+            boolean dentroDaAltura = (alturaRobo >= obstaculo.getAltura() 
+                                    && alturaRobo <= obstaculo.getAltura() + alturaDoObstaculo);
 
             boolean podeAtravessar = obstaculo.getTipo().getpodeAtravessar();
 
-            if (dentroDaBase && colideNaAltura && !podeAtravessar) {
+            if (dentroDaBase  && dentroDaAltura && !podeAtravessar) {
                 System.out.println("Movimento bloqueado por obstáculo: " + obstaculo.getTipo());
                 return true; // o robô deve parar
             }
@@ -112,18 +114,18 @@ public class Robo {
 
    public void mover(Ambiente ambiente, String direcao, int distancia){
 
-
-       while (true){ /*altera as coordenadas do robo */
             if (direcao.equalsIgnoreCase("norte")){
                 if(ambiente.dentroDosLimites(coordenada_x, coordenada_z+distancia)==true){
                     if(pararRobo(coordenada_x, coordenada_z + distancia, coordenada_y) == false){
                         setCoordenadas_z_mais(distancia); /* altera a posição do robo em z */
                         exibir_posicao();
-                    }                
+                    }            
                 }
+
                 else{
-                    break;
-                }
+                    System.out.println("Fora dos limites :( ");
+                 }    
+               
             }
             else if (direcao.equalsIgnoreCase("sul")){
                 if(ambiente.dentroDosLimites(coordenada_x, coordenada_z-distancia)==true){
@@ -131,10 +133,13 @@ public class Robo {
                         setCoordenadas_z_menos(distancia); /* altera a posição do robo em z */
                         exibir_posicao();
                     }
+                    
                 }
+
                 else{
-                    break;
-                }
+                    System.out.println("Fora dos limites :( ");
+                 } 
+                
             }
            
            else if (direcao.equalsIgnoreCase("oeste")){
@@ -143,10 +148,13 @@ public class Robo {
                         setCoordenadas_x_menos(distancia); /* altera a posição do robo em x */
                         exibir_posicao();
                     }
+                    
                 }
-               else{
-                   break;
-               }
+
+                else{
+                    System.out.println("Fora dos limites :( ");
+                 } 
+            
             }
            else if (direcao.equalsIgnoreCase("leste")){
                if(ambiente.dentroDosLimites(coordenada_x+distancia, coordenada_z)==true){
@@ -155,10 +163,12 @@ public class Robo {
                         exibir_posicao();
                     }
                }
+               
                else{
-                   break;
-               }
+                System.out.println("Fora dos limites :( ");
+               }    
+             
            }
        }
    }
-}
+

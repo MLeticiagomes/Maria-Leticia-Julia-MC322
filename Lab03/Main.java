@@ -216,6 +216,10 @@ public class Main{
                                        System.out.println("Altura acima da permitida");
                                        break;
                                    }
+
+                                   else if(Robo.pararRobo(robo.getCoordenadaX(), robo.getCoordenadaZ(), robo.getCoordenadaY() + distancia) == true){
+                                    break;
+                                   }
                                    else{
                                        curandeiro.subir(distancia);
                                    }
@@ -227,6 +231,11 @@ public class Main{
                                        System.out.println("Altura abaixo da permitida");
                                        break;
                                    }
+
+                                   else if(Robo.pararRobo(robo.getCoordenadaX(), robo.getCoordenadaZ(), robo.getCoordenadaY() - distancia) == true){
+                                    break;
+                                   }
+
                                    else{
                                        curandeiro.descer(distancia);
                                    }
@@ -265,7 +274,8 @@ public class Main{
                                        break;
                                    }
                                    else if(Robo.pararRobo(robo.getCoordenadaX(), robo.getCoordenadaZ(), robo.getCoordenadaY() + distancia) == true){
-                                        break;
+
+                                       break;
                                    }
                                    else{
                                        kamikaze.subir(distancia);
