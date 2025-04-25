@@ -34,7 +34,7 @@ public class Main{
         Ambiente.adicionarObstaculo(predio1);
         Obstaculo predio2 = new Obstaculo(8, 9, 7, 8, 0, Obstaculo.TipoObstaculo.PREDIO);
         Ambiente.adicionarObstaculo(predio2);
-        Obstaculo buraco1 = new Obstaculo(0, 1, 3, 4, 0, Obstaculo.TipoObstaculo.BURACO);
+        Obstaculo buraco1 = new Obstaculo(0, 2, 3, 5, 0, Obstaculo.TipoObstaculo.BURACO);
         Ambiente.adicionarObstaculo(buraco1);
         Obstaculo buraco2 = new Obstaculo(7, 8, 4, 5, 0, Obstaculo.TipoObstaculo.BURACO);
         Ambiente.adicionarObstaculo(buraco2);
@@ -90,9 +90,7 @@ public class Main{
                 }
             
                 System.out.println(); // Linha em branco pra separar os robôs
-
-                
-
+            
             }
          }
 
@@ -181,8 +179,6 @@ public class Main{
                                guerreiro.atacar(x,y,z);
                             }
                         }
-                      
-
 
                        else if(robo_i instanceof RoboCurandeiro){
                            RoboCurandeiro curandeiro = (RoboCurandeiro) robo_i;
@@ -242,7 +238,6 @@ public class Main{
                                }
                             }
                        }
-
 
                        else if(robo_i instanceof RoboKamikaze){
                            RoboKamikaze kamikaze = (RoboKamikaze) robo_i;
@@ -355,7 +350,7 @@ public class Main{
                     robo=robos.get(i);
                     if(robo.getNome().equalsIgnoreCase(nome)){
                         robo_encontrado=true;
-                        List<Sensor> sensores =Robo.getsensoresDosRobos();
+                        List<Sensor> sensores =robo.getsensoresDosRobos();
                         boolean num_sensores=sensor_ambiente.monitorar(sensores);
 
                         if(num_sensores==true){
@@ -381,8 +376,9 @@ public class Main{
                     System.out.println("Robo nao encontrado :(");
                 }
 
-        }
+            }
         
+        }  
         
         else if(comando == 4){
             List<Obstaculo> obstaculos = Ambiente.getobstaculosExistentes();
@@ -400,9 +396,9 @@ public class Main{
             scanner.close();
             break;
         }
-    }      
+    
+    }
   }
-}
 }
 
 

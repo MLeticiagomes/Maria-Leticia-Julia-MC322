@@ -13,7 +13,7 @@ public class Robo {
    private int coordenada_z;
    private String direcao;
    private Ambiente ambiente;
-   private static ArrayList<Sensor> sensoresDosRobos;
+   private ArrayList<Sensor> sensoresDosRobos;
 
    public Robo(String nome, int x,  int y, int z, String d){ /* cria um robo com nome e posição x e y */
        this.nome_do_robo = nome;
@@ -29,7 +29,7 @@ public class Robo {
    }
 
 
-   public static ArrayList<Sensor> getsensoresDosRobos(){
+   public ArrayList<Sensor> getsensoresDosRobos(){
     return sensoresDosRobos;
 }
 

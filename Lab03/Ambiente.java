@@ -109,26 +109,34 @@ public boolean detectarColisoes(int xDestino, int zDestino, int alturaRobo){
         
         for (int i = 0; i < obstaculos.size(); i++) {
             Obstaculo obstaculo = obstaculos.get(i);
-            boolean dentroDaBase = (xDestino >= obstaculo.getCoordenadaX1() &&
-                                    xDestino <= obstaculo.getCoordenadaX2() &&
-                                    zDestino >= obstaculo.getCoordenadaZ1() &&
-                                    zDestino <= obstaculo.getCoordenadaZ2());
-
-            int alturaDoObstaculo = obstaculo.getTipo().getTamanhoVertical();
-            boolean dentroDaAltura = (alturaRobo >= obstaculo.getAltura() 
-                                    && alturaRobo <= obstaculo.getAltura() + alturaDoObstaculo);
-
+            int x1 = obstaculo.getCoordenadaX1();
+            int x2 = obstaculo.getCoordenadaX2(); 
+            int z1 = obstaculo.getCoordenadaZ1();
+            int z2 = obstaculo.getCoordenadaZ2();
+    
+            int xMin = Math.min(x1, x2); /* calcula o min e max entre os pontos */
+            int xMax = Math.max(x1, x2);
+            int zMin = Math.min(z1, z2);
+            int zMax = Math.max(z1, z2);
+    
+            boolean dentroDaBase = (xDestino >= xMin && xDestino <= xMax && /* verifica se o ponto de destino é maior que o minimo e menor que o maximp */
+                                    zDestino >= zMin && zDestino <= zMax);
+    
+            int alturaObstaculo = obstaculo.getTipo().getTamanhoVertical(); 
+            int yMin = obstaculo.getAltura();
+            int yMax = yMin + alturaObstaculo;
+    
+            boolean dentroDaAltura = (alturaRobo >= yMin && alturaRobo <= yMax); /* verifica se o ponto y esta entre a base e a altura do objeto */
             boolean podeAtravessar = obstaculo.getTipo().getpodeAtravessar();
-
-            if (dentroDaBase  && dentroDaAltura && !podeAtravessar) {
-                System.out.println("O robo ira colidir com " + obstaculo.getTipo());
-                return true; // o robô deve parar
+    
+            if (dentroDaBase && dentroDaAltura && !podeAtravessar) { /* se estiver dentro da base, da altura e nao puder atravessar o objeto ele retorna true */
+                System.out.println("O robô irá colidir com o obstáculo: " + obstaculo.getTipo());
+                return true;
             }
         }
-
-        return false; // pode seguir
-
-}
+    
+        return false;
+    }
 
 }
 
