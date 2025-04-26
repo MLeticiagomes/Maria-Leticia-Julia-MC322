@@ -1,3 +1,9 @@
+/*
+SubClasse de Sensor- Sensor Localizacao
+Objetivo: definir propriedas de SensorLocalizacao e identificar posicao dos robos proximos
+*/
+
+
 import java.util.List;
 
 public class SensorLocalizacao  extends Sensor{
@@ -29,12 +35,6 @@ public class SensorLocalizacao  extends Sensor{
                 if (distancia <= raio) {
                     System.out.println("Obstáculo detectado a " + distancia + " unidades: Robo em (" + xOutro + ", " + yOutro + ", " + zOutro + ")");
                 }
-        }
-        List<Obstaculo> obstaculos = Ambiente.getobstaculosExistentes();
-        for (int i = 0; i < obstaculos.size(); i++){
-            Obstaculo obstaculo=obstaculos.get(i);
-                                
-
         }
     }
 

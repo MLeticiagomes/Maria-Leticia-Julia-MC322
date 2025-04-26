@@ -115,10 +115,10 @@ public class Main{
                                    System.out.println("Crie um robo antes de mover!");
                                    continue;
                                }
-                               System.out.println("Digite a direcao (separadas por espaco):");
+                               System.out.println("Digite a direcao (norte/sul/leste/oeste):");
                                String direcao = scanner.next();
                                if(direcao.equalsIgnoreCase("leste") ||  direcao.equalsIgnoreCase("oeste") ||  direcao.equalsIgnoreCase("norte") ||  direcao.equalsIgnoreCase("sul")){
-                                   System.out.println("Digite a distancia percorrida (separadas por espaco):");
+                                   System.out.println("Digite a distancia percorrida:");
                                    int distancia=scanner.nextInt();   
                                    int velocidadeMax = blindado.getvelocidadeMaxima();
                                    if((blindado.verificar_velocidade (velocidadeMax, distancia))){ /* verifica se o robo terrestre esta excedendo a velocidade permitida */
@@ -148,12 +148,12 @@ public class Main{
                                }
 
 
-                               System.out.println("Digite a direcao (separadas por espaco):");
+                               System.out.println("Digite a direcao (norte/sul/leste/oeste):");
                                String direcao = scanner.next();
 
 
                                if(direcao.equalsIgnoreCase("leste") ||  direcao.equalsIgnoreCase("oeste") ||  direcao.equalsIgnoreCase("norte") ||  direcao.equalsIgnoreCase("sul")){  
-                                   System.out.println("Digite a distancia percorrida (separadas por espaco):");
+                                   System.out.println("Digite a distancia percorrida:");
                                    int distancia=scanner.nextInt();
 
 
@@ -189,7 +189,7 @@ public class Main{
                                    System.out.println("Crie um robo antes de mover!");
                                    continue;
                                }
-                               System.out.println("Digite a direcao:");
+                               System.out.println("Digite a direcao (norte/sul/leste/oeste):");
                                String direcao = scanner.next();
                                if(direcao.equalsIgnoreCase("leste") ||  direcao.equalsIgnoreCase("oeste") ||  direcao.equalsIgnoreCase("norte") ||  direcao.equalsIgnoreCase("sul")){  
                                    System.out.println("Digite a distancia percorrida:");
@@ -248,7 +248,7 @@ public class Main{
                                    System.out.println("Crie um robo antes de mover!");
                                    continue;
                                }
-                               System.out.println("Digite a direcao:");
+                               System.out.println("Digite a direcao (norte/sul/leste/oeste):");
                                String direcao = scanner.next();
 
                                if(direcao.equalsIgnoreCase("leste") ||  direcao.equalsIgnoreCase("oeste") ||  direcao.equalsIgnoreCase("norte") ||  direcao.equalsIgnoreCase("sul")){  

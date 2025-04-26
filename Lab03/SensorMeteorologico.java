@@ -1,3 +1,9 @@
+/*
+SubClasse de Sensor- Sensor Meteorologico
+Objetivo: definir propriedas de SensorMeteorologico e identificar clima em seu raio
+*/
+
+
 import java.util.List;
 
 public class SensorMeteorologico extends Sensor {

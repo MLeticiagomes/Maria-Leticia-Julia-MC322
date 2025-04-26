@@ -43,11 +43,11 @@ public class Obstaculo {
     }
 
    public enum TipoObstaculo{
-        BURACO(0, true), /* tamanho vertical do objeto */
-        ROCHA(2,true),
-        BALAO(3, true),
-        NUVEM(2,false),
-        PREDIO(5,true);
+        BURACO(0, false), /* tamanho vertical do objeto */
+        ROCHA(2,false),
+        BALAO(3, false),
+        NUVEM(2,true),
+        PREDIO(5,false);
 
         private final int tamanhoVertical;
         private final boolean podeAtravessar;
