@@ -38,7 +38,7 @@ Sensor -> classe mae {
 }
 
 Obstaculo -> Objetos do ambiente, possuem dimensoes e podem ou nao bloquear a passagem de robos
-![Diagrama](Lab03/Mc322.drawio.png)
+![Diagrama](Lab03/Mc322.png)
 
 Para rodar o simulador compile a ultima pasta atualizada {
 
