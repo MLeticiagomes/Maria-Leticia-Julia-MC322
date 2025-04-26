@@ -29,7 +29,6 @@ public class SensorMeteorologico extends Sensor {
                 int zmax= posZ + raio;
                 int zmin= posZ - raio;
                 
-
                 if((xmin<posX && posX<xmax) || (zmin<posZ && posZ<zmax)){
                     System.out.println("Chuva detectada na regiao ("+ x1 + "," + y1 + ",0) a (" + x2 + "," + y2+ "," + alt + ")");
                 }

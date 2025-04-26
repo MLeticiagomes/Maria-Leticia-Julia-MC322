@@ -63,7 +63,6 @@ public class Ambiente {
        }
    }
 
-
    public boolean dentroDaAltura(int y){
        if(y < 0){
            System.out.println("Insira apenas coordenadas positivas!");
@@ -78,10 +77,7 @@ public class Ambiente {
            System.out.println("Altura fora dos limites :(");
            return false;
        }
-
-
    }
-
 
    public static void adicionarRobo(Robo r){ /*adiciona novo robo na lista de robos */
        robosAtivos.add(r);

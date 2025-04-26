@@ -66,10 +66,5 @@ public class Obstaculo {
         }
     }
 
-    /* criar metodo do obstaculo para impedir que o robo va para aquela posicao  */
-    
-
-
-
 }
 

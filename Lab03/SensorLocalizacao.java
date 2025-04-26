@@ -3,7 +3,6 @@ SubClasse de Sensor- Sensor Localizacao
 Objetivo: definir propriedas de SensorLocalizacao e identificar posicao dos robos proximos
 */
 
-
 import java.util.List;
 
 public class SensorLocalizacao  extends Sensor{
