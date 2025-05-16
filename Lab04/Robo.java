@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Robo {
+public class Robo implements Entidade{
    private Scanner scanner = new Scanner(System.in);
    private String  nome_do_robo;
    private int coordenada_x;
@@ -11,6 +11,8 @@ public class Robo {
    private String direcao;
    private Ambiente ambiente;
    private ArrayList<Sensor> sensoresDosRobos;
+   private TipoEntidade entidade = TipoEntidade.ROBO;
+
 
    public Robo(String nome, int x,  int y, int z, String d){ /* cria um robo com nome e posição x e y */
        this.nome_do_robo = nome;
@@ -71,6 +73,36 @@ public class Robo {
 
     public int getCoordenadaZ(){
         return coordenada_z;
+    }
+
+    @Override
+    public int getX(){
+        return getCoordenadaX();
+    }
+
+    @Override
+    public int getY(){
+        return getCoordenadaY();
+    }
+
+    @Override
+    public int getZ(){
+        return getCoordenadaZ();
+    }
+
+    @Override
+    public TipoEntidade getEntidade(){
+        return entidade;
+    }
+
+    @Override
+    public String getDescricao(){
+        return "Robo: " + nome_do_robo + "\n Pertence ao tipo de entidade Robo \n Um robo pode se mover no ambiente, utilizar sensores e ativar habilidades especificas de sua subclasse";
+    }
+    
+    @Override
+    public char getRepresentacao(){
+        return '□';
     }
 
    public void exibir_posicao(){ /* printa as coordenadas */

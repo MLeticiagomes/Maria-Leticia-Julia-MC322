@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class Obstaculo {
+public class Obstaculo implements Entidade{
 
     private int coordenada_x1;
     private int coordenada_x2;
@@ -8,6 +8,7 @@ public class Obstaculo {
     private int coordenada_z2;
     private int altura;
     private TipoObstaculo tipo;
+    private TipoEntidade entidade = TipoEntidade.OBSTACULO;
 
    public Obstaculo(int x1, int x2, int z1, int z2, int altura, TipoObstaculo tipo){
        this.coordenada_x1 = x1;
@@ -18,6 +19,11 @@ public class Obstaculo {
        this.tipo = tipo;
    }
 
+
+   public TipoObstaculo getTipo(){
+    return tipo;
+   }
+   
    public int getCoordenadaX1() {
     return coordenada_x1;
    }
@@ -38,8 +44,34 @@ public class Obstaculo {
         return altura;
     }
 
-    public TipoObstaculo getTipo() {
-        return tipo;
+    @Override
+    public int getX(){
+        return ((getCoordenadaX1()+getCoordenadaX2())/2); /*referente ao centro do objeto */
+    }
+
+    @Override
+    public int getY(){
+        return getAltura();
+    }
+
+    @Override
+    public int getZ(){
+        return ((getCoordenadaZ1()+getCoordenadaZ2())/2);
+    }
+
+    @Override
+    public TipoEntidade getEntidade(){
+        return entidade;
+    }
+
+    @Override
+    public String getDescricao(){
+        return "Obstaculo: " + tipo + "\n Pertence ao tipo de entidade Obstaculo \n Um obstaculo pode ou nao bloquear a passagem de um Robo";
+    }
+    
+    @Override
+    public char getRepresentacao(){
+        return '▲';
     }
 
    public enum TipoObstaculo{
