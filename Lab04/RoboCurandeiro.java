@@ -43,33 +43,42 @@ public class RoboCurandeiro extends RoboAereo{ //cura robos em seu eixo y
 
    public void verificarPosicaoZ(){
        int posicaoZ = this.getCoordenadaZ();
-       for (Robo robo : Ambiente.getrobosAtivos()){
-           if (robo != this && robo.getCoordenadaZ() == posicaoZ){
-               verificarPosicaoX();
+       List<Entidade> ents = Ambiente.getEntidade();
+       for (int i = 0; i < ents.size(); i++) {
+           Entidade entidade = ents.get(i);
+           if (entidade.getEntidade() == TipoEntidade.ROBO){ /* verifica se a entidade é do tipo robo, se for executa as funçoes */
+                Robo robo = (Robo) entidade;  
+                if (robo != this && robo.getCoordenadaZ() == posicaoZ){
+                    verificarPosicaoX();
+                }
            }
        }
-
-
    }
 
    public void verificarPosicaoX(){
        int posicaoX = this.getCoordenadaX(); /* verifica se um robo na lista esta na mesma posicao x do robo curandeiro */
-       for (Robo robo : Ambiente.getrobosAtivos()){
-           if (robo != this && robo.getCoordenadaX() == posicaoX){
-               if(robo instanceof RoboBlindado){ /* verifica se o robo e um robo blindado */
-                   RoboBlindado blindado = (RoboBlindado) robo;
-                   blindado.consultarVida();
-                   if(checarVida(blindado) == true){ /* se for verdadeiro adiciona vida */
-                       blindado.cura(poderDeCura);
-                       System.out.println("Robo " + blindado.getNome() + " esta com "  + blindado.getPontosVida()+ " xp.");
+       
+       List<Entidade> ents = Ambiente.getEntidade();
+       for (int i = 0; i < ents.size(); i++) {
+           Entidade entidade = ents.get(i);
+           if (entidade.getEntidade() == TipoEntidade.ROBO){ /* verifica se a entidade é do tipo robo, se for executa as funçoes */
+                Robo robo = (Robo) entidade;  
+                if (robo != this && robo.getCoordenadaX() == posicaoX){
+                    if(robo instanceof RoboBlindado){ /* verifica se o robo e um robo blindado */
+                        RoboBlindado blindado = (RoboBlindado) robo;
+                        blindado.consultarVida();
+                        if(checarVida(blindado) == true){ /* se for verdadeiro adiciona vida */
+                            blindado.cura(poderDeCura);
+                            System.out.println("Robo " + blindado.getNome() + " esta com "  + blindado.getPontosVida()+ " xp.");
+                        }
+                        else{
+                            System.out.println("Robo " + blindado.getNome() + " esta com a vida maxima permitida." );
+                        }
+                    
                    }
-                   else{
-                       System.out.println("Robo " + blindado.getNome() + " esta com a vida maxima permitida." );
-                   }
-                  
+            
                }
-          
-           }
+            }
        }
    }
 }

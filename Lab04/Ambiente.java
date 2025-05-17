@@ -11,16 +11,13 @@ public class Ambiente {
    private int largura;
    private int altura;
    private int comprimento;
-   private static ArrayList<Robo> robosAtivos;
-   private static ArrayList<Obstaculo> obstaculosExistentes;
-
+   private static ArrayList <Entidade> entidades;
 
    public Ambiente(int l, int a, int c){
        this.largura=l;
        this.altura=a;
        this.comprimento = c;
-       robosAtivos = new ArrayList<>();
-       obstaculosExistentes = new ArrayList<>();
+       entidades = new ArrayList<>();
    }
 
 
@@ -79,32 +76,27 @@ public class Ambiente {
        }
    }
 
-   public static void adicionarRobo(Robo r){ /*adiciona novo robo na lista de robos */
-       robosAtivos.add(r);
+   public static void adicionarEntidade (Entidade e){
+        entidades.add(e);
    }
 
-
-   public static void removerRobo(Robo r){
-       robosAtivos.remove(r);
-   }
-  
-   public static ArrayList<Robo> getrobosAtivos(){
-       return robosAtivos;
+   public static void removerEntidade (Entidade e){
+    entidades.remove(e);
    }
 
-   public static void adicionarObstaculo(Obstaculo o){ /*adiciona novo robo na lista de robos */
-    obstaculosExistentes.add(o);
-   }
-
-   public static ArrayList<Obstaculo> getobstaculosExistentes(){
-    return obstaculosExistentes;
+   public static ArrayList<Entidade> getEntidade(){
+    return entidades;
 }
 
+
 public boolean detectarColisoes(int xDestino, int zDestino, int alturaRobo){
-     List<Obstaculo> obstaculos = Ambiente.getobstaculosExistentes();
+
+    List<Entidade> ents = Ambiente.getEntidade();
         
-        for (int i = 0; i < obstaculos.size(); i++) {
-            Obstaculo obstaculo = obstaculos.get(i);
+        for (int i = 0; i < ents.size(); i++) {
+            Entidade entidade = ents.get(i);
+            if (entidade.getEntidade() == TipoEntidade.ROBO){
+            Obstaculo obstaculo = (Obstaculo) entidade; 
             int x1 = obstaculo.getCoordenadaX1();
             int x2 = obstaculo.getCoordenadaX2(); 
             int z1 = obstaculo.getCoordenadaZ1();
@@ -129,6 +121,7 @@ public boolean detectarColisoes(int xDestino, int zDestino, int alturaRobo){
                 System.out.println("O robô irá colidir com o obstáculo: " + obstaculo.getTipo());
                 return true;
             }
+         }
         }
     
         return false;
