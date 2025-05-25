@@ -1,10 +1,10 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
-
-public class Robo implements Entidade{
+/*a classe robo é abstract permitindo chamar funções especificas de sub tipos */
+public abstract class Robo implements Entidade{
    private Scanner scanner = new Scanner(System.in);
-   private String  nome_do_robo;
+   private String  id;
    private int coordenada_x;
    private int coordenada_y;
    private int coordenada_z;
@@ -12,14 +12,16 @@ public class Robo implements Entidade{
    private Ambiente ambiente;
    private ArrayList<Sensor> sensoresDosRobos;
    private TipoEntidade entidade = TipoEntidade.ROBO;
+   private EstadoRobo estado;
 
 
    public Robo(String nome, int x,  int y, int z, String d){ /* cria um robo com nome e posição x e y */
-       this.nome_do_robo = nome;
+       this.id = nome;
        this.coordenada_x = x;
        this.coordenada_y = y;
        this.coordenada_z = z;
        this.direcao = d;
+       this.estado = EstadoRobo.DESLIGADO;
        sensoresDosRobos = new ArrayList<>();
    }
 
@@ -33,61 +35,34 @@ public class Robo implements Entidade{
    }
 
    public String getNome(){
-       return nome_do_robo;
+       return id;
    }
 
-
-   public int setCoordenadas_x_mais(int deltax){ /* muda a coordenada x */
-       this.coordenada_x += deltax;
-       return coordenada_x;  
-    }
-
-
-   public int setCoordenadas_x_menos(int deltax){ /* muda a coordenada x */
-       this.coordenada_x -= deltax;
-       return coordenada_x;
-    }
-
-   public int setcoordenada_y(int novo_y){
-    this.coordenada_y=novo_y;
-    return coordenada_y;
-   }
-
-   public int setCoordenadas_z_mais(int deltaz){ /* muda a coordenada z */
-       this.coordenada_z += deltaz;
-       return coordenada_z;
-    }
-
-   public int setCoordenadas_z_menos(int deltaz){ /* muda a coordenada z */
-       this.coordenada_z -= deltaz;
-       return coordenada_z;
-    }
-
-   public int getCoordenadaX(){
+    public int setCoordenada_x(int x){
+        this.coordenada_x  = x;
         return coordenada_x;
     }
 
-    public int getCoordenadaY(){
-        return coordenada_y;
-    }
-
-    public int getCoordenadaZ(){
+    public int setCoordenada_z(int z){
+        this.coordenada_z = z;
         return coordenada_z;
     }
 
-    @Override
-    public int getX(){
-        return getCoordenadaX();
+    public int setCoordenada_y(int y){
+        this.coordenada_y = y;
+        return coordenada_y;
     }
 
-    @Override
+   public int getX(){
+        return coordenada_x;
+    }
+
     public int getY(){
-        return getCoordenadaY();
+        return coordenada_y;
     }
 
-    @Override
     public int getZ(){
-        return getCoordenadaZ();
+        return coordenada_z;
     }
 
     @Override
@@ -97,7 +72,7 @@ public class Robo implements Entidade{
 
     @Override
     public String getDescricao(){
-        return "Robo: " + nome_do_robo + "\n Pertence ao tipo de entidade Robo \n Um robo pode se mover no ambiente, utilizar sensores e ativar habilidades especificas de sua subclasse";
+        return "Robo: " + id + "\n Pertence ao tipo de entidade Robo \n Um robo pode se mover no ambiente, utilizar sensores e ativar habilidades especificas de sua subclasse";
     }
     
     @Override
@@ -109,61 +84,51 @@ public class Robo implements Entidade{
         System.out.println("Nova posicao : (" + coordenada_x + "," + coordenada_y +  "," + coordenada_z + ")");
     }
 
-   public void mover(Ambiente ambiente, String direcao, int distancia){
+    public void ligar() {
+        estado = EstadoRobo.LIGADO;
+        System.out.println("Robô " + id + " foi ligado.");
+    }
 
-            if (direcao.equalsIgnoreCase("norte")){
-                if(ambiente.dentroDosLimites(coordenada_x, coordenada_z+distancia)==true){
-                    if(ambiente.detectarColisoes(coordenada_x, coordenada_z + distancia, coordenada_y) == false){ /* verifica se ha um objeto bloqueando a passagem do robo */
-                        setCoordenadas_z_mais(distancia); /* altera a posição do robo em z */
-                        exibir_posicao();
-                    }            
-                }
+    public void desligar() {
+        estado = EstadoRobo.DESLIGADO;
+        System.out.println("Robô " + id + " foi desligado.");
+    }
 
-                else{
-                    System.out.println("Fora dos limites :( ");
-                 }    
-               
-            }
-            else if (direcao.equalsIgnoreCase("sul")){
-                if(ambiente.dentroDosLimites(coordenada_x, coordenada_z-distancia)==true){
-                    if(ambiente.detectarColisoes(coordenada_x, coordenada_z - distancia, coordenada_y) == false){
-                        setCoordenadas_z_menos(distancia); /* altera a posição do robo em z */
-                        exibir_posicao();
+    public EstadoRobo getEstado(){
+        return estado;
+    }
+
+    public void moverPara(int x, int y, int z){ /* pega as novas coordenadas e verifica que elas nao ultrapassam os limites de espaco e altura */
+        if(estado == EstadoRobo.LIGADO){
+            if(ambiente.dentroDosLimites(x,z)){
+                if(!ambiente.verificarColisoes(x,z,y)){
+                    setCoordenada_x(x);
+                    setCoordenada_z(z);
+                    if(y != 0){ /* garante que apenas robos aereos possam se mover no eixo y */
+                        if(this instanceof RoboAereo){
+                            RoboAereo roboAereo = (RoboAereo) this;
+                            if(roboAereo.verificarAlturaMax()){ 
+                                setCoordenada_y(y);
+                            } else {
+                                System.out.println("Altura máxima excedida.");
+                            }
+                        } else {
+                            System.out.println("Robôs terrestres não podem se mover no eixo y.");
+                        }
+                    } else {
+                        setCoordenada_y(y);
                     }
                 }
-
-                else{
-                    System.out.println("Fora dos limites :( ");
-                 }      
-            }
-           
-           else if (direcao.equalsIgnoreCase("oeste")){
-               if(ambiente.dentroDosLimites(coordenada_x-distancia, coordenada_z)==true){
-                    if(ambiente.detectarColisoes(coordenada_x - distancia, coordenada_z, coordenada_y) == false){
-                        setCoordenadas_x_menos(distancia); /* altera a posição do robo em x */
-                        exibir_posicao();
-                    }            
-                }
-
-                else{
-                    System.out.println("Fora dos limites :( ");
-                 } 
-            
-            }
-
-           else if (direcao.equalsIgnoreCase("leste")){
-               if(ambiente.dentroDosLimites(coordenada_x+distancia, coordenada_z)==true){
-                    if(ambiente.detectarColisoes(coordenada_x + distancia, coordenada_z, coordenada_y) == false){
-                        setCoordenadas_x_mais(distancia); /* altera a posição do robo em z */
-                        exibir_posicao();
-                    }
-               }
-               
-               else{
+            } else {
                 System.out.println("Fora dos limites :( ");
-               }    
-             
-           }
-       }
-   }
+            }
+        } else {
+            System.out.println("Ligue o robo antes de move-lo.");
+        }
+    }
+
+    public abstract void executarTarefa();
+    
+}
+   
 

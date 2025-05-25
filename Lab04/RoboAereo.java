@@ -1,4 +1,4 @@
-public class RoboAereo extends Robo{
+public abstract class RoboAereo extends Robo{
 
     private int altitude;
     private int altitudeMaxima;
@@ -13,26 +13,10 @@ public class RoboAereo extends Robo{
         return altitudeMaxima;
     }
 
-    public void setCoordenadaY(int nova_altitude){
-        super.setcoordenada_y(nova_altitude);
-    }
 
-    public void subir(int deltay){ /* muda a coordenada y */
-        setCoordenadaY(getCoordenadaY() + deltay);
-        
-    }
-
-    public void descer(int deltay){ /* muda a coordenada y */
-        setCoordenadaY(getCoordenadaY()  - deltay);
-    
-    }
-
-
-
-
-    public boolean verificarAlturaMax(int distancia){
+    public boolean verificarAlturaMax(){
         int altitude_max = getaltura_maxima();
-        altitude = getCoordenadaY();
+        altitude = getY();
         if(altitude_max >= altitude){
             return true;
         }
@@ -41,14 +25,4 @@ public class RoboAereo extends Robo{
         }
     }
     
-
-    public boolean verificarAlturaMin(int distancia){
-        altitude = getCoordenadaY();
-        if(altitude - distancia>=0){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 }

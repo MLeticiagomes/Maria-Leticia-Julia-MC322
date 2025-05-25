@@ -25,25 +25,33 @@ public class RoboKamikaze extends RoboAereo{ //explode quando atacado eliminando
         if (entidade.getEntidade() == TipoEntidade.ROBO){ /* verifica se a entidade é do tipo robo, se for executa as funçoes */
             Robo robo = (Robo) entidade; 
 
-            int posicaoX = this.getCoordenadaX();
-            int posicaoZ = this.getCoordenadaZ();
-            int posicaoY = this.getCoordenadaY();
+            int posicaoX = this.getX();
+            int posicaoZ = this.getZ();
+            int posicaoY = this.getY();
 
-           if (robo != this && Math.abs(robo.getCoordenadaX() - posicaoX) <= raioDeAtaque ){
+           if (robo != this && Math.abs(robo.getX() - posicaoX) <= raioDeAtaque ){
                System.out.println("O robo " + robo.getNome() + " foi morto :)");
                 Ambiente.removerEntidade(robo);
            }
-           else if (robo != this && Math.abs(robo.getCoordenadaZ() - posicaoZ) <= raioDeAtaque ){
+           else if (robo != this && Math.abs(robo.getZ() - posicaoZ) <= raioDeAtaque ){
                System.out.println("O robo " + robo.getNome() + " foi morto :)");
                 Ambiente.removerEntidade(robo);
            }
-           else if (robo != this && Math.abs(robo.getCoordenadaY() - posicaoY) <= raioDeAtaque ){
+           else if (robo != this && Math.abs(robo.getY() - posicaoY) <= raioDeAtaque ){
                System.out.println("O robo " + robo.getNome() + " foi morto :)");
                 Ambiente.removerEntidade(robo);
 
            }
         }   
     }
+  }
+
+  @Override
+  public void executarTarefa() {
+    System.out.println("O robo " + this.getNome() + " se autodestruiu");
+    sacrificio ();
+    Ambiente.removerEntidade(this);
+     
   }
 }
 

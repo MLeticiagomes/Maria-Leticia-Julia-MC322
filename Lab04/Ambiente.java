@@ -89,7 +89,7 @@ public class Ambiente {
 }
 
 
-public boolean detectarColisoes(int xDestino, int zDestino, int alturaRobo){
+public boolean verificarColisoes(int xDestino, int zDestino, int alturaRobo){
 
     List<Entidade> ents = Ambiente.getEntidade();
         
@@ -126,6 +126,96 @@ public boolean detectarColisoes(int xDestino, int zDestino, int alturaRobo){
     
         return false;
     }
+
+public void executarSensores( Sensor sensor, Robo robo){ /* verifica o tipo de sensor e aplica sua função  */
+
+    if(sensor instanceof SensorLocalizacao){
+        SensorLocalizacao localizacao = (SensorLocalizacao) sensor;
+        localizacao.identificarRobos(robo.getX(),robo.getY(),robo.getZ());
+    }
+    else if(sensor instanceof SensorMeteorologico){
+        SensorMeteorologico meteorologico = (SensorMeteorologico) sensor;
+        meteorologico.identificarClima(robo.getX(),robo.getZ());
+    }
+
+}
+
+
+public void estaOcupado(int x, int y, int z){ /* descobre se ha um robo ou um obstaculo em uma dada posicao */
+    List<Entidade> ents = getEntidade();
+    for (int i = 0; i < ents.size(); i++) {
+        Entidade entidade = ents.get(i);
+        if (entidade.getEntidade() == TipoEntidade.ROBO) { 
+            Robo robo_i = (Robo) entidade;
+            if (robo_i.getX() == x && robo_i.getY() == y &&  robo_i.getZ() == z){
+                System.out.println("O robo" + robo_i.getNome() + " esta nessa posição");
+            }
+
+        }
+        else if(entidade.getEntidade() == TipoEntidade.OBSTACULO){ /* verifica se o ponto esta dentro da area englobada pelo objeto */
+            Obstaculo obstaculo = (Obstaculo) entidade; 
+            int x1 = obstaculo.getCoordenadaX1();
+            int x2 = obstaculo.getCoordenadaX2(); 
+            int z1 = obstaculo.getCoordenadaZ1();
+            int z2 = obstaculo.getCoordenadaZ2();
+    
+            int xMin = Math.min(x1, x2); /* calcula o min e max entre os pontos */
+            int xMax = Math.max(x1, x2);
+            int zMin = Math.min(z1, z2);
+            int zMax = Math.max(z1, z2);
+    
+            boolean base = (x >= xMin && x <= xMax && 
+                                    z >= zMin && z <= zMax);
+
+            int alturaObstaculo = obstaculo.getTipo().getTamanhoVertical(); 
+            int yMin = obstaculo.getAltura();
+            int yMax = yMin + alturaObstaculo;
+    
+            boolean altura = (y >= yMin && y <= yMax); 
+
+            if (base == true && altura == true )   {
+                System.out.println("Há um objeto nessa posição");
+            }                    
+        }
+
+        else{
+            System.out.println("Não há entidades nessas coordenadas");
+        }
+
+    }
+}
+
+
+
+public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ){
+
+    if((e.getEntidade() == TipoEntidade.ROBO)){ /* verifica se é um robo e chama a função propria para mover robo */
+        if (e instanceof Robo) {
+            ((Robo) e).moverPara(novoX, novoY, novoZ);
+        }
+    
+    }
+
+    else if (e.getEntidade() == TipoEntidade.OBSTACULO) { /* verifica se é um obstaculo e permite mover se for uma nuvem */
+        if (e instanceof Obstaculo) {
+            Obstaculo obstaculo = (Obstaculo) e;
+            if (obstaculo.getTipo() == Obstaculo.TipoObstaculo.NUVEM) { /* se for uma nuvem ira muda a a ltura, o x1  e z1 para as novas coordenadas */
+                obstaculo.setCoordenada_x(novoX);
+                obstaculo.setCoordenada_z(novoZ);
+                obstaculo.setAltura(novoY);
+                
+            }
+        }
+    }
+    else{
+        System.out.println("Apenas robos e obstaculos do tipo nuvem poder ser movidos");
+    }
+    
+
+}
+
+
+
 
 }
 

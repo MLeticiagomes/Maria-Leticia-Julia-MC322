@@ -3,19 +3,11 @@ SubClasse de RoboTerrestre- RoboGuerreiro
 Objetivo: definir propriedas de RoboGuerreiro e realizar ataques
 */
 
-
-
-
 import java.util.List;
-
-
-
 
 public class RoboGuerreiro extends RoboTerrestre {
   private int inimigosDerrotados;
   private int dano;
-
-
 
 
   public RoboGuerreiro(String nome, int x, int y, int z, String d, int velocidadeMax, int dano) {
@@ -35,7 +27,7 @@ public class RoboGuerreiro extends RoboTerrestre {
           Entidade entidade = ents.get(i);
           if (entidade.getEntidade() == TipoEntidade.ROBO){ /* verifica se a entidade é do tipo robo, se for executa as funçoes */
                Robo robo = (Robo) entidade; 
-           if (robo.getCoordenadaX() == alvoX  && robo.getCoordenadaY() == alvoY  && robo.getCoordenadaZ() == alvoZ ) { /* verifica se existe um robo na posicao */
+           if (robo.getX() == alvoX  && robo.getY() == alvoY  && robo.getZ() == alvoZ ) { /* verifica se existe um robo na posicao */
                if (robo instanceof RoboBlindado) { /* verifica se o tipo de robo e blindado e tira pontos de vida */
                   RoboBlindado blindado = (RoboBlindado) robo;
                   int novaVida = blindado.getPontosVida() - dano;
@@ -65,6 +57,34 @@ public class RoboGuerreiro extends RoboTerrestre {
       System.out.println("Nenhum robô encontrado na posição (" + alvoX + "," + alvoY+ "," + alvoZ +").");
     }
  }
+
+ @Override
+public void executarTarefa() { /* percorre a lista e acha o robo blindado com menor vida para atacar */
+    List<Entidade> entidades = Ambiente.getEntidade();
+    RoboBlindado alvoComMenorVida = null;
+    int menorVida = Integer.MAX_VALUE;
+
+    for (int i = 0; i < entidades.size(); i++) {
+        Entidade entidade = entidades.get(i);
+        if (entidade.getEntidade() == TipoEntidade.ROBO) {
+            if (entidade instanceof RoboBlindado) {
+                RoboBlindado blindado = (RoboBlindado) entidade;
+                if (blindado.getPontosVida() < menorVida) {
+                    menorVida = blindado.getPontosVida();
+                    alvoComMenorVida = blindado;
+                }
+            }
+        }
+    }
+
+    if (alvoComMenorVida != null) {
+        System.out.println("O robo blindado com menor vida foi encontrado na posicao ("   + alvoComMenorVida.getX() + ","  + alvoComMenorVida.getY() + "," + alvoComMenorVida.getZ() + ")");
+    } else {
+        System.out.println("Nenhum RoboBlindado encontrado no ambiente.");
+    }
+}
+
+
 }
 
 

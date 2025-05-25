@@ -22,13 +22,13 @@ public class SensorLocalizacao  extends Sensor{
             Entidade entidade = ents.get(i);
             if (entidade.getEntidade() == TipoEntidade.ROBO){ /* verifica se a entidade é do tipo robo, se for executa as funçoes */
                 Robo robo = (Robo) entidade; 
-                if (robo.getCoordenadaX()==xSensor && robo.getCoordenadaY()==ySensor && robo.getCoordenadaZ()==zSensor){
+                if (robo.getX()==xSensor && robo.getY()==ySensor && robo.getZ()==zSensor){
                     continue;
                 }
         
-                int xOutro = robo.getCoordenadaX();
-                int yOutro = robo.getCoordenadaY();
-                int zOutro = robo.getCoordenadaZ();
+                int xOutro = robo.getX();
+                int yOutro = robo.getY();
+                int zOutro = robo.getZ();
         
                 int distancia = calcular_distancia(xSensor, zSensor, xOutro, zOutro, ySensor, yOutro);
         

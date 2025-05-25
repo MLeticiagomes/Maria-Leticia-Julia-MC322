@@ -44,6 +44,21 @@ public class Obstaculo implements Entidade{
         return altura;
     }
 
+    public int setCoordenada_x(int x){
+        this.coordenada_x1  = x;
+        return coordenada_x1;
+    }
+
+    public int setCoordenada_z(int z){
+        this.coordenada_z1 = z;
+        return coordenada_z1;
+    }
+
+    public int setAltura(int y){
+        this.altura = y;
+        return altura;
+    }
+
     @Override
     public int getX(){
         return ((getCoordenadaX1()+getCoordenadaX2())/2); /*referente ao centro do objeto */

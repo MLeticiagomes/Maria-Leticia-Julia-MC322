@@ -1,4 +1,4 @@
-public class RoboTerrestre extends Robo { /* robo terrestre com uma velocidade maxima */
+public abstract class RoboTerrestre extends Robo { /* robo terrestre com uma velocidade maxima */
 
     private int velocidadeMaxima;
 

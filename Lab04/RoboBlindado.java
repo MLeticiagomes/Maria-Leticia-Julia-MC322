@@ -36,6 +36,11 @@ public class RoboBlindado extends RoboTerrestre {
    public void consultarVida(){ //retorna a quantiade de vida atual
        System.out.println("Vida restante " + pontosVida);
    }
+
+   @Override
+   public void executarTarefa() {
+       consultarVida();
+   }
 }
 
 
