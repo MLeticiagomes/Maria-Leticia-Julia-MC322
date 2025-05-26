@@ -6,6 +6,7 @@ public class Main{
 
         Entidade entidades = null;
         Ambiente ambiente = new Ambiente(10, 15, 10 );
+        CentralComunicacao central= new CentralComunicacao();
 
         RoboGuerreiro robo1 = new RoboGuerreiro("Guerreiro1", 2, 0, 2, "norte", 5, 4);
         Ambiente.adicionarEntidade(robo1);

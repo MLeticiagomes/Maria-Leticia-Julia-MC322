@@ -12,14 +12,27 @@ public class Ambiente {
    private int altura;
    private int comprimento;
    private static ArrayList <Entidade> entidades;
+   private static TipoEntidade[][][] mapa;
+
 
    public Ambiente(int l, int a, int c){
        this.largura=l;
        this.altura=a;
        this.comprimento = c;
        entidades = new ArrayList<>();
+       mapa = new TipoEntidade[largura][altura][comprimento];
+       inicializarMapa();
    }
 
+   private void inicializarMapa(){
+        for(int x = 0; x < largura; x++){
+            for(int y = 0; y < altura; y++){
+                for(int z = 0; z < comprimento; z++){
+                    mapa[x][y][z] = TipoEntidade.VAZIO;
+                }
+            }
+        }
+   }
 
    public int getAltura(){
        return this.altura;
@@ -76,12 +89,101 @@ public class Ambiente {
        }
    }
 
+   private static void adicionarMapa(Entidade e){
+
+        if(e instanceof Robo){
+            int X=e.getX();
+            int Y=e.getY();
+            int Z=e.getZ();
+
+            mapa[X][Y][Z]=e.getEntidade();
+        }
+
+        if(e instanceof Obstaculo){
+            Obstaculo o = (Obstaculo) e;
+            int xMin = Math.min(o.getCoordenadaX1(), o.getCoordenadaX2());
+            int xMax = Math.max(o.getCoordenadaX1(), o.getCoordenadaX2());
+            int zMin = Math.min(o.getCoordenadaZ1(), o.getCoordenadaZ2());
+            int zMax = Math.max(o.getCoordenadaZ1(), o.getCoordenadaZ2());
+            int yMin = o.getAltura();
+            int yMax = yMin + o.getTipo().getTamanhoVertical();
+
+            for (int x = xMin; x <= xMax; x++) {
+                for (int y = yMin; y <= yMax; y++) {
+                    for (int z = zMin; z <= zMax; z++) {
+                        mapa[x][y][z] = e.getEntidade();
+                    }
+                }
+            }
+        }
+   }
+
+   private static void removerMapa(Entidade e){
+
+    if(e instanceof Robo){
+        int X=e.getX();
+        int Y=e.getY();
+        int Z=e.getZ();
+
+        mapa[X][Y][Z]=TipoEntidade.VAZIO;
+    }
+
+    if(e instanceof Obstaculo){
+        Obstaculo o = (Obstaculo) e;
+        int xMin = Math.min(o.getCoordenadaX1(), o.getCoordenadaX2());
+        int xMax = Math.max(o.getCoordenadaX1(), o.getCoordenadaX2());
+        int zMin = Math.min(o.getCoordenadaZ1(), o.getCoordenadaZ2());
+        int zMax = Math.max(o.getCoordenadaZ1(), o.getCoordenadaZ2());
+        int yMin = o.getAltura();
+        int yMax = yMin + o.getTipo().getTamanhoVertical();
+
+        for (int x = xMin; x <= xMax; x++) {
+            for (int y = yMin; y <= yMax; y++) {
+                for (int z = zMin; z <= zMax; z++) {
+                    mapa[x][y][z] = TipoEntidade.VAZIO;
+                }
+            }
+        }
+    }
+}
+
+   public void vizualizarAmbiente(int altura){ /*vizualizacao ambiente em um plano de altura escolhida */
+        System.out.println("Visualização do Ambiente (altura:"+ altura + ")");
+        char representacao;
+
+        for (int x = 0; x < largura; x++) {
+            for (int y = 0; y < comprimento; y++) {
+                TipoEntidade entidade = mapa[x][altura][y];
+                if(entidade==TipoEntidade.VAZIO){
+                    representacao='-';
+                }
+
+                else if(entidade==TipoEntidade.ROBO){
+                    representacao='□';
+                }
+
+                else if(entidade==TipoEntidade.OBSTACULO){
+                    representacao='▲';
+                }
+
+                else{
+                    representacao='?';
+                }
+
+                System.out.println(representacao+ " ");
+            }
+        System.out.println("\n");
+        }
+   }
+
    public static void adicionarEntidade (Entidade e){
         entidades.add(e);
+        adicionarMapa(e);
    }
 
    public static void removerEntidade (Entidade e){
     entidades.remove(e);
+    removerMapa(e);
    }
 
    public static ArrayList<Entidade> getEntidade(){
@@ -191,7 +293,9 @@ public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ){
 
     if((e.getEntidade() == TipoEntidade.ROBO)){ /* verifica se é um robo e chama a função propria para mover robo */
         if (e instanceof Robo) {
+            removerMapa(e);
             ((Robo) e).moverPara(novoX, novoY, novoZ);
+            adicionarMapa(e);
         }
     
     }
@@ -200,10 +304,11 @@ public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ){
         if (e instanceof Obstaculo) {
             Obstaculo obstaculo = (Obstaculo) e;
             if (obstaculo.getTipo() == Obstaculo.TipoObstaculo.NUVEM) { /* se for uma nuvem ira muda a a ltura, o x1  e z1 para as novas coordenadas */
+                removerMapa(obstaculo);
                 obstaculo.setCoordenada_x(novoX);
                 obstaculo.setCoordenada_z(novoZ);
                 obstaculo.setAltura(novoY);
-                
+                adicionarMapa(obstaculo);
             }
         }
     }
