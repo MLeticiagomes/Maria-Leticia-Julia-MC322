@@ -132,8 +132,17 @@ public class Main{
                                 Math.abs(blindado.getZ() - z);
 
                                     if((blindado.verificar_velocidade (velocidadeMax, distancia))){ /* verifica se o robo terrestre esta excedendo a velocidade permitida */
-                                        ambiente.moverEntidade(blindado, x, y, z);
+                                        try {
+                                            ambiente.moverEntidade(blindado, x, y, z);
+                                        }
+                                        catch (ColisaoException e) {
+                                            System.out.println("Erro ao mover o robô: " + e.getMessage());
+                                        }
+                                        catch (RoboDesligadoException e) {
+                                            System.out.println("Erro: o robô está desligado - " + e.getMessage());
+                                        }
                                     }
+ 
                                     
                                     else{
                                         System.out.println("Velocidade maxima excedida");
@@ -184,16 +193,21 @@ public class Main{
                                     Math.abs(guerreiro.getY() - y) + 
                                     Math.abs(guerreiro.getZ() - z);
                                     if((guerreiro.verificar_velocidade (velocidadeMax, distancia)) == true){ /* verifica se o robo terrestre esta excedendo a velocidade permitida */
-                                        ambiente.moverEntidade(guerreiro, x, y, z);
+                                        try {
+                                            ambiente.moverEntidade(guerreiro, x, y, z);
+                                        }
+                                        catch (ColisaoException e) {
+                                            System.out.println("Erro ao mover o robô: " + e.getMessage());
+                                        }
+                                        catch (RoboDesligadoException e) {
+                                            System.out.println("Erro: o robô está desligado - " + e.getMessage());
+                                        }
                                     }
-                                    
-                                    else{
+ 
+                                    else {
                                         System.out.println("Velocidade maxima excedida");
-                                    }   
-                                                              
-                                
+                                    }      
                             }
-
 
                            if(input==2){
                                System.out.println("Informe as coordenadas que deseja atacar no formato 'x y z'"); /* determina o local que o robo pode atacar */
@@ -270,9 +284,16 @@ public class Main{
                                 int x = scanner.nextInt();
                                 int y = scanner.nextInt();
                                 int z = scanner.nextInt();
-                                ambiente.moverEntidade(curandeiro, x, y, z);
-                               
-                           }
+                                try {
+                                    ambiente.moverEntidade(curandeiro, x, y, z);
+                                }
+                                catch (ColisaoException e) {
+                                    System.out.println("Erro ao mover o robô: " + e.getMessage());
+                                }
+                                catch (RoboDesligadoException e) {
+                                    System.out.println("Erro: o robô está desligado - " + e.getMessage());
+                                }     
+                            } 
 
                            else if(input==2){
                                curandeiro.executarTarefa();
@@ -340,8 +361,17 @@ public class Main{
                                int x = scanner.nextInt();
                                int y = scanner.nextInt();
                                int z = scanner.nextInt();
-                               ambiente.moverEntidade(kamikaze, x, y, z);
+                               try {
+                                ambiente.moverEntidade(kamikaze, x, y, z);
+                                }
+                                catch (ColisaoException e) {
+                                    System.out.println("Erro ao mover o robô: " + e.getMessage());
+                                }
+                                catch (RoboDesligadoException e) {
+                                    System.out.println("Erro: o robô está desligado - " + e.getMessage());
+                                }
                             }
+ 
                             else if (input == 2){
                                 System.out.println("Deseja ligar ou desligar o robo?");
                                 String interruptor = scanner.next();
@@ -492,11 +522,20 @@ public class Main{
                         int y = scanner.nextInt();
                         int z = scanner.nextInt();
         
-                        ambiente.moverEntidade(entidade, x, y, z);
-                    } else {
+                        try {
+                            ambiente.moverEntidade(entidade, x, y, z);
+                        } catch (ColisaoException e) {
+                            System.out.println("Erro ao mover o robô: " + e.getMessage());
+                        } catch (RoboDesligadoException e) {
+                            System.out.println("Erro: o robô está desligado - " + e.getMessage());
+                        }   
+ 
+                    } 
+                    else {
                         System.out.println("A entidade selecionada não é um obstáculo.");
                     }
-                } else {
+                } 
+                else {
                     System.out.println("Índice inválido.");
                 }
             }

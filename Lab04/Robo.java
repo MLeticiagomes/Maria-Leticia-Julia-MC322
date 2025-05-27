@@ -98,37 +98,39 @@ public abstract class Robo implements Entidade{
         return estado;
     }
 
-    public void moverPara(int x, int y, int z){ /* pega as novas coordenadas e verifica que elas nao ultrapassam os limites de espaco e altura */
-        if(estado == EstadoRobo.LIGADO){
+    public void moverPara(int x, int y, int z) throws RoboDesligadoException{ /* pega as novas coordenadas e verifica que elas nao ultrapassam os limites de espaco e altura */
+    
+        RoboDesligadoException.VerificarInterruptor(this);
             if(ambiente.dentroDosLimites(x,z)){
-                if(!ambiente.verificarColisoes(x,z,y)){
+                if(!ambiente.verificarColisoes(x,z,y)){ /* acho que pode tirar por causa do colisaoexcetion */
                     setCoordenada_x(x);
                     setCoordenada_z(z);
                     if(y != 0){ /* garante que apenas robos aereos possam se mover no eixo y */
                         if(this instanceof RoboAereo){
                             RoboAereo roboAereo = (RoboAereo) this;
-                            if(roboAereo.verificarAlturaMax()){ 
+                            if(roboAereo.verificarAlturaMax()){
                                 setCoordenada_y(y);
-                            } else {
+                            }
+                          
+                            else {
                                 System.out.println("Altura máxima excedida.");
                             }
-                        } else {
+                        }
+                        else {
                             System.out.println("Robôs terrestres não podem se mover no eixo y.");
                         }
-                    } else {
+                    }
+                    else {
                         setCoordenada_y(y);
                     }
                 }
             } else {
                 System.out.println("Fora dos limites :( ");
             }
-        } else {
-            System.out.println("Ligue o robo antes de move-lo.");
-        }
     }
-
     public abstract void executarTarefa();
-    
-}
+  
+ }
    
+ 
 

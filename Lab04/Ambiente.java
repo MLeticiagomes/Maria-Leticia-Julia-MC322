@@ -289,7 +289,9 @@ public void estaOcupado(int x, int y, int z){ /* descobre se ha um robo ou um ob
 
 
 
-public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ){
+public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ) throws ColisaoException, RoboDesligadoException{
+
+    ColisaoException.verificarPosicaoOcupada(this, novoX, novoY, novoZ); /* verifica se a nova posicao vai gerar um erro do tipo colisaoexception */
 
     if((e.getEntidade() == TipoEntidade.ROBO)){ /* verifica se é um robo e chama a função propria para mover robo */
         if (e instanceof Robo) {
