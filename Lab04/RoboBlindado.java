@@ -5,7 +5,7 @@ Objetivo: definir propriedas de RoboBlindado e consultar vida atual
 
 import java.util.List;
 
-public class RoboBlindado extends RoboTerrestre implements Sensoreavel {
+public class RoboBlindado extends RoboTerrestre implements Sensoreavel, Camuflavel {
    private int pontosVida; // o quanto de dano o robo ainda pode receber
    private int vidaMax;
 
@@ -24,6 +24,20 @@ public class RoboBlindado extends RoboTerrestre implements Sensoreavel {
       else{
         System.out.println("Robo desligado, ativacao nao autorizada!");
       }
+   }
+
+   @Override
+   public void ativarCamuflagem() {
+       TipoEntidade entidade=TipoEntidade.OBSTACULO;
+       setTipoEntidade(entidade);
+       System.out.println(getNome() + "se camuflou entre os obstaculos, boa sorte tentando localiza-lo!");
+   }
+
+   @Override
+   public void desativarCamuflagem() {
+       TipoEntidade entidade=TipoEntidade.ROBO;
+       setTipoEntidade(entidade);
+       System.out.println(getNome() + "desativou sua camuflagem e esta visivel novamente!");
    }
 
    public int getPontosVida() {

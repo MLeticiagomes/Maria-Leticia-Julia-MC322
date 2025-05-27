@@ -34,6 +34,14 @@ public abstract class Robo implements Entidade{
     return sensoresDosRobos;
    }
 
+   public void setTipoEntidade(TipoEntidade TipoEntidade){
+    this.entidade= TipoEntidade;
+   }
+
+   public String getDirecao(){
+    return direcao;
+   }
+
    public String getNome(){
        return id;
    }

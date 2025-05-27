@@ -1,7 +1,7 @@
 import java.util.List;
 
 
-public class RoboCurandeiro extends RoboAereo implements Comunicavel{ //cura robos em seu eixo y
+public class RoboCurandeiro extends RoboAereo implements Comunicavel, Cooperativo{ //cura robos em seu eixo y
    private int poderDeCura;
 
 
@@ -15,6 +15,19 @@ public class RoboCurandeiro extends RoboAereo implements Comunicavel{ //cura rob
      return poderDeCura;
    }
    
+   @Override 
+   public void cooperarCom(Cooperativo roboAmigo){ /* Robo pode cooperar apenas com outros robos cooperativos */
+    if (roboAmigo!=this){
+        int bonus=5; /*bonus fixo */
+        this.poderDeCura+=bonus;
+        System.out.println(getNome() + "recebeu um bonus de cura pelo poder da cooperacao :)");
+
+    }
+    else{
+        System.out.println("Robo nao pode cooperar com si mesmo");
+    }
+   }
+
    @Override
    public void enviarMensagem(Comunicavel destinatario, String mensagem){
         System.out.println(getNome() + "enviou a seguinte mensagem:" + mensagem);

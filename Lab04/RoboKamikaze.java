@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RoboKamikaze extends RoboAereo{ //explode quando atacado eliminando os robos a sua volta
+public class RoboKamikaze extends RoboAereo implements Clonavel{ //explode quando atacado eliminando os robos a sua volta
    private int raioDeAtaque;
 
    public RoboKamikaze(String nome, int x, int y, int z, String d, int alt_max, int raioDeAtaque){
@@ -15,6 +15,13 @@ public class RoboKamikaze extends RoboAereo{ //explode quando atacado eliminando
         return raioDeAtaque;
    }
 
+   @Override
+   public void clonar(){
+      new RoboKamikaze((this.getNome()+ "_clone"), this.getX()+1, this.getY(), this.getZ(), 
+      this.getDirecao(), this.getaltura_maxima(),this.getRaioDeAtaque());
+
+      System.out.println(getNome() + "foi clonado");
+   }
 
    int i = 0;
    public void sacrificio (){ /* verifica se existem robos  na esfera de ataque  e se tiver remove-os da lista */
