@@ -191,43 +191,40 @@ public class Ambiente {
 }
 
 
-public boolean verificarColisoes(int xDestino, int zDestino, int alturaRobo){
-
-    List<Entidade> ents = Ambiente.getEntidade();
-        
-        for (int i = 0; i < ents.size(); i++) {
-            Entidade entidade = ents.get(i);
-            if (entidade.getEntidade() == TipoEntidade.ROBO){
-            Obstaculo obstaculo = (Obstaculo) entidade; 
-            int x1 = obstaculo.getCoordenadaX1();
-            int x2 = obstaculo.getCoordenadaX2(); 
-            int z1 = obstaculo.getCoordenadaZ1();
-            int z2 = obstaculo.getCoordenadaZ2();
+public void verificarColisoes(int x, int y, int z) throws ColisaoException {
+    List<Entidade> ents = getEntidade();
     
-            int xMin = Math.min(x1, x2); /* calcula o min e max entre os pontos */
-            int xMax = Math.max(x1, x2);
-            int zMin = Math.min(z1, z2);
-            int zMax = Math.max(z1, z2);
-    
-            boolean dentroDaBase = (xDestino >= xMin && xDestino <= xMax && /* verifica se o ponto de destino é maior que o minimo e menor que o maximp */
-                                    zDestino >= zMin && zDestino <= zMax);
-    
-            int alturaObstaculo = obstaculo.getTipo().getTamanhoVertical(); 
-            int yMin = obstaculo.getAltura();
-            int yMax = yMin + alturaObstaculo;
-    
-            boolean dentroDaAltura = (alturaRobo >= yMin && alturaRobo <= yMax); /* verifica se o ponto y esta entre a base e a altura do objeto */
-            boolean podeAtravessar = obstaculo.getTipo().getpodeAtravessar();
-    
-            if (dentroDaBase && dentroDaAltura && !podeAtravessar) { /* se estiver dentro da base, da altura e nao puder atravessar o objeto ele retorna true */
-                System.out.println("O robô irá colidir com o obstáculo: " + obstaculo.getTipo());
-                return true;
+    for (Entidade entidade : ents) {
+        if (entidade.getEntidade() == TipoEntidade.ROBO) {
+            Robo robo = (Robo) entidade;
+            if (robo.getX() == x && robo.getY() == y && robo.getZ() == z) {
+                throw new ColisaoException("Posição (" + x + ", " + y + ", " + z + ") ocupada pelo robô " + robo.getNome() + ".");
             }
-         }
+        } 
+        
+        else if (entidade.getEntidade() == TipoEntidade.OBSTACULO) {
+            Obstaculo obstaculo = (Obstaculo) entidade;
+            
+            int xMin = Math.min(obstaculo.getCoordenadaX1(), obstaculo.getCoordenadaX2());
+            int xMax = Math.max(obstaculo.getCoordenadaX1(), obstaculo.getCoordenadaX2());
+            int zMin = Math.min(obstaculo.getCoordenadaZ1(), obstaculo.getCoordenadaZ2());
+            int zMax = Math.max(obstaculo.getCoordenadaZ1(), obstaculo.getCoordenadaZ2());
+            
+            boolean dentroDaBase = (x >= xMin && x <= xMax) && (z >= zMin && z <= zMax);
+            
+            int yMin = obstaculo.getAltura();
+            int yMax = yMin + obstaculo.getTipo().getTamanhoVertical();
+            
+            boolean dentroDaAltura = (y >= yMin && y <= yMax);
+            boolean podeAtravessar = obstaculo.getTipo().getpodeAtravessar();
+            
+            if (dentroDaBase && dentroDaAltura && !podeAtravessar) {
+                throw new ColisaoException("Posição (" + x + ", " + y + ", " + z + ") ocupada por obstáculo do tipo " + obstaculo.getTipo());
+            }
         }
-    
-        return false;
     }
+}
+
 
 public static void executarSensores( Sensor sensor, Robo robo){ /* verifica o tipo de sensor e aplica sua função  */
 
@@ -291,7 +288,7 @@ public void estaOcupado(int x, int y, int z){ /* descobre se ha um robo ou um ob
 
 public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ) throws ColisaoException, RoboDesligadoException{
 
-    ColisaoException.verificarPosicaoOcupada(this, novoX, novoY, novoZ); /* verifica se a nova posicao vai gerar um erro do tipo colisaoexception */
+    verificarColisoes(novoX, novoY, novoZ);
 
     if((e.getEntidade() == TipoEntidade.ROBO)){ /* verifica se é um robo e chama a função propria para mover robo */
         if (e instanceof Robo) {
@@ -320,9 +317,6 @@ public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ) throws Co
     
 
 }
-
-
-
 
 }
 

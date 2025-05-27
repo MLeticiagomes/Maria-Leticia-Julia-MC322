@@ -98,39 +98,40 @@ public abstract class Robo implements Entidade{
         return estado;
     }
 
-    public void moverPara(int x, int y, int z) throws RoboDesligadoException{ /* pega as novas coordenadas e verifica que elas nao ultrapassam os limites de espaco e altura */
+    public void moverPara(int x, int y, int z) throws RoboDesligadoException {
+        if (this.getEstado() == EstadoRobo.DESLIGADO) {
+            throw new RoboDesligadoException(
+                "O robô " + this.getNome() + " está desligado, você não pode movê-lo."
+            );
+        }
     
-        RoboDesligadoException.VerificarInterruptor(this);
-            if(ambiente.dentroDosLimites(x,z)){
-                if(!ambiente.verificarColisoes(x,z,y)){ /* acho que pode tirar por causa do colisaoexcetion */
-                    setCoordenada_x(x);
-                    setCoordenada_z(z);
-                    if(y != 0){ /* garante que apenas robos aereos possam se mover no eixo y */
-                        if(this instanceof RoboAereo){
-                            RoboAereo roboAereo = (RoboAereo) this;
-                            if(roboAereo.verificarAlturaMax()){
-                                setCoordenada_y(y);
-                            }
-                          
-                            else {
-                                System.out.println("Altura máxima excedida.");
-                            }
+        if (ambiente.dentroDosLimites(x, z)) {
+                setCoordenada_x(x);
+                setCoordenada_z(z);
+    
+                if (y != 0) { // Se y for diferente de 0, verificar se é aéreo
+                    if (this instanceof RoboAereo) {
+                        RoboAereo roboAereo = (RoboAereo) this;
+                        if (roboAereo.verificarAlturaMax()) {
+                            setCoordenada_y(y);
+                        } else {
+                            System.out.println("Altura máxima excedida.");
                         }
-                        else {
-                            System.out.println("Robôs terrestres não podem se mover no eixo y.");
-                        }
+                    } else {
+                        System.out.println("Robôs terrestres não podem se mover no eixo y.");
                     }
-                    else {
-                        setCoordenada_y(y);
-                    }
+                } else {
+                    setCoordenada_y(y);
                 }
-            } else {
-                System.out.println("Fora dos limites :( ");
-            }
+            
+        } else {
+            System.out.println("Fora dos limites :( ");
+        }
     }
+    
     public abstract void executarTarefa();
   
- }
+}
    
  
 

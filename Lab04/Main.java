@@ -237,36 +237,48 @@ public class Main{
                             }
 
                             else if ( input == 5){
-                                System.out.println("Informe o nome do destinatario:");
-                                String destinatario=scanner.next();
-                                boolean robo_encontrado =false;
-                                for (int j = 0; j < ents.size(); j++) {
-                                    entidade = ents.get(j);
-                                    if (entidade.getEntidade() == TipoEntidade.ROBO) { /* verifica se a entidade é do tipo robo, se for executa as funçoes */
-                                     Robo robo_j = (Robo) entidade;  
-                                        if(robo_j.getNome().equalsIgnoreCase(destinatario)){
-                                            if(!(robo_j instanceof Comunicavel)){
-                                                System.out.println("O robo nao possui suporte para receber mensagens :(");
-                                                break;
-                                            }
-
-                                            else{
+                                System.out.println("Informe o nome do destinatário:");
+                                String destinatario = scanner.next();
+                                boolean robo_encontrado = false;
+                                
+                                try {
+                                    for (int j = 0; j < ents.size(); j++) {
+                                        entidade = ents.get(j);
+                                
+                                        if (entidade.getEntidade() == TipoEntidade.ROBO) {
+                                            Robo robo_j = (Robo) entidade;
+                                
+                                            if (robo_j.getNome().equalsIgnoreCase(destinatario)) {
+                                                // Verifica se o destinatário implementa Comunicavel
+                                                if (!(robo_j instanceof Comunicavel)) {
+                                                    throw new ErroComunicacaoException(
+                                                        "O robô " + destinatario + " não possui suporte para receber mensagens."
+                                                    );
+                                                }
+                                
                                                 System.out.println("Digite sua mensagem:");
-                                                String mensagem=scanner.next();
-
+                                                String mensagem = scanner.next();
+                                
                                                 central.registrarMensagem(destinatario, mensagem);
-                                                ((Comunicavel) robo_i).enviarMensagem((Comunicavel) robo_j,mensagem);
-                                                robo_encontrado=true;
+                                                ((Comunicavel) robo_i).enviarMensagem((Comunicavel) robo_j, mensagem);
+                                
+                                                robo_encontrado = true;
+                                                break;
                                             }
                                         }
                                     }
+                                
+                                    if (!robo_encontrado) {
+                                        System.out.println("Robô destinatário não encontrado.");
+                                    }
+                                
+                                } catch (ErroComunicacaoException e) {
+                                    System.out.println("Erro de comunicação: " + e.getMessage());
                                 }
-
-                                if(!robo_encontrado){
-                                    System.out.println("Robo nao encontrado :(");
-                                }
-                
+                                
+                                
                             }
+                            
                         }
 
                        else if(robo_i instanceof RoboCurandeiro){
@@ -316,37 +328,46 @@ public class Main{
                         }
 
                         else if ( input == 4){
-                            System.out.println("Informe o nome do destinatario:");
-                            String destinatario=scanner.next();
-                            boolean robo_encontrado =false;
-                            for (int j = 0; j < ents.size(); j++) {
-                                entidade = ents.get(j);
-                                if (entidade.getEntidade() == TipoEntidade.ROBO) { /* verifica se a entidade é do tipo robo, se for executa as funçoes */
-                                 Robo robo_j = (Robo) entidade;  
-                                    if(robo_j.getNome().equalsIgnoreCase(destinatario)){
-                                        if(!(robo_j instanceof Comunicavel)){
-                                            System.out.println("O robo nao possui suporte para receber mensagens :(");
-                                            break;
-                                        }
-
-                                        else{
+                            System.out.println("Informe o nome do destinatário:");
+                            String destinatario = scanner.next();
+                            boolean robo_encontrado = false;
+                            
+                            try {
+                                for (int j = 0; j < ents.size(); j++) {
+                                    entidade = ents.get(j);
+                            
+                                    if (entidade.getEntidade() == TipoEntidade.ROBO) {
+                                        Robo robo_j = (Robo) entidade;
+                            
+                                        if (robo_j.getNome().equalsIgnoreCase(destinatario)) {
+                                            // Verifica se o destinatário implementa Comunicavel
+                                            if (!(robo_j instanceof Comunicavel)) {
+                                                throw new ErroComunicacaoException(
+                                                    "O robô " + destinatario + " não possui suporte para receber mensagens."
+                                                );
+                                            }
+                            
                                             System.out.println("Digite sua mensagem:");
-                                            String mensagem=scanner.next();
-
+                                            String mensagem = scanner.next();
+                            
                                             central.registrarMensagem(destinatario, mensagem);
-                                            ((Comunicavel) robo_i).enviarMensagem((Comunicavel) robo_j,mensagem);
-                                            robo_encontrado=true;
+                                            ((Comunicavel) robo_i).enviarMensagem((Comunicavel) robo_j, mensagem);
+                            
+                                            robo_encontrado = true;
+                                            break;
                                         }
                                     }
                                 }
+                            
+                                if (!robo_encontrado) {
+                                    System.out.println("Robô destinatário não encontrado.");
+                                }
+                            
+                            } catch (ErroComunicacaoException e) {
+                                System.out.println("Erro de comunicação: " + e.getMessage());
                             }
-
-                            if(!robo_encontrado){
-                                System.out.println("Robo nao encontrado :(");
-                            }
-            
                         }
-                       }
+                    }
 
                        else if(robo_i instanceof RoboKamikaze){
                            RoboKamikaze kamikaze = (RoboKamikaze) robo_i;
