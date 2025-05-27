@@ -16,7 +16,7 @@ public class RoboCurandeiro extends RoboAereo implements Comunicavel, Cooperativ
    }
    
    @Override 
-   public void cooperarCom(Cooperativo roboAmigo){ /* Robo pode cooperar apenas com outros robos cooperativos */
+   public void cooperarCom(Cooperativo roboAmigo) throws CooperativoException{ /* Robo pode cooperar apenas com outros robos cooperativos */
     if (roboAmigo!=this){
         int bonus=5; /*bonus fixo */
         this.poderDeCura+=bonus;
@@ -24,7 +24,7 @@ public class RoboCurandeiro extends RoboAereo implements Comunicavel, Cooperativ
 
     }
     else{
-        System.out.println("Robo nao pode cooperar com si mesmo");
+        throw new CooperativoException("O robo" + this.getNome() + " nao pode cooperar consigo mesmo");
     }
    }
 
