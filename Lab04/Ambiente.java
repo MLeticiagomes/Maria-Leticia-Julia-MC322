@@ -49,7 +49,7 @@ public class Ambiente {
    }
 
 
-   public boolean dentroDosLimites(int x,int z){ /*verifica se nova coordenada do robo esta dentro do ambiente */
+   public boolean dentroDosLimites(int x,int z) throws ForaDosLimitesException { /*verifica se nova coordenada do robo esta dentro do ambiente */
        if (x<0 || z < 0){
            System.out.println("Insira apenas coordenadas positivas!");
            return false;
@@ -58,14 +58,11 @@ public class Ambiente {
            return true;
        }
        else if (x>largura){
-           System.out.println("Largura fora dos limites :(");
-           return false;
+           throw new ForaDosLimitesException("Posição (" + x + "," + z + ") esta fora dos limites");
        }
 
-
        else if (z>comprimento){
-           System.out.println("Comprimento fora dos limites :(");
-           return false;
+         throw new ForaDosLimitesException("Posição (" + x + "," + z + ") esta fora dos limites");
        }
        else{
            System.out.println("Altura fora dos limites :(");
@@ -73,7 +70,7 @@ public class Ambiente {
        }
    }
 
-   public boolean dentroDaAltura(int y){
+   public boolean dentroDaAltura(int y) throws ForaDosLimitesException  {
        if(y < 0){
            System.out.println("Insira apenas coordenadas positivas!");
            return false;
@@ -81,11 +78,8 @@ public class Ambiente {
        else if (y < altura){
            return true;
        }
-
-
        else {
-           System.out.println("Altura fora dos limites :(");
-           return false;
+        throw new ForaDosLimitesException("A altura (" + y +") esta fora dos limites");
        }
    }
 
@@ -286,7 +280,7 @@ public void estaOcupado(int x, int y, int z){ /* descobre se ha um robo ou um ob
 
 
 
-public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ) throws ColisaoException, RoboDesligadoException{
+public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ) throws ColisaoException, RoboDesligadoException, ForaDosLimitesException{
 
     verificarColisoes(novoX, novoY, novoZ);
 
@@ -303,6 +297,8 @@ public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ) throws Co
         if (e instanceof Obstaculo) {
             Obstaculo obstaculo = (Obstaculo) e;
             if (obstaculo.getTipo() == Obstaculo.TipoObstaculo.NUVEM) { /* se for uma nuvem ira muda a a ltura, o x1  e z1 para as novas coordenadas */
+                dentroDosLimites(novoX, novoZ);
+                dentroDaAltura(novoY);
                 removerMapa(obstaculo);
                 obstaculo.setCoordenada_x(novoX);
                 obstaculo.setCoordenada_z(novoZ);

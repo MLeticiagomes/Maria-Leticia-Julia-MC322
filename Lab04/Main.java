@@ -141,6 +141,10 @@ public class Main{
                                         catch (RoboDesligadoException e) {
                                             System.out.println("Erro: o robô está desligado - " + e.getMessage());
                                         }
+                                        catch (ForaDosLimitesException e) {
+                                            System.out.println("Erro ao mover o robô:- " + e.getMessage());
+                                        }
+
                                     }
  
                                     
@@ -201,6 +205,9 @@ public class Main{
                                         }
                                         catch (RoboDesligadoException e) {
                                             System.out.println("Erro: o robô está desligado - " + e.getMessage());
+                                        }
+                                        catch (ForaDosLimitesException e) {
+                                            System.out.println("Erro ao mover o robô:- " + e.getMessage());
                                         }
                                     }
  
@@ -304,12 +311,14 @@ public class Main{
                                 }
                                 catch (RoboDesligadoException e) {
                                     System.out.println("Erro: o robô está desligado - " + e.getMessage());
-                                }     
+                                } 
+                                catch (ForaDosLimitesException e) {
+                                    System.out.println("Erro ao mover o robô:- " + e.getMessage());
+                                }   
                             } 
 
                            else if(input==2){
                                curandeiro.executarTarefa();
-                               curandeiro.verificarPosicaoX();
                            }
 
                            else if (input == 3){
@@ -390,6 +399,9 @@ public class Main{
                                 }
                                 catch (RoboDesligadoException e) {
                                     System.out.println("Erro: o robô está desligado - " + e.getMessage());
+                                }
+                                catch (ForaDosLimitesException e) {
+                                    System.out.println("Erro ao mover o robô:- " + e.getMessage());
                                 }
                             }
  
@@ -550,6 +562,9 @@ public class Main{
                         } catch (RoboDesligadoException e) {
                             System.out.println("Erro: o robô está desligado - " + e.getMessage());
                         }   
+                        catch (ForaDosLimitesException e) {
+                            System.out.println("Erro ao mover o robô:- " + e.getMessage());
+                        }
  
                     } 
                     else {

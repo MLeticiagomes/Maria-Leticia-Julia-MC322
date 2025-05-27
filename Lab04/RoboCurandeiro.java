@@ -38,7 +38,7 @@ public class RoboCurandeiro extends RoboAereo implements Comunicavel{ //cura rob
    }
 
 
-   public Boolean checarVida (RoboBlindado blindado){ /* verifica se a vida do robo mais os pontos de cura nao excede a vida maxima permitida  */
+   public Boolean checarVida (RoboBlindado blindado) throws VidaMaximaException{ /* verifica se a vida do robo mais os pontos de cura nao excede a vida maxima permitida  */
        int pontosV = blindado.getPontosVida();
        int pontosVMax =  blindado.getVidaMax();
        if (pontosV + this.poderDeCura <= pontosVMax){
@@ -47,11 +47,11 @@ public class RoboCurandeiro extends RoboAereo implements Comunicavel{ //cura rob
 
 
        else{
-           return false;
+        throw new VidaMaximaException("O robo" + blindado.getNome() + " esta com a vida maxima");
            }
    }
 
-
+ 
    public void verificarPosicaoZ(){
        int posicaoZ = this.getZ();
        List<Entidade> ents = Ambiente.getEntidade();
@@ -60,13 +60,19 @@ public class RoboCurandeiro extends RoboAereo implements Comunicavel{ //cura rob
            if (entidade.getEntidade() == TipoEntidade.ROBO){ /* verifica se a entidade é do tipo robo, se for executa as funçoes */
                 Robo robo = (Robo) entidade;  
                 if (robo != this && robo.getZ() == posicaoZ){
-                    verificarPosicaoX();
+                    try{
+                        verificarPosicaoX();
+                    }
+                    catch(VidaMaximaException e){
+                        System.out.println(e.getMessage());
+                    }
+                 
                 }
            }
        }
    }
 
-   public void verificarPosicaoX(){
+   public void verificarPosicaoX() throws VidaMaximaException{
        int posicaoX = this.getX(); /* verifica se um robo na lista esta na mesma posicao x do robo curandeiro */
        
        List<Entidade> ents = Ambiente.getEntidade();
@@ -83,7 +89,7 @@ public class RoboCurandeiro extends RoboAereo implements Comunicavel{ //cura rob
                             System.out.println("Robo " + blindado.getNome() + " esta com "  + blindado.getPontosVida()+ " xp.");
                         }
                         else{
-                            System.out.println("Robo " + blindado.getNome() + " esta com a vida maxima permitida." );
+                            throw new VidaMaximaException("O robo" + blindado.getNome() + " esta com a vida maxima"); /* chama a exception */
                         }
                     
                    }
@@ -94,7 +100,7 @@ public class RoboCurandeiro extends RoboAereo implements Comunicavel{ //cura rob
    }
 
    @Override
-   public void executarTarefa() {
+   public void executarTarefa(){
        verificarPosicaoZ();
    }
 

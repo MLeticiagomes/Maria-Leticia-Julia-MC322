@@ -98,7 +98,7 @@ public abstract class Robo implements Entidade{
         return estado;
     }
 
-    public void moverPara(int x, int y, int z) throws RoboDesligadoException {
+    public void moverPara(int x, int y, int z) throws RoboDesligadoException , ForaDosLimitesException {
         if (this.getEstado() == EstadoRobo.DESLIGADO) {
             throw new RoboDesligadoException(
                 "O robô " + this.getNome() + " está desligado, você não pode movê-lo."
@@ -124,9 +124,7 @@ public abstract class Robo implements Entidade{
                     setCoordenada_y(y);
                 }
             
-        } else {
-            System.out.println("Fora dos limites :( ");
-        }
+        } 
     }
     
     public abstract void executarTarefa();
