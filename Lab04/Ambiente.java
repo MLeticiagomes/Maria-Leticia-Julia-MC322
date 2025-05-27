@@ -170,9 +170,9 @@ public class Ambiente {
                     representacao='?';
                 }
 
-                System.out.println(representacao+ " ");
+                System.out.print(representacao+ " ");
             }
-        System.out.println("\n");
+        System.out.println();
         }
    }
 

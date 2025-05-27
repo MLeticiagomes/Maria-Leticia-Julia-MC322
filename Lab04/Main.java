@@ -514,6 +514,8 @@ public class Main{
             System.out.println("Informe a altura que deseja vizualizar:");
             int altura=scanner.nextInt();
             ambiente.vizualizarAmbiente(altura);
+
+            System.out.println("\n □ - Robos\n ▲ - Obstaculos \n");
         }
 
         else if (comando==0){ /*Fecha o simulador */
