@@ -5,7 +5,7 @@ Objetivo: definir propriedas de RoboBlindado e consultar vida atual
 
 import java.util.List;
 
-public class RoboBlindado extends RoboTerrestre {
+public class RoboBlindado extends RoboTerrestre implements Sensoreavel {
    private int pontosVida; // o quanto de dano o robo ainda pode receber
    private int vidaMax;
 
@@ -13,6 +13,17 @@ public class RoboBlindado extends RoboTerrestre {
        super(nome, x,y, z, d, velocidadeMax);
        this.pontosVida = vidaMax;
        this.vidaMax =vidaMax;
+   }
+
+   @Override
+   public void acionarSensores(Sensor sensor,Robo robo_i){ /*verifica se esta ligado para ativacao dos sensores */
+      if(getEstado()==EstadoRobo.LIGADO){
+        System.out.println("Robo ligado, ativacao autorizada!");
+        Ambiente.executarSensores(sensor, robo_i);
+      }
+      else{
+        System.out.println("Robo desligado, ativacao nao autorizada!");
+      }
    }
 
    public int getPontosVida() {

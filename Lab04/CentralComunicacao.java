@@ -12,7 +12,7 @@ public class CentralComunicacao {
         mensagens = new ArrayList<>();
     }
 
-    public static void registrarMensagem (String remetente, String msg){
+    public void registrarMensagem (String remetente, String msg){
         mensagens.add(remetente+" enviou: '"+msg+"'");
     }
 

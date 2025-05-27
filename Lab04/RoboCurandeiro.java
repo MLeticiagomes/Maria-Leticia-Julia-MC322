@@ -1,7 +1,7 @@
 import java.util.List;
 
 
-public class RoboCurandeiro extends RoboAereo{ //cura robos em seu eixo y
+public class RoboCurandeiro extends RoboAereo implements Comunicavel{ //cura robos em seu eixo y
    private int poderDeCura;
 
 
@@ -15,6 +15,17 @@ public class RoboCurandeiro extends RoboAereo{ //cura robos em seu eixo y
      return poderDeCura;
    }
    
+   @Override
+   public void enviarMensagem(Comunicavel destinatario, String mensagem){
+        System.out.println(getNome() + "enviou a seguinte mensagem:" + mensagem);
+        destinatario.receberMensagem(mensagem);
+   }
+
+   @Override
+   public void receberMensagem(String mensagem){
+        System.out.println("A mensagem foi recebida com sucesso por:" + getNome());
+   }
+
    @Override
    public int getX() { /* pega a coordenada x do robo */
        return super.getX();

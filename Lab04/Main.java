@@ -53,7 +53,7 @@ public class Main{
         Sensor sensor_ambiente= new Sensor(15,"SensorAmbiente"); /* monitora a quantidade de sensores dos robos */
 
       while (true){ /*Introduz comandos do simulador */
-          System.out.println("O que deseja fazer?\nDigite 1 para visualizar os robos ativos\nDigite 2 para selecionar o robo\nDigite 3 para acessar sensores\nDigite 4 para ver a lista de objetos\n Digite 5 para verifica se há uma entidade em uma determinada posição\n Digite 0 para fechar o simulador");
+          System.out.println("O que deseja fazer?\n[1] Visualizar os robos ativos\n[2] Selecionar o robo\n[3] Acessar sensores\n[4] Ver a lista de objetos\n [5] Verificar se há uma entidade em uma determinada posição\n [6] Vizualizar o mapa \n [0] Fechar o simulador");
           int comando=scanner.nextInt();
 
           if (comando==1){ /*Lista de robos */
@@ -112,8 +112,9 @@ public class Main{
                         encontrado = true;
                         /* verificação do tipo de robo e os comandos especiais de cada um */
                         if(robo_i instanceof RoboBlindado){
+                            System.out.println("Voce selecionou RoboBlindado\n A subclasse possui os atributos Sensoreavel (acesse sensores no menu principal para utilizar sensores)\n\n");
                             RoboBlindado blindado = (RoboBlindado) robo_i;
-                            System.out.println("O que deseja fazer?\nDigite 1 para mover\nDigite 2 para consultar vida\n Digite 3 para ligar/desligar o robo");
+                            System.out.println("O que deseja fazer?\n[1] Mover\n[2] Consultar vida\n [3] Ligar/desligar o robo");
                             int input=scanner.nextInt();
 
                             if(input==1){
@@ -163,8 +164,10 @@ public class Main{
                         }
 
                         else if(robo_i instanceof RoboGuerreiro){
+                            System.out.println("Voce selecionou RoboGuerreiro\n A subclasse possui os atributos Comunicavel \n\n");
+
                             RoboGuerreiro guerreiro = (RoboGuerreiro) robo_i;
-                            System.out.println("O que deseja fazer?\nDigite 1 para mover\nDigite 2 para atacar\n Digite 3 para ligar/desligar o robo\n Digite 4 para achar o melhor alvo");
+                            System.out.println("O que deseja fazer?\n[1] Mover\n[2] Atacar\n [3] Ligar/desligar o robo\n [4] Achar o melhor alvo\n[5] Enviar mensagem");
                             int input=scanner.nextInt();
                             if(input==1){
                                 if (entidades ==null){
@@ -218,11 +221,45 @@ public class Main{
                             else if ( input == 4){
                                 guerreiro.executarTarefa();
                             }
+
+                            else if ( input == 5){
+                                System.out.println("Informe o nome do destinatario:");
+                                String destinatario=scanner.next();
+                                boolean robo_encontrado =false;
+                                for (int j = 0; j < ents.size(); j++) {
+                                    entidade = ents.get(j);
+                                    if (entidade.getEntidade() == TipoEntidade.ROBO) { /* verifica se a entidade é do tipo robo, se for executa as funçoes */
+                                     Robo robo_j = (Robo) entidade;  
+                                        if(robo_j.getNome().equalsIgnoreCase(destinatario)){
+                                            if(!(robo_j instanceof Comunicavel)){
+                                                System.out.println("O robo nao possui suporte para receber mensagens :(");
+                                                break;
+                                            }
+
+                                            else{
+                                                System.out.println("Digite sua mensagem:");
+                                                String mensagem=scanner.next();
+
+                                                central.registrarMensagem(destinatario, mensagem);
+                                                ((Comunicavel) robo_i).enviarMensagem((Comunicavel) robo_j,mensagem);
+                                                robo_encontrado=true;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if(!robo_encontrado){
+                                    System.out.println("Robo nao encontrado :(");
+                                }
+                
+                            }
                         }
 
                        else if(robo_i instanceof RoboCurandeiro){
+                           System.out.println("Voce selecionou RoboCurandeiro\n A subclasse possui os atributos Comunicavel \n\n");
+
                            RoboCurandeiro curandeiro = (RoboCurandeiro) robo_i;
-                           System.out.println("O que deseja fazer?\nDigite 1 para mover\nDigite 2 para curar robos em seu eixo y\n Digite 3 para ligar/desligar o robo");
+                           System.out.println("O que deseja fazer?\n[1] Mover\n[2] Curar robos em seu eixo y\n [3] Ligar/desligar o robo\n[4] Enviar mensagem");
                            int input=scanner.nextInt();
                            if(input==1){
                                if (entidades==null){
@@ -256,11 +293,43 @@ public class Main{
                                 System.out.println("O robo esta desligado :)");
                             }
                         }
+
+                        else if ( input == 4){
+                            System.out.println("Informe o nome do destinatario:");
+                            String destinatario=scanner.next();
+                            boolean robo_encontrado =false;
+                            for (int j = 0; j < ents.size(); j++) {
+                                entidade = ents.get(j);
+                                if (entidade.getEntidade() == TipoEntidade.ROBO) { /* verifica se a entidade é do tipo robo, se for executa as funçoes */
+                                 Robo robo_j = (Robo) entidade;  
+                                    if(robo_j.getNome().equalsIgnoreCase(destinatario)){
+                                        if(!(robo_j instanceof Comunicavel)){
+                                            System.out.println("O robo nao possui suporte para receber mensagens :(");
+                                            break;
+                                        }
+
+                                        else{
+                                            System.out.println("Digite sua mensagem:");
+                                            String mensagem=scanner.next();
+
+                                            central.registrarMensagem(destinatario, mensagem);
+                                            ((Comunicavel) robo_i).enviarMensagem((Comunicavel) robo_j,mensagem);
+                                            robo_encontrado=true;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if(!robo_encontrado){
+                                System.out.println("Robo nao encontrado :(");
+                            }
+            
+                        }
                        }
 
                        else if(robo_i instanceof RoboKamikaze){
                            RoboKamikaze kamikaze = (RoboKamikaze) robo_i;
-                           System.out.println("O que deseja fazer?\nDigite 1 para mover\n Digite 2 para ligar/desligar o robo\n Digite 3 para que o robo se autodestrua");
+                           System.out.println("O que deseja fazer?\n[1] Mover\n [2] Ligar/desligar o robo\n [3] Autodestruir robo");
                            int input=scanner.nextInt();
                            if(input==1){
                                if (entidades==null){
@@ -305,7 +374,7 @@ public class Main{
 
 
            else if(comando == 3){
-              System.out.println("Digite 1 para criar um sensor\nDigite 2 para acessar um sensor ja existente");
+              System.out.println("[1] Criar um sensor\n[2] Acessar um sensor ja existente");
               int input= scanner.nextInt();
 
               if (input == 1){
@@ -318,22 +387,29 @@ public class Main{
                     if (entidade.getEntidade() == TipoEntidade.ROBO) { /* verifica se a entidade é do tipo robo, se for executa as funçoes */
                      Robo robo_i = (Robo) entidade;  
                         if(robo_i.getNome().equalsIgnoreCase(nome)){
-                            System.out.println("Digite o raio de atuacao do sensor");
-                            int raio_do_sensor = scanner.nextInt();
-
-                            System.out.println("Digite l para criar um sensor de localizacao ou m para criar um sensor meteorologico:");
-                            String tipo_de_sensor = scanner.next();
-                            if(tipo_de_sensor.equalsIgnoreCase("l")){/* cria um sensor de localizacao */
-                                Sensor sensor = new SensorLocalizacao(raio_do_sensor, "SensorLocalizacao"); 
-                                robo_i.adicionarSensor(sensor);
-                                robo_encontrado=true;
+                            if(!(robo_i instanceof Sensoreavel)){
+                                System.out.println("O robo nao possui suporte para sensores :(");
                                 break;
                             }
-                            else if(tipo_de_sensor.equalsIgnoreCase("m")){/* cria um sensor meteorologico */
-                                Sensor sensor = new SensorMeteorologico(raio_do_sensor, "SensorMeteorologico"); 
-                                robo_i.adicionarSensor(sensor);
-                                robo_encontrado=true;
-                                break;
+
+                            else{
+                                System.out.println("Digite o raio de atuacao do sensor");
+                                int raio_do_sensor = scanner.nextInt();
+
+                                System.out.println("Digite l para criar um sensor de localizacao ou m para criar um sensor meteorologico:");
+                                String tipo_de_sensor = scanner.next();
+                                if(tipo_de_sensor.equalsIgnoreCase("l")){/* cria um sensor de localizacao */
+                                    Sensor sensor = new SensorLocalizacao(raio_do_sensor, "SensorLocalizacao"); 
+                                    robo_i.adicionarSensor(sensor);
+                                    robo_encontrado=true;
+                                    break;
+                                }
+                                else if(tipo_de_sensor.equalsIgnoreCase("m")){/* cria um sensor meteorologico */
+                                    Sensor sensor = new SensorMeteorologico(raio_do_sensor, "SensorMeteorologico"); 
+                                    robo_i.adicionarSensor(sensor);
+                                    robo_encontrado=true;
+                                    break;
+                                }
                             }
 
                         }
@@ -367,7 +443,7 @@ public class Main{
                                 System.out.println("Deseja utilizar " + sensor.getNome() + "? Digite 0 para utilizar ou 1 para continuar"); 
                                 input = scanner.nextInt(); 
                                 if(input==0){
-                                    ambiente.executarSensores( sensor, robo_i);
+                                    ((Sensoreavel) robo_i).acionarSensores(sensor,robo_i);
                                 }
                             }
                         }
@@ -385,7 +461,7 @@ public class Main{
         
         else if(comando == 4){
 
-            System.out.println("O que deseja fazer?\nDigite 1 para mover\nDigite 2 para consultar lista de obstaculos");
+            System.out.println("O que deseja fazer?\n[1] Mover\n[2] Consultar lista de obstaculos");
             int input=scanner.nextInt();
 
             if(input == 1){
@@ -432,6 +508,12 @@ public class Main{
         int y = scanner.nextInt();
         int z = scanner.nextInt();
         ambiente.estaOcupado(x, y, z);
+        }
+
+        else if (comando == 6){
+            System.out.println("Informe a altura que deseja vizualizar:");
+            int altura=scanner.nextInt();
+            ambiente.vizualizarAmbiente(altura);
         }
 
         else if (comando==0){ /*Fecha o simulador */

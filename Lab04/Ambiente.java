@@ -229,7 +229,7 @@ public boolean verificarColisoes(int xDestino, int zDestino, int alturaRobo){
         return false;
     }
 
-public void executarSensores( Sensor sensor, Robo robo){ /* verifica o tipo de sensor e aplica sua função  */
+public static void executarSensores( Sensor sensor, Robo robo){ /* verifica o tipo de sensor e aplica sua função  */
 
     if(sensor instanceof SensorLocalizacao){
         SensorLocalizacao localizacao = (SensorLocalizacao) sensor;
