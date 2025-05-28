@@ -398,15 +398,19 @@ public class Main{
                                     Robo robo_j = (Robo) entidade;
                         
                                     if (robo_j.getNome().equalsIgnoreCase(nome)) {
-                                        if (!(robo_j instanceof Cooperativo)) {
-                                            System.out.println("O robo nao possui suporte para cooperacao");
+                                        robo_encontrado = true;
+                                        try {
+                                            if (!(robo_j instanceof Cooperativo)) {
+                                                throw new CooperativoException("O robô " + robo_j.getNome() + " não possui suporte para cooperação.");
+                                            }
+                        
+                                            ((Cooperativo) robo_i).cooperarCom((Cooperativo) robo_j);
+                                        } 
+                                        catch (CooperativoException e) {
+                                            System.out.println("Erro na cooperação: " + e.getMessage());
                                         }
-                                        
-                                        else{
-                                            ((Cooperativo)robo_i).cooperarCom((Cooperativo)robo_j);
-                                            robo_encontrado = true;
-                                            break;
-                                        }
+                        
+                                        break;
                                     }
                                 }
                             }
