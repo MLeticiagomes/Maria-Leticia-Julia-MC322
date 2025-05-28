@@ -8,32 +8,53 @@ Julia de Souza Nardo 281272
 
 Maria Leticia Gomes Braga dos Reis 281318
 
+
+Simulador de Robos com suporte para criacao e interacao entre robos e um ambiente tridimensional de obstaculos.
+
+
 Main -> Leitura de inputs, mensagens do terminal e chamadas de funcao
 
-Robo-> Classe mae {
+
+Robo-> Classe mae{
 
   Robo terrestre -> so podem andar em x {
   
-  Robo guerreiro -> pode atacar outros robos
+    Robo guerreiro -> pode atacar outros robos
     
-  Robo blindado -> tem resistencia maior a dano
+    Robo blindado -> tem resistencia maior a dano
   }
   
   Robo aereo -> podem se mover em y {
   
-  Robo curandeiro -> devolve vida aos robos blindados no seu eixo y
+    Robo curandeiro -> devolve vida aos robos blindados no seu eixo y
     
-  Robo kamikaze -> ao ser eliminado, elimina todos os robos em um raio determinado
+    Robo kamikaze -> ao ser eliminado, elimina todos os robos em um raio determinado
     
   }
+}
 
-Ambiente -> Configura as dimensoes do ambiente e os robos inseridos
+  Robos podem implementar interfaces extras{
+  
+    Comunicavel -> pode enviar ou receber mensagens
+    
+    Sensoreavel -> suporte para sensores
+    
+    Camuflavel -> se torna indetectavel por sensores de localizacao
+
+    Cooperativo -> recebem bonus ao cooperar
+
+    Clonavel -> pode criar uma copia de si mesmo
+    
+  }
+  
+
+Ambiente -> Configura as dimensoes do ambiente e as entidades inseridas
 
 Sensor -> classe mae {
 
-  Sensor localizacao -> Imprime a distancia e localizacao dos robos em sua area
+    Sensor localizacao -> Imprime a distancia e localizacao dos robos em sua area
   
-  Sensor meteorolico -> Identifica as condicoes climaticas em sua area
+    Sensor meteorolico -> Identifica as condicoes climaticas em sua area
   
 }
 
