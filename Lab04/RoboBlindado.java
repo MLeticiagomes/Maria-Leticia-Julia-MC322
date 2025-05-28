@@ -30,14 +30,14 @@ public class RoboBlindado extends RoboTerrestre implements Sensoreavel, Camuflav
    public void ativarCamuflagem() {
        TipoEntidade entidade=TipoEntidade.OBSTACULO;
        setTipoEntidade(entidade);
-       System.out.println(getNome() + "se camuflou entre os obstaculos, boa sorte tentando localiza-lo!");
+       System.out.println(getNome() + " se camuflou entre os obstaculos, boa sorte tentando localiza-lo!");
    }
 
    @Override
    public void desativarCamuflagem() {
        TipoEntidade entidade=TipoEntidade.ROBO;
        setTipoEntidade(entidade);
-       System.out.println(getNome() + "desativou sua camuflagem e esta visivel novamente!");
+       System.out.println(getNome() + " desativou sua camuflagem e esta visivel novamente!");
    }
 
    public int getPontosVida() {

@@ -4,7 +4,6 @@ import java.util.Scanner;
 public class Main{
   public static void main(String[] args) {
 
-        Entidade entidades = null;
         Ambiente ambiente = new Ambiente(10, 15, 10 );
         CentralComunicacao central= new CentralComunicacao();
 
@@ -53,13 +52,13 @@ public class Main{
         Sensor sensor_ambiente= new Sensor(15,"SensorAmbiente"); /* monitora a quantidade de sensores dos robos */
 
       while (true){ /*Introduz comandos do simulador */
-          System.out.println("O que deseja fazer?\n[1] Visualizar os robos ativos\n[2] Selecionar o robo\n[3] Acessar sensores\n[4] Ver a lista de objetos\n[5] Verificar se há uma entidade em uma determinada posição\n[6] Vizualizar o mapa \n[0] Fechar o simulador");
+          System.out.println("O que deseja fazer?\n[1] Visualizar os robos ativos\n[2] Selecionar o robo\n[3] Acessar sensores\n[4] Ver a lista de objetos\n[5] Verificar se há uma entidade em uma determinada posição\n[6] Vizualizar o mapa \n[7] Vizualizar Central de Comunicacao\n[0] Fechar o simulador");
           int comando=scanner.nextInt();
 
           if (comando==1){ /*Lista de robos */
             List<Entidade> ents = Ambiente.getEntidade();
             for (int i = 0; i < ents.size(); i++) {
-                entidades = ents.get(i); /* pega o tipo da entidade e verifica se é um robo */
+                Entidade entidades = ents.get(i); /* pega o tipo da entidade e verifica se é um robo */
                 if (entidades.getEntidade() == TipoEntidade.ROBO) {
                     Robo roboEnt = (Robo) entidades; /* converte a entidade geral em uma mais especifica, robo, para pegar seus atributos (naão sei se ta certo) */
                     System.out.println("=== Robô: " + roboEnt.getNome() + " ===");
@@ -118,7 +117,7 @@ public class Main{
                             int input=scanner.nextInt();
 
                             if(input==1){
-                                if (entidades ==null){ /* verificar se nao vai dar sempre null */
+                                if (ents ==null){ /* verificar se nao vai dar sempre null */
                                     System.out.println("Crie um robo antes de mover!");
                                     continue;
                                 }
@@ -192,7 +191,7 @@ public class Main{
                             System.out.println("O que deseja fazer?\n[1] Mover\n[2] Atacar\n [3] Ligar/desligar o robo\n [4] Achar o melhor alvo\n[5] Enviar mensagem");
                             int input=scanner.nextInt();
                             if(input==1){
-                                if (entidades ==null){
+                                if (ents ==null){
                                     System.out.println("Crie um robo antes de mover!");
                                     continue;
                                 }
@@ -301,10 +300,10 @@ public class Main{
                            System.out.println("Voce selecionou RoboCurandeiro\n A subclasse possui os atributos Comunicavel e Cooperativo \n\n");
 
                            RoboCurandeiro curandeiro = (RoboCurandeiro) robo_i;
-                           System.out.println("O que deseja fazer?\n[1] Mover\n[2] Curar robos em seu eixo y\n [3] Ligar/desligar o robo\n[4] Enviar mensagem\n[5] Cooperar (bonus de cura)");
+                           System.out.println("O que deseja fazer?\n[1] Mover\n[2] Curar robos em seu eixo y\n[3] Ligar/desligar o robo\n[4] Enviar mensagem\n[5] Cooperar (bonus de cura)");
                            int input=scanner.nextInt();
                            if(input==1){
-                               if (entidades==null){
+                               if (ents==null){
                                    System.out.println("Crie um robo antes de mover!");
                                    continue;
                                }
@@ -422,10 +421,10 @@ public class Main{
 
                        else if(robo_i instanceof RoboKamikaze){
                            RoboKamikaze kamikaze = (RoboKamikaze) robo_i;
-                           System.out.println("O que deseja fazer?\n[1] Mover\n[2] Ligar/desligar o robo\n[3] Autodestruir robo\n[4]Clonar");
+                           System.out.println("O que deseja fazer?\n[1] Mover\n[2] Ligar/desligar o robo\n[3] Autodestruir robo\n[4] Clonar");
                            int input=scanner.nextInt();
                            if(input==1){
-                               if (entidades==null){
+                               if (ents==null){
                                    System.out.println("Crie um robo antes de mover!");
                                    continue;
                                }
@@ -490,13 +489,11 @@ public class Main{
                         }
                        break;
                    }
-                  
-
-               if (!encontrado) {
-                   System.out.println("Nenhum robo encontrado :(");
-                }
               }
             }
+            if (!encontrado) {
+                System.out.println("Nenhum robo encontrado :(");
+             }
         }
 
 
@@ -655,6 +652,10 @@ public class Main{
             ambiente.vizualizarAmbiente(altura);
 
             System.out.println("\n □ - Robos\n ▲ - Obstaculos \n");
+        }
+
+        else if(comando==7){
+            central.exibirMensagens();
         }
 
         else if (comando==0){ /*Fecha o simulador */

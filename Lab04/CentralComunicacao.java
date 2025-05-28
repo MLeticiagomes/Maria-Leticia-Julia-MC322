@@ -20,11 +20,16 @@ public class CentralComunicacao {
         return mensagens;
     }
 
-    public static void exibirMensagens(){
+    public void exibirMensagens(){
         List<String> chat = CentralComunicacao.getMensagens();
-        for (int i = 0; i < chat.size(); i++) {
-            String mensagem = chat.get(i);
-            System.out.println(mensagem+"\n");
+        if (chat==null){
+            System.out.println("A central ainda nao registrou nehuma mensagem");
+        }
+        else{
+            for (int i = 0; i < chat.size(); i++) {
+                String mensagem = chat.get(i);
+                System.out.println(mensagem+"\n");
+            }
         }
     }
 }

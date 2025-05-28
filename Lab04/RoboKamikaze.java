@@ -16,11 +16,13 @@ public class RoboKamikaze extends RoboAereo implements Clonavel{ //explode quand
    }
 
    @Override
-   public void clonar(){
-      new RoboKamikaze((this.getNome()+ "_clone"), this.getX()+1, this.getY(), this.getZ(), 
+   public RoboKamikaze clonar(){
+      RoboKamikaze clone= new RoboKamikaze((this.getNome()+ "_clone"), this.getX()+1, this.getY(), this.getZ(), 
       this.getDirecao(), this.getaltura_maxima(),this.getRaioDeAtaque());
 
       System.out.println(getNome() + "foi clonado");
+
+      return(clone);
    }
 
    int i = 0;

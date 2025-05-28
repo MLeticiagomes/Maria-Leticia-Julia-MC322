@@ -30,13 +30,13 @@ public class RoboCurandeiro extends RoboAereo implements Comunicavel, Cooperativ
 
    @Override
    public void enviarMensagem(Comunicavel destinatario, String mensagem){
-        System.out.println(getNome() + "enviou a seguinte mensagem:" + mensagem);
+        System.out.println(getNome() + " enviou a seguinte mensagem:" + mensagem);
         destinatario.receberMensagem(mensagem);
    }
 
    @Override
    public void receberMensagem(String mensagem){
-        System.out.println("A mensagem foi recebida com sucesso por:" + getNome());
+        System.out.println("A mensagem foi recebida com sucesso por: " + getNome());
    }
 
    @Override

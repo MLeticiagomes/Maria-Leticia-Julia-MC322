@@ -18,13 +18,13 @@ public class RoboGuerreiro extends RoboTerrestre implements Comunicavel{
 
   @Override
    public void enviarMensagem(Comunicavel destinatario, String mensagem){
-        System.out.println(getNome() + "enviou a seguinte mensagem:" + mensagem);
+        System.out.println(getNome() + " enviou a seguinte mensagem:" + mensagem);
         destinatario.receberMensagem(mensagem);
    }
 
    @Override
    public void receberMensagem(String mensagem){
-        System.out.println("A mensagem foi recebida com sucesso por:" + getNome());
+        System.out.println("A mensagem foi recebida com sucesso por: " + getNome());
    }
 
   public int getDano() { /* pega a coordenada x do robo */

@@ -33,7 +33,7 @@ public class SensorLocalizacao  extends Sensor{
                 int distancia = calcular_distancia(xSensor, zSensor, xOutro, zOutro, ySensor, yOutro);
         
                 if (distancia <= raio) {
-                    System.out.println("Obstáculo detectado a " + distancia + " unidades: Robo em (" + xOutro + ", " + yOutro + ", " + zOutro + ")");
+                    System.out.println("Obstáculo detectado a " + distancia + " unidades: " + robo.getNome() + " em (" + xOutro + ", " + yOutro + ", " + zOutro + ")");
                 }
             }
 
