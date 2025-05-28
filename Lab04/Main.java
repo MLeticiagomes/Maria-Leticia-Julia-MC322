@@ -53,7 +53,7 @@ public class Main{
         Sensor sensor_ambiente= new Sensor(15,"SensorAmbiente"); /* monitora a quantidade de sensores dos robos */
 
       while (true){ /*Introduz comandos do simulador */
-          System.out.println("O que deseja fazer?\n[1] Visualizar os robos ativos\n[2] Selecionar o robo\n[3] Acessar sensores\n[4] Ver a lista de objetos\n [5] Verificar se há uma entidade em uma determinada posição\n [6] Vizualizar o mapa \n [0] Fechar o simulador");
+          System.out.println("O que deseja fazer?\n[1] Visualizar os robos ativos\n[2] Selecionar o robo\n[3] Acessar sensores\n[4] Ver a lista de objetos\n[5] Verificar se há uma entidade em uma determinada posição\n[6] Vizualizar o mapa \n[0] Fechar o simulador");
           int comando=scanner.nextInt();
 
           if (comando==1){ /*Lista de robos */
@@ -112,9 +112,9 @@ public class Main{
                         encontrado = true;
                         /* verificação do tipo de robo e os comandos especiais de cada um */
                         if(robo_i instanceof RoboBlindado){
-                            System.out.println("Voce selecionou RoboBlindado\n A subclasse possui os atributos Sensoreavel (acesse sensores no menu principal para utilizar sensores)\n\n");
+                            System.out.println("Voce selecionou RoboBlindado\n A subclasse possui os atributos Camuflavel e Sensoreavel (acesse sensores no menu principal para utilizar sensores)\n\n");
                             RoboBlindado blindado = (RoboBlindado) robo_i;
-                            System.out.println("O que deseja fazer?\n[1] Mover\n[2] Consultar vida\n [3] Ligar/desligar o robo");
+                            System.out.println("O que deseja fazer?\n[1] Mover\n[2] Consultar vida\n[3] Ligar/desligar o robo\n[4]Camuflar/descamuflar");
                             int input=scanner.nextInt();
 
                             if(input==1){
@@ -171,6 +171,15 @@ public class Main{
                                 else if(interruptor.equalsIgnoreCase("desligar")){
                                     blindado.desligar();
                                     System.out.println("O robo esta desligado :)");
+                                }
+                            }
+
+                            else if (input == 4){
+                                if(robo_i.getEntidade()==TipoEntidade.ROBO){
+                                    ((Camuflavel)robo_i).ativarCamuflagem();
+                                }
+                                else{
+                                    ((Camuflavel)robo_i).desativarCamuflagem();
                                 }
                             }
 
@@ -289,10 +298,10 @@ public class Main{
                         }
 
                        else if(robo_i instanceof RoboCurandeiro){
-                           System.out.println("Voce selecionou RoboCurandeiro\n A subclasse possui os atributos Comunicavel \n\n");
+                           System.out.println("Voce selecionou RoboCurandeiro\n A subclasse possui os atributos Comunicavel e Cooperativo \n\n");
 
                            RoboCurandeiro curandeiro = (RoboCurandeiro) robo_i;
-                           System.out.println("O que deseja fazer?\n[1] Mover\n[2] Curar robos em seu eixo y\n [3] Ligar/desligar o robo\n[4] Enviar mensagem");
+                           System.out.println("O que deseja fazer?\n[1] Mover\n[2] Curar robos em seu eixo y\n [3] Ligar/desligar o robo\n[4] Enviar mensagem\n[5] Cooperar (bonus de cura)");
                            int input=scanner.nextInt();
                            if(input==1){
                                if (entidades==null){
@@ -376,11 +385,40 @@ public class Main{
                                 System.out.println("Erro de comunicação: " + e.getMessage());
                             }
                         }
+
+                        else if (input == 5) {
+                            System.out.println("Digite o nome do robo com quem deseja cooperar:");
+                            nome = scanner.next();
+                            boolean robo_encontrado = false;
+                        
+                            for (int j = 0; j < ents.size(); j++) {
+                                entidade = ents.get(j);
+                        
+                                if (entidade.getEntidade() == TipoEntidade.ROBO) {
+                                    Robo robo_j = (Robo) entidade;
+                        
+                                    if (robo_j.getNome().equalsIgnoreCase(nome)) {
+                                        if (!(robo_j instanceof Cooperativo)) {
+                                            System.out.println("O robo nao possui suporte para cooperacao");
+                                        }
+                                        
+                                        else{
+                                            ((Cooperativo)robo_i).cooperarCom((Cooperativo)robo_j);
+                                            robo_encontrado = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            if (!robo_encontrado) {
+                                System.out.println("Robô destinatário não encontrado.");
+                            }
+                        }                      
                     }
 
                        else if(robo_i instanceof RoboKamikaze){
                            RoboKamikaze kamikaze = (RoboKamikaze) robo_i;
-                           System.out.println("O que deseja fazer?\n[1] Mover\n [2] Ligar/desligar o robo\n [3] Autodestruir robo");
+                           System.out.println("O que deseja fazer?\n[1] Mover\n[2] Ligar/desligar o robo\n[3] Autodestruir robo\n[4]Clonar");
                            int input=scanner.nextInt();
                            if(input==1){
                                if (entidades==null){
@@ -422,6 +460,28 @@ public class Main{
 
                             else if ( input == 3){
                                 kamikaze.executarTarefa();
+                            }
+
+                            else if(input==4){
+                                nome=robo_i.getNome()+"_clone";
+                                boolean robo_encontrado = false;
+                        
+                                for (int j = 0; j < ents.size(); j++) {
+                                    entidade = ents.get(j);
+                        
+                                    if (entidade.getEntidade() == TipoEntidade.ROBO) {
+                                    Robo robo_j = (Robo) entidade;
+                        
+                                        if (robo_j.getNome().equalsIgnoreCase(nome)) {
+                                            System.out.println("O robo ja possui um clone");
+                                            robo_encontrado=true;
+                                        }
+                                    }
+                                }
+                                if (!robo_encontrado) {
+                                    Robo clone=((Clonavel)robo_i).clonar();
+                                    Ambiente.adicionarEntidade(clone);
+                                }
                             }
                         }
                        break;
