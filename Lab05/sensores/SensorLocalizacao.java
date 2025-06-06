@@ -7,6 +7,7 @@ import entidade.*;
 import environment.*;
 import java.util.List;
 import robo.*;
+import missao.*;
 
 public class SensorLocalizacao  extends Sensor{
 
@@ -14,7 +15,7 @@ public class SensorLocalizacao  extends Sensor{
         super(raio, nome);
     }
 
-    public void identificarRobos(int coordx, int coordy, int coordz){ /* pega o x e z do robo com o sensor e verifica se esta dentro do raio, e calcula a distancia*/
+    public void identificarRobos(int coordx, int coordy, int coordz, LogMissao log){ /* pega o x e z do robo com o sensor e verifica se esta dentro do raio, e calcula a distancia*/
         int raio = getRaio();
         int xSensor = coordx;
         int ySensor = coordy;
@@ -36,7 +37,11 @@ public class SensorLocalizacao  extends Sensor{
                 int distancia = calcular_distancia(xSensor, zSensor, xOutro, zOutro, ySensor, yOutro);
         
                 if (distancia <= raio) {
-                    System.out.println("Obstáculo detectado a " + distancia + " unidades: " + robo.getNome() + " em (" + xOutro + ", " + yOutro + ", " + zOutro + ")");
+                    String mensagem= "Obstáculo detectado a " + distancia + " unidades: " + robo.getNome() + " em (" + xOutro + ", " + yOutro + ", " + zOutro + ")";
+                    System.out.println(mensagem);
+                    if (log != null){
+                        log.registrar(mensagem);
+                    }
                 }
             }
 

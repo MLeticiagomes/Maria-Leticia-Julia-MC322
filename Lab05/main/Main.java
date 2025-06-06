@@ -9,11 +9,13 @@ import sensores.*;
 import environment.*;
 import comunicacao.*;
 import interfaces.*;
+import missao.*;
 
 public class Main{
   public static void main(String[] args) {
 
-        Ambiente ambiente = new Ambiente(10, 15, 10 );
+        LogMissao log = new LogMissao();
+        Ambiente ambiente = new Ambiente(10, 15, 10 ,log);
         CentralComunicacao central= new CentralComunicacao();
 
         RoboGuerreiro robo1 = new RoboGuerreiro("Guerreiro1", 2, 0, 2, "norte", 5, 4);
@@ -576,7 +578,7 @@ public class Main{
                                 System.out.println("Deseja utilizar " + sensor.getNome() + "? Digite 0 para utilizar ou 1 para continuar"); 
                                 input = scanner.nextInt(); 
                                 if(input==0){
-                                    ((Sensoreavel) robo_i).acionarSensores(sensor,robo_i);
+                                    ((Sensoreavel) robo_i).acionarSensores(sensor,robo_i,null);
                                 }
                             }
                         }

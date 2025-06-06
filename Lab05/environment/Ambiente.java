@@ -11,18 +11,22 @@ import excecoes.*;
 import obstaculo.*;
 import robo.*;
 import sensores.*;
+import missao.*;
+
 public class Ambiente {
    private int largura;
    private int altura;
    private int comprimento;
+   private LogMissao log;
    private static ArrayList <Entidade> entidades;
    private static TipoEntidade[][][] mapa;
 
 
-   public Ambiente(int l, int a, int c){
+   public Ambiente(int l, int a, int c, LogMissao m){
        this.largura=l;
        this.altura=a;
        this.comprimento = c;
+       this.log=m;
        entidades = new ArrayList<>();
        mapa = new TipoEntidade[largura][altura][comprimento];
        inicializarMapa();
@@ -37,6 +41,10 @@ public class Ambiente {
             }
         }
    }
+
+    public LogMissao getLog(){
+        return this.log;
+    }
 
    public int getAltura(){
        return this.altura;
@@ -224,11 +232,11 @@ public void verificarColisoes(int x, int y, int z) throws ColisaoException {
 }
 
 
-public static void executarSensores( Sensor sensor, Robo robo){ /* verifica o tipo de sensor e aplica sua função  */
+public static void executarSensores( Sensor sensor, Robo robo, LogMissao log){ /* verifica o tipo de sensor e aplica sua função  */
 
     if(sensor instanceof SensorLocalizacao){
         SensorLocalizacao localizacao = (SensorLocalizacao) sensor;
-        localizacao.identificarRobos(robo.getX(),robo.getY(),robo.getZ());
+        localizacao.identificarRobos(robo.getX(),robo.getY(),robo.getZ(),log);
     }
     else if(sensor instanceof SensorMeteorologico){
         SensorMeteorologico meteorologico = (SensorMeteorologico) sensor;

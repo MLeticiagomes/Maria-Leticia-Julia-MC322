@@ -2,6 +2,8 @@
 package interfaces;
 import robo.*;
 import sensores.*;
+import missao.*;
+
 public interface Sensoreavel {
-    void acionarSensores(Sensor sensor, Robo robo);
+    void acionarSensores(Sensor sensor, Robo robo, LogMissao log);
 }

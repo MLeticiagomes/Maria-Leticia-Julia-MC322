@@ -6,6 +6,7 @@ package robo;
 import entidade.*;
 import environment.*;
 import interfaces.*;
+import missao.*;
 import sensores.*;
 
 public class RoboBlindado extends RoboTerrestre implements Sensoreavel, Camuflavel {
@@ -19,10 +20,10 @@ public class RoboBlindado extends RoboTerrestre implements Sensoreavel, Camuflav
    }
 
    @Override
-   public void acionarSensores(Sensor sensor,Robo robo_i){ /*verifica se esta ligado para ativacao dos sensores */
+   public void acionarSensores(Sensor sensor,Robo robo_i,LogMissao log){ /*verifica se esta ligado para ativacao dos sensores */
       if(getEstado()==EstadoRobo.LIGADO){
         System.out.println("Robo ligado, ativacao autorizada!");
-        Ambiente.executarSensores(sensor, robo_i);
+        Ambiente.executarSensores(sensor, robo_i,log);
       }
       else{
         System.out.println("Robo desligado, ativacao nao autorizada!");
