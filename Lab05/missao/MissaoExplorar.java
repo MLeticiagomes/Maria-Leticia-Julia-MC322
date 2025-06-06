@@ -1,11 +1,12 @@
 package missao;
 import environment.*;
+import excecoes.ForaDosLimitesException;
+import excecoes.RoboDesligadoException;
 import interfaces.*;
+import java.util.List;
+import java.util.Random;
 import robo.*;
 import sensores.*;
-import entidade.*;
-import java.util.Random;
-import java.util.List;
 
 public class MissaoExplorar implements Missao {
     private Random rand = new Random();
@@ -28,11 +29,20 @@ public class MissaoExplorar implements Missao {
 
             int xAleatorio=rand.nextInt(xMax);
             int zAleatorio=rand.nextInt(zMax);
-
-            robo.moverPara(xAleatorio, robo.getY(), zAleatorio);
+            int y_do_robo = robo.getY();
+             try{
+            robo.moverPara(xAleatorio, y_do_robo, zAleatorio);
 
             log.registrar("  Robô se moveu para posição: ( " + xAleatorio + ", " + robo.getY() + ", " + zAleatorio + ")");
-
+            }
+            catch(RoboDesligadoException e){
+                 log.registrar("  ERRO: Robô desligado. Não foi possível mover.");
+                break; 
+            }
+            catch (ForaDosLimitesException e) {
+            log.registrar("  ERRO: Posição (" + xAleatorio + ", " + y_do_robo + ", " + zAleatorio + ") fora dos limites.");
+            continue; // tenta próxima iteração
+            }
             List<Sensor> sensores =robo.getsensoresDosRobos();
             int num_sensores=sensores.size();
 

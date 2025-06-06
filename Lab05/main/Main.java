@@ -124,7 +124,7 @@ public class Main{
                         if(robo_i instanceof RoboBlindado){
                             System.out.println("Voce selecionou RoboBlindado\n A subclasse possui os atributos Camuflavel e Sensoreavel (acesse sensores no menu principal para utilizar sensores)\n\n");
                             RoboBlindado blindado = (RoboBlindado) robo_i;
-                            System.out.println("O que deseja fazer?\n[1] Mover\n[2] Consultar vida\n[3] Ligar/desligar o robo\n[4]Camuflar/descamuflar");
+                            System.out.println("O que deseja fazer?\n[1] Mover\n[2] Consultar vida\n[3] Ligar/desligar o robo\n[4]Camuflar/descamuflar\n[5]Executar missao explorar");
                             int input=scanner.nextInt();
 
                             if(input==1){
@@ -164,7 +164,6 @@ public class Main{
                                                         
                             }
 
-
                             else if(input==2){ /* ve a vida restante do robo blindado */
                                 blindado.executarTarefa();
                             }
@@ -192,6 +191,12 @@ public class Main{
                                     ((Camuflavel)robo_i).desativarCamuflagem();
                                 }
                             }
+                            else if (input == 5){
+                                Missao explorar = new MissaoExplorar(log);
+                                blindado.setMissao(explorar);
+                                blindado.iniciarMissao(ambiente);
+
+                            }
 
                         }
 
@@ -199,7 +204,7 @@ public class Main{
                             System.out.println("Voce selecionou RoboGuerreiro\n A subclasse possui os atributos Comunicavel \n\n");
 
                             RoboGuerreiro guerreiro = (RoboGuerreiro) robo_i;
-                            System.out.println("O que deseja fazer?\n[1] Mover\n[2] Atacar\n [3] Ligar/desligar o robo\n [4] Achar o melhor alvo\n[5] Enviar mensagem");
+                            System.out.println("O que deseja fazer?\n[1] Mover\n[2] Atacar\n [3] Ligar/desligar o robo\n [4] Achar o melhor alvo\n[5] Enviar mensagem\n[6] Executar missao matar");
                             int input=scanner.nextInt();
                             if(input==1){
                                 if (ents ==null){
@@ -302,7 +307,12 @@ public class Main{
                                     System.out.println("Erro de comunicação: " + e.getMessage());
                                 }
                                 
-                                
+                            }
+                            else if (input == 6){
+                                Missao matar = new MissaoMatar(log);
+                                guerreiro.setMissao(matar);
+                                guerreiro.iniciarMissao(ambiente);
+
                             }
                             
                         }

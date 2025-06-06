@@ -2,11 +2,13 @@ package robo;
 import entidade.*;
 import environment.*;
 import excecoes.*;
+import missao.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import sensores.*;
 /*a classe robo é abstract permitindo chamar funções especificas de sub tipos */
 public abstract class Robo implements Entidade{
+   protected Missao missao;
    private Scanner scanner = new Scanner(System.in);
    private String  id;
    private int coordenada_x;
@@ -29,9 +31,21 @@ public abstract class Robo implements Entidade{
        sensoresDosRobos = new ArrayList<>();
    }
 
+   public void setMissao(Missao missao) {
+        this.missao = missao;
+    }
+
+    public void iniciarMissao(Ambiente ambiente) {
+        if (missao != null) {
+            missao.executar(this, ambiente);
+        } else {
+            System.out.println("Nenhuma missão atribuída ao robô " + getNome());
+        }
+    }
+
    public void adicionarSensor(Sensor s){
         sensoresDosRobos.add(s);
-   }
+    }
 
 
    public ArrayList<Sensor> getsensoresDosRobos(){
