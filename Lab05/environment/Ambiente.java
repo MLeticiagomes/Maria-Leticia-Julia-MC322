@@ -299,7 +299,7 @@ public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ) throws Co
     if((e.getEntidade() == TipoEntidade.ROBO)){ /* verifica se é um robo e chama a função propria para mover robo */
         if (e instanceof Robo) {
             removerMapa(e);
-            ((Robo) e).moverPara(novoX, novoY, novoZ);
+            ((Robo) e).getControleMovimento().moverPara(novoX, novoY, novoZ);
             adicionarMapa(e);
         }
     

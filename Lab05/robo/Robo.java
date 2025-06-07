@@ -3,22 +3,26 @@ import entidade.*;
 import environment.*;
 import excecoes.*;
 import missao.*;
-import java.util.ArrayList;
+import modulos.ControleMovimento;
+import modulos.GerenciadorSensores;
+import modulos.ModuloComunicacao;
 import java.util.Scanner;
-import sensores.*;
+
 /*a classe robo é abstract permitindo chamar funções especificas de sub tipos */
 public abstract class Robo implements Entidade{
-   protected Missao missao;
-   private Scanner scanner = new Scanner(System.in);
-   private String  id;
-   private int coordenada_x;
-   private int coordenada_y;
-   private int coordenada_z;
-   private String direcao;
-   private Ambiente ambiente;
-   private ArrayList<Sensor> sensoresDosRobos;
-   private TipoEntidade entidade = TipoEntidade.ROBO;
-   private EstadoRobo estado;
+    protected Missao missao;
+    private Scanner scanner = new Scanner(System.in);
+    private String  id;
+    private int coordenada_x;
+    private int coordenada_y;
+    private int coordenada_z;
+    private String direcao;
+    private Ambiente ambiente;
+    private TipoEntidade entidade = TipoEntidade.ROBO;
+    private EstadoRobo estado;
+    private ControleMovimento controleMovimento;
+    private GerenciadorSensores gerenciadorSensores;
+    private ModuloComunicacao moduloComunicacao;
 
 
    public Robo(String nome, int x,  int y, int z, String d){ /* cria um robo com nome e posição x e y */
@@ -28,8 +32,22 @@ public abstract class Robo implements Entidade{
        this.coordenada_z = z;
        this.direcao = d;
        this.estado = EstadoRobo.DESLIGADO;
-       sensoresDosRobos = new ArrayList<>();
+       this.controleMovimento = new ControleMovimento(this, ambiente);
+       this.gerenciadorSensores = new GerenciadorSensores();
+       this.moduloComunicacao = new ModuloComunicacao(this);
    }
+
+    public ControleMovimento getControleMovimento() {
+        return controleMovimento;
+    }
+
+    public GerenciadorSensores getGerenciadorSensores() {
+        return gerenciadorSensores;
+    }
+
+    public ModuloComunicacao getModuloComunicacao() {
+        return moduloComunicacao;
+    }
 
    public void setMissao(Missao missao) {
         this.missao = missao;
@@ -42,15 +60,6 @@ public abstract class Robo implements Entidade{
             System.out.println("Nenhuma missão atribuída ao robô " + getNome());
         }
     }
-
-   public void adicionarSensor(Sensor s){
-        sensoresDosRobos.add(s);
-    }
-
-
-   public ArrayList<Sensor> getsensoresDosRobos(){
-    return sensoresDosRobos;
-   }
 
    public void setTipoEntidade(TipoEntidade TipoEntidade){
     this.entidade= TipoEntidade;
@@ -122,35 +131,6 @@ public abstract class Robo implements Entidade{
 
     public EstadoRobo getEstado(){
         return estado;
-    }
-
-    public void moverPara(int x, int y, int z) throws RoboDesligadoException , ForaDosLimitesException {
-        if (this.getEstado() == EstadoRobo.DESLIGADO) {
-            throw new RoboDesligadoException(
-                "O robô " + this.getNome() + " está desligado, você não pode movê-lo."
-            );
-        }
-    
-        if (ambiente.dentroDosLimites(x, z)) {
-                setCoordenada_x(x);
-                setCoordenada_z(z);
-    
-                if (y != 0) { // Se y for diferente de 0, verificar se é aéreo
-                    if (this instanceof RoboAereo) {
-                        RoboAereo roboAereo = (RoboAereo) this;
-                        if (roboAereo.verificarAlturaMax()) {
-                            setCoordenada_y(y);
-                        } else {
-                            System.out.println("Altura máxima excedida.");
-                        }
-                    } else {
-                        System.out.println("Robôs terrestres não podem se mover no eixo y.");
-                    }
-                } else {
-                    setCoordenada_y(y);
-                }
-            
-        } 
     }
     
     public abstract void executarTarefa();

@@ -192,7 +192,7 @@ public class Main{
                                 }
                             }
                             else if (input == 5){
-                                Missao explorar = new MissaoExplorar(log);
+                                Missao explorar = new MissaoExplorar(log,ambiente);
                                 blindado.setMissao(explorar);
                                 blindado.iniciarMissao(ambiente);
 
@@ -545,13 +545,13 @@ public class Main{
                                 String tipo_de_sensor = scanner.next();
                                 if(tipo_de_sensor.equalsIgnoreCase("l")){/* cria um sensor de localizacao */
                                     Sensor sensor = new SensorLocalizacao(raio_do_sensor, "SensorLocalizacao"); 
-                                    robo_i.adicionarSensor(sensor);
+                                    robo_i.getGerenciadorSensores().adicionarSensor(sensor);
                                     robo_encontrado=true;
                                     break;
                                 }
                                 else if(tipo_de_sensor.equalsIgnoreCase("m")){/* cria um sensor meteorologico */
                                     Sensor sensor = new SensorMeteorologico(raio_do_sensor, "SensorMeteorologico"); 
-                                    robo_i.adicionarSensor(sensor);
+                                    robo_i.getGerenciadorSensores().adicionarSensor(sensor);
                                     robo_encontrado=true;
                                     break;
                                 }
@@ -579,7 +579,7 @@ public class Main{
                
                     if(robo_i.getNome().equalsIgnoreCase(nome)){
                         robo_encontrado=true;
-                        List<Sensor> sensores =robo_i.getsensoresDosRobos();
+                        List<Sensor> sensores =robo_i.getGerenciadorSensores().getsensoresDosRobos();
                         boolean num_sensores=sensor_ambiente.monitorar(sensores);
 
                         if(num_sensores==true){

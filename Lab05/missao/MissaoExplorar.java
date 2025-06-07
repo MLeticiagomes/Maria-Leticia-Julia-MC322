@@ -1,5 +1,6 @@
 package missao;
 import environment.*;
+import excecoes.ColisaoException;
 import excecoes.ForaDosLimitesException;
 import excecoes.RoboDesligadoException;
 import interfaces.*;
@@ -11,9 +12,12 @@ import sensores.*;
 public class MissaoExplorar implements Missao {
     private Random rand = new Random();
     private LogMissao log;
+    private Ambiente ambiente;
 
-    public MissaoExplorar(LogMissao l){
+
+    public MissaoExplorar(LogMissao l, Ambiente a){
         this.log=l;
+        this.ambiente=a;
     }
 
     @Override
@@ -31,7 +35,7 @@ public class MissaoExplorar implements Missao {
             int zAleatorio=rand.nextInt(zMax);
             int y_do_robo = robo.getY();
              try{
-            robo.moverPara(xAleatorio, y_do_robo, zAleatorio);
+            ambiente.moverEntidade(robo, xAleatorio, y_do_robo, zAleatorio);
 
             log.registrar("  Robô se moveu para posição: ( " + xAleatorio + ", " + robo.getY() + ", " + zAleatorio + ")");
             }
@@ -43,7 +47,13 @@ public class MissaoExplorar implements Missao {
             log.registrar("  ERRO: Posição (" + xAleatorio + ", " + y_do_robo + ", " + zAleatorio + ") fora dos limites.");
             continue; // tenta próxima iteração
             }
-            List<Sensor> sensores =robo.getsensoresDosRobos();
+
+            catch (ColisaoException e) {
+                log.registrar("  ERRO: A posicao ja esta ocupada");
+                continue; // tenta próxima iteração
+                }
+
+            List<Sensor> sensores =robo.getGerenciadorSensores().getsensoresDosRobos();
             int num_sensores=sensores.size();
 
             if(num_sensores!=0){

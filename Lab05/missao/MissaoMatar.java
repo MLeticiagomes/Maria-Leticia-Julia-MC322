@@ -16,7 +16,7 @@ public class MissaoMatar implements Missao {
       LogMissao log = a.getLog(); // log será fornecido pelo ambiente
       log.registrar("Início da missão matar do robô " + r.getNome());
       
-      List <Entidade> ents = a.getEntidade();
+      List <Entidade> ents = Ambiente.getEntidade();
         int alvoX = -1;
         int alvoY = -1;
         int alvoZ  = -1;
