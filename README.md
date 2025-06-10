@@ -60,7 +60,7 @@ Sensor -> classe mae {
 
 Obstaculo -> Objetos do ambiente, possuem dimensoes e podem ou nao bloquear a passagem de robos
 
-![Diagrama](Lab04/Mc322.drawio(1).png)
+![Diagrama](Lab05/Mc322.drawio.png)
 
 Explicação do diagrama: A classe ambiente possui uma lista com as entidades existentes e a classe Robo possui uma lista com os sensores, sendo que cada robo possui uma lista propria de sensores. A classe RoboTerrestre  e RoboAereo herdam da classe Robo. As classes RoboGuerreiro e RoboBlindado herdam da classe RoboTerrestre e as classes RoboKamikase e RoboCurandeiro herdam da classe RoboAereo. 
 
