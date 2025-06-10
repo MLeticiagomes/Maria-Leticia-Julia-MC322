@@ -1,12 +1,11 @@
 package robo;
 import entidade.*;
 import environment.*;
-import excecoes.*;
+import java.util.Scanner;
 import missao.*;
 import modulos.ControleMovimento;
 import modulos.GerenciadorSensores;
 import modulos.ModuloComunicacao;
-import java.util.Scanner;
 
 /*a classe robo é abstract permitindo chamar funções especificas de sub tipos */
 public abstract class Robo implements Entidade{
@@ -53,14 +52,7 @@ public abstract class Robo implements Entidade{
         this.missao = missao;
     }
 
-    public void iniciarMissao(Ambiente ambiente) {
-        if (missao != null) {
-            missao.executar(this, ambiente);
-        } else {
-            System.out.println("Nenhuma missão atribuída ao robô " + getNome());
-        }
-    }
-
+  
    public void setTipoEntidade(TipoEntidade TipoEntidade){
     this.entidade= TipoEntidade;
    }

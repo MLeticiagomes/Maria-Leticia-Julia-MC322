@@ -12,5 +12,13 @@ public abstract class AgenteInteligente extends Robo {
 
      public abstract void executarMissao(Ambiente a);
 
+    public void iniciarMissao(Ambiente ambiente) {
+        if (missao != null) {
+            missao.executar(this, ambiente);
+        } else {
+            System.out.println("Nenhuma missão atribuída ao robô " + getNome());
+        }
+    }
+
 }
 
